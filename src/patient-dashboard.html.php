@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -23,7 +26,8 @@
     </button>
     
     <div class="user-wrapper mx-2">
-      <img src="img/img1.jpg" alt="" width="40px" height="40px" />
+      <H6 style="color: white;"><?php echo $_SESSION['p_firstname']." ".$_SESSION['p_lastname']?></H6>
+      <img src="public/images/profile1.jpg" alt="" width="40px" height="40px" />
     </div>
   </nav>
 
