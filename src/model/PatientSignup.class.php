@@ -29,33 +29,33 @@ class PatientSignup  extends PatientRepository{
     public function signupPatient(){
         
         if($this->emptyInput() == false){
-            header("Location:../login-signup.html.php?error=emptyInput");
+            header("Location:../login-signup.html.php?page=signup&error=emptyInput");
             exit();
         }
 
         if($this->invalidName($this->firstName) == false){
-            header("Location:../login-signup.html.php?error=invalidFirstname");
+            header("Location:../login-signup.html.php?page=signup&error=invalidFirstname");
             exit();
         }
 
         if($this->invalidName($this->lastName) == false){
-            header("Location:../login-signup.html.php?error=invalidLastname");
+            header("Location:../login-signup.html.php?page=signup&error=invalidLastname");
             exit();
         }
         
         if($this->pwdMatch() == false){
-            header("Location:../login-signup.html.php?error=pwdmatch");
+            header("Location:../login-signup.html.php?page=signup&error=pwdmatch");
             exit();
         }
         
 
         if($this->invalidEmail() == false){
-            header("Location:../login-signup.html.php?error=invalidemail");
+            header("Location:../login-signup.html.php?page=signup&error=invalidemail");
             exit();
         }
 
         if($this->IsPatientTaken() == false){
-            header("Location:../login-signup.html.php?error=patientexist");
+            header("Location:../login-signup.html.php?page=signup&error=patientexist");
             exit();
         }
         

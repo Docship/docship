@@ -17,6 +17,6 @@ if(isset($_POST['submit'])){
 
     $psignup->signupPatient();
 
-    header('Location:../login-signup.html.php?error=none');
+    header('Location:../login-signup.html.php?page=login&error=none');
 
 }

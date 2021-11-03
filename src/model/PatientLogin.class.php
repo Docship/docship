@@ -15,12 +15,12 @@ class PatientLogin  extends PatientRepository{
 
     public function loginPatient(){
         if($this->emptyInput() == false){
-            header("Location:../login-signup.html.php?error=emptyInput");
+            header("Location:../login-signup.html.php?page=login&error=emptyInput");
             exit();
         }
 
         if($this->invalidEmail() == false){
-            header("Location:../login-signup.html.php?error=invalidemail");
+            header("Location:../login-signup.html.php?page=login&error=invalidemail");
             exit();
         }
 

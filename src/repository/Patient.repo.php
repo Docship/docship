@@ -52,7 +52,7 @@ class PatientRepository extends Dbh {
         else{
             $sql = NULL;
             mysqli_close($conn);
-            header("Location:../login-signup.html.php?error=insertionfailed");
+            header("Location:../login-signup.html.php?page=signup&error=insertionfailed");
             exit();
         } 
         $sql = NULL;
@@ -84,7 +84,7 @@ class PatientRepository extends Dbh {
         if ($result->num_rows <= 0) {
             $sql = NULL;
             mysqli_close($conn);
-            header("Location:../login-signup.html.php?error=patientinvalid");
+            header("Location:../login-signup.html.php?page=login&error=patientinvalid");
             exit();
         }
 
@@ -96,7 +96,7 @@ class PatientRepository extends Dbh {
         if(!$pwdmatch) {
             $sql = NULL;
             mysqli_close($conn);
-            header("Location:../login-signup.html.php?error=pwdnotmatched");
+            header("Location:../login-signup.html.php?page=login&error=pwdnotmatched");
             exit();
         }
 
@@ -106,6 +106,7 @@ class PatientRepository extends Dbh {
         $_SESSION['p_telephone'] = $patient['telephone'];
         $_SESSION['p_firstname'] = $patient['firstname'];
         $_SESSION['p_lastname'] = $patient['lastname'];
+        $_SESSION['p_id'] = $patient['id'];
 
         $sql = NULL;
         mysqli_close($conn);
