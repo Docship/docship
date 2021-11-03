@@ -35,9 +35,10 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `email` varchar(100) NOT NULL,
   `pwd` longtext NOT NULL,
   `bday` date NOT NULL,
-  `gender` varchar(5) NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `telephone` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
