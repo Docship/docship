@@ -11,5 +11,5 @@ if(isset($_POST['submit_patient'])){
 
     $plogin->loginPatient();
 
-    header('Location:../patient_index.html.php?error=none');
+    header('Location:../patient-dashboard.html.php?error=none');
 }
