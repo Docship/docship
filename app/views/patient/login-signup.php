@@ -1,3 +1,8 @@
+
+<?php
+  //session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +15,7 @@
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css" />
     <title>Login-Register</title>
   </head>
 
@@ -91,11 +96,11 @@
 
             <div class="form-row">
               <div class="col-lg-6">
-                <input placeholder="Birthday" class="form-control form-control-lg my-2" type="text"
+                <input placeholder="Birthday" name="bday" class="form-control form-control-lg my-2" type="text"
                                     onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
               </div>
               <div class="col-lg-6">
-                <select id="inputGender" class="form-control form-control-lg my-2">
+                <select id="inputGender" name="gender" class="form-control form-control-lg my-2">
                   <option selected>Gender</option>
                   <option>Male</option>
                   <option>Female</option>
@@ -104,7 +109,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary btn-lg w-100 my-2">
+            <button type="submit" class="btn btn-primary btn-lg w-100 my-2" name="submit">
               Create My Account
             </button>
             <p class="text-center">
@@ -144,7 +149,7 @@
                 />
               </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg w-100 my-2">
+            <button type="submit" class="btn btn-primary btn-lg w-100 my-2" name="submit_patient">
               Submit
             </button>
             <p class="text-center">New here? <a href="#" id="sign-up" class="sign-up">Sign up</a> | <a href="#" id="lost-password" class="lost-password">Lost Password</a></p>
@@ -188,7 +193,7 @@
     </div>
     <!--login form-->
 
-    <script src="main.js"></script>
+    <script src="<?php echo URLROOT; ?>/js/main.js"></script>
 
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
