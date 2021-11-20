@@ -2,5 +2,8 @@
 
     require_once "../app/bootstrap.php";
 
-    // Init Core Library
-  $init = new Core;
+    $libraries = LibFactory::getInstance();
+
+    // Init Core Library $ Set Attributes
+    $init = $libraries->getLibrary("Core");
+    $init->setAttributes();

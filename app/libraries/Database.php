@@ -7,7 +7,6 @@ final class Database {
     private $dbname = DB_NAME;
 
     private $dbh;
-    private $stmt;
 
     private static $database;
 
@@ -37,10 +36,14 @@ final class Database {
       }
 
     public function query($sql){
-        $this->stmt = $this->dbh->prepare($sql);
+        $stmt = $this->dbh->prepare($sql);
+        return $stmt;
     }
 
-    public function bind($stmt , $param , $value , $type = null){
+    public function bind($stmt ,$param , $value , $type = null){
+        if(is_null($stmt)){
+            return ERR_DB;
+        }
         if(is_null($type)){
             switch(true){
                 case is_int($value):
@@ -57,38 +60,50 @@ final class Database {
             }
         }
 
-        $this->stmt->bindValue($param , $value , $type);
+        $stmt->bindValue($param , $value , $type);
+        return $stmt;
     }
 
-    public function execute(){
-        return $this->stmt->execute();
-    }
+    public function bindMultiple($stmt , $lst){
 
-    public function resultSet(){
-        if(!is_null($this->stmt)){
-            $this->execute();
-            return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        if(!is_null($lst) && !is_null($stmt)){
+            foreach($lst as $l){
+                $this->bind($stmt ,$l[0] , $l[1]);
+            }
+            return $stmt;
         }
-        return null;
-    }
+        return ERR_DB;
 
-    public function singleResult(){
-        if(!is_null($this->stmt)){
-            $this->execute();
-            return $this->stmt->fetch(PDO::FETCH_OBJ);
-        }
-        return null;
-    }
-
-    public function rowCount($stmt){
-        if(!is_null($this->stmt)){
-            return $this->stmt->rowCount();
-        }
-        return -1;
         
     }
 
-    public function resetStmt(){
-        $this->stmt = null;
+    public function execute($stmt){
+        return $stmt->execute();
     }
+
+    public function resultSet($stmt){
+        if(!is_null($stmt)){
+            $this->execute($stmt);
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+        return ERR_DB;
+    }
+
+    public function singleResult($stmt){
+        if(!is_null($stmt)){
+            $this->execute($stmt);
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        }
+        return ERR_DB;
+    }
+
+    public function rowCount($stmt){
+        if(!is_null($stmt)){
+            $this->execute($stmt);
+            return $stmt->rowCount();
+        }
+        return ERR_DB;
+        
+    }
+
 }

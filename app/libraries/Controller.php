@@ -5,11 +5,12 @@
    */
   class Controller {
     // Load model
-    public function model($model,$params=[]){
+    public function model($model){
       // Require model file
-      require_once '../app/models/' . $model . '.php';
+      require_once '../app/models/ModelFactory.php';
       // Instatiate model
-      return new $model(...$params);
+      return ModelFactory::getInstance()->getModel($model);
+      //return new $model.'Model'(...$params);
     }
 
     // Load view
@@ -21,5 +22,11 @@
         // View does not exist
         die('View does not exist');
       }
+    }
+
+    public function getValidation(){
+      $libraries = LibFactory::getInstance();
+      $validate = $libraries->getLibrary("Validate");
+      return $validate;
     }
   }

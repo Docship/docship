@@ -1,21 +1,21 @@
 <?php
-    class LibFactory {
+    class ControllerFactory {
 
-        private $libs = array();
+        private $controllers = array();
 
-        private static $libFactory;
+        private static $CtrlFactory;
 
         private function __construct(){}
 
         public static function getInstance(){
 
-            if(!is_null(self::$libFactory)){
-                self::$libFactory = new LibFactory;
+            if(!is_null(self::$CtrlFactory)){
+                self::$CtrlFactory = new ControllerFactory;
             }
-            return self::$libFactory;
+            return self::$CtrlFactory;
         }
 
-        public function getLibrary($name){
+        public function getController($name){
             $name = ucwords($name);
             if(isset($libs[$name])){
                 return $libs[$name];

@@ -1,26 +1,26 @@
 <?php
-    class LibFactory {
+    class ModelFactory {
 
-        private $libs = array();
+        private $models = array();
 
-        private static $libFactory;
+        private static $modelFactory;
 
         private function __construct(){}
 
         public static function getInstance(){
 
-            if(!is_null(self::$libFactory)){
-                self::$libFactory = new LibFactory;
+            if(!is_null(self::$modelFactory)){
+                self::$modelFactory = new ModelFactory;
             }
-            return self::$libFactory;
+            return self::$modelFactory;
         }
 
-        public function getLibrary($name){
+        public function getModel($name){
             $name = ucwords($name);
             if(isset($libs[$name])){
                 return $libs[$name];
             }else{
-                $lib = new $name;
+                $lib = new $name.'Model';
                 $libs[$name] = $lib;
                 return $lib;
             }
