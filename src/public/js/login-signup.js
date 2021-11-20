@@ -86,9 +86,11 @@ inputs.forEach((input) => {
 });
 
 function buttonDisabler(inputData,genderSelect,isBdaySelect) {
-    if (inputData || genderSelect || isBdaySelect) submitReg.disabled = false;
+    //console.log(inputData,genderSelect,isBdaySelect);
+    if (inputData && genderSelect && isBdaySelect) submitReg.disabled = false;
     else submitReg.disabled = true;
 }
+
 
 inputs.forEach((input) => {
     if (input.classList.contains('invalid')) {
