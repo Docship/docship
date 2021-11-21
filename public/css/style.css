@@ -8,14 +8,14 @@
 
 .sign-in-form .image, .sign-up-form .image, .lost-password-form .image{
     padding: 0;
-    background: url("../images/cover2.jpg");
+    background: url("http://localhost/DOC/img/cover2.jpg");
     height: 100vh;
     background-size: cover;
     background-repeat:no-repeat;
     background-position: center;
 }
 .about-page .image{
-    background: url("../images/doctor.png");
+    background: url("http://localhost/DOC/img/doc1.jpg");
     background-size: cover;
     height: 100vh;
 }

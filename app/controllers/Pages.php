@@ -1,8 +1,12 @@
 <?php
   class Pages extends Controller {
 
-    private function __construct(){
+    public function __construct(){
      
+    }
+
+    public function index(){
+      $this->view('pages/index');
     }
     
     public function about(){

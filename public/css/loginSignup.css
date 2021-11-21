@@ -1,0 +1,147 @@
+:root {
+    --weightHeader: 600;
+    --bg-blue: #0060ff;
+    --bg-blue-hover: #035ae6;
+    --bg-green: #60ff00;
+    --bg-green-hover: #5ce705;
+    --bg-dark: #191516;
+    --bg-light: #fffdfa;
+    --color-unimportant-text: #899097;
+}
+
+.fill,
+.image {
+    transition: all 0.5s ease-in-out;
+}
+
+.sign-in-form .image,
+.sign-up-form .image,
+.lost-password-form .image {
+    padding: 0;
+    background: url("http://localhost/DOC/img/img1.jpg");
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media screen and (max-width:810px) {
+
+    /*ipad width*/
+    .sign-in-form .image,
+    .sign-up-form .image,
+    .lost-password-form .image {
+        height: 30vh;
+    }
+
+    .image {
+        margin-bottom: 2.5vh;
+    }
+}
+
+.sign-in-form .fill form,
+.lost-password-form .fill form {
+    padding: 0 5% 0 5%;
+}
+
+@media screen and (min-width:1025px) {
+
+    .sign-in-form .fill form,
+    .lost-password-form .fill form {
+        padding: 0 20% 0 20%;
+    }
+}
+
+.sign-in-form .fill,
+.sign-up-form .fill,
+.lost-password-form .fill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* *Header */
+.topic {
+    font-size: 2rem;
+    font-weight: var(--weightHeader);
+}
+
+p {
+    font-size: 1rem;
+    color: #292b2c;
+}
+
+.form-control {
+    border: 0.1rem solid var(--color-unimportant-text);
+}
+
+/* .form-control:focus{
+    border: 0.125rem solid #439eff;
+ }  */
+
+input::placeholder{
+    color: var(--bg-blue);
+}
+
+input:focus::placeholder {
+    color: #fff;
+    text-shadow: none;
+}
+
+
+/* *Buttons */
+.btn{
+    background-color: var(--bg-blue);
+    color: var(--bg-light);
+}
+
+.btn:hover{
+    background-color: var(--bg-blue-hover);
+    color: var(--bg-light);
+}
+
+small {
+    text-align: center;
+    color: #fff;
+    margin: 0;
+}
+
+.error {
+    color: #d9534f;
+}
+
+.form-control-error {
+    border: 0.1rem solid #d9534f;
+}
+
+
+
+small .pass {
+    color: #5cb85c;
+}
+
+
+/* *Links */
+a:hover {
+    text-decoration: none;
+}
+
+
+/*validation styles*/
+select.valid,
+input.valid {
+    border-color: green !important;
+}
+
+input.invalid {
+    color: crimson !important;
+    border-color: crimson !important;
+}
+
+/* input+small{
+    color: green;
+} */
+
+input.invalid+small {
+    color: crimson;
+}

@@ -2,7 +2,13 @@
 
     class Patient extends Controller{
 
-        public function index(){}
+        public function index(){
+            $this->view('patient/index', []);
+        }
+
+        public function showRegister(){
+            redirect('patient/register') ;
+        }
 
         public function register(){
 
@@ -34,40 +40,44 @@
                 $validate = $this->getValidation();
                 $result = $validate->checkPatientRegistrationData($data);
 
-                if($result){
-                    $data['hash_pwd']=password_hash(trim($_POST['passward']), PASSWORD_DEFAULT);
+                if($result==true){
+                    $data['hash_pwd']=password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
                     $patientModel = $this->model('Patient');
 
-                    $result = $patientModel->isPatientExist($data['email'] , $data['hash_pwd']);
+                    $result = $patientModel->isExistByEmail($data['email']);
 
-                    if($result==PASS){
+                    if($result==0){
 
-                        $result = $patientModel->insertPatient($data);
-                        if($result==FAIL){
-                            $params = array(
-                                'registration' => 'success',
-                                'user' => 'patient'
-                            );
-                            redirect('user/login' , $params);
+                        $result = $patientModel->insert($data);
+
+                        if($result==1){
+                            redirect('user/login?user=patient');
                         }else {
                             $data['system_err'] = 'Error Occured in System!';
+                            $data['result'] = $result;
                             $this->view('patient/register', $data);
                         }
                         
-                    }else if($result==PASS) {
+                    }if($result==1) {
                         $data['isExist'] = true;
+                        //$this->view('patient/dumy', $data);
                         $this->view('patient/register', $data);
                     } else {
-                        $data['system_err'] = 'Error Occured in System!';
+                        $data['system_err'] = 'Error Occured in System! patient existance checking fail';
+                        //$this->view('patient/dumy', $data);
                         $this->view('patient/register', $data);
                     }
+                }else {
+                    //invalid input data
+                    $this->view('patient/register', $data);
                 }
 
 
 
 
             } else {
+                // request is not post request
                 $data =[
                     'role'=> '',
                     'fname'=> '',
