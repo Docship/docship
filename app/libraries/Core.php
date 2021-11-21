@@ -4,15 +4,13 @@
    * Creates URL & loads core controller
    * URL FORMAT - /controller/method/params
    */
-  final class Core {
+  class Core {
 
-    protected $currentController = 'users';
+    protected $currentController = 'pages';
     protected $currentMethod = 'index';
     protected $params = [];
 
-    private static $core;
-
-    private function __construct(){
+    public function __construct(){
       /*
       //print_r($this->getUrl());
 
@@ -60,15 +58,20 @@
         // Unset 0 Index
         unset($url[0]);
       }
-      elseif(isset($_SESSION['role'])){
+      elseif(isset($_SESSION['rolee'])){
         $this->currentController=$_SESSION['role'];
       }
 
-      // Require the controller
-      require_once '../app/controllers/'. $this->currentController . '.php';
+      // Require the controller Factory
+      require_once '../app/controllers/'. 'ControllerFactory' . '.php';
+
+      // Require the controller library
+      require_once 'Controller.php';
+
+      $controllers = ControllerFactory::getInstance();
 
       // Instantiate controller class
-      $this->currentController = ControllerFactory::getInstance()->getController($this->currentController);
+      $this->currentController = $controllers->getController($this->currentController);
 
       // Check for second part of url
       if(isset($url[1])){
@@ -84,14 +87,6 @@
       $this->params = $url ? array_values($url) : [];
       // Call a callback with array of params
       call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
-    }
-
-    public static function getInstance(){
-
-      if(!is_null(self::$core)){
-        self::$core = new Core;
-      }
-      return self::$core;
     }
 
     public function getUrl(){

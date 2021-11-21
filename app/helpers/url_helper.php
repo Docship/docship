@@ -5,13 +5,25 @@
       header('location: ' . URLROOT . '/' . $page);
     }else {
       $variables = '';
-
-      foreach($params as $key => $value){
-        $variables+= '?' .$key . '=' . $value;
+      $count = sizeof($params);
+      if($count>0){
+        $variables+='?';
+        foreach($params as $key => $value){
+          if($count>0){
+            $variables+= $key . '=' . $value . '&';
+          }else{
+            $variables+= $key . '=' . $value;
+          }
+          $count-=1;
+        }
       }
-      header('location: ' . URLROOT . '/' . $page . $variables);
+      $path = 'location: ' . URLROOT . '/' . $page . $variables;
+      header($path);
 
     }
     
+    
   }
+
+
   

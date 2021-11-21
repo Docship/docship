@@ -2,7 +2,15 @@
 
     class User extends Controller{
 
-        protected function __construct(){}
+        public function __construct(){}
+
+        public function index(){
+            $data = array(
+                'error_message' => 'Error occurred in System. Please try again.'
+            );
+            
+            $this->view('error/error', $data);
+        }
 
         public function login(){
 
@@ -22,34 +30,41 @@
                 $result = $validate->checkLoginData($data);
                 
                 if($result){
-                    $data['hash_pwd']=password_hash(trim($_POST['passward']), PASSWORD_DEFAULT);
+                    $data['hash_pwd'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                     $role = ucwords($data['role']);
                     $model = $this->model($role);
-                    $method = 'get' . $role . 'ByEmailAndPassward';
-                    $result = call_user_func_array([$model , $method] , array('email' => $data['email'] , 'pwd' => $data['hash_pwd']));
+                    
+                    $result = $model->findByEmailAndPassword($data['email'] , $data['password']);
 
-                    if($result==ERR_DB){
+                    if(!isset($result['value'])){
                         $data['system_err'] = 'Error Occured in System!';
-                        $this->view('user/login', $data);
+                        $data['error_message'] = "Error Occured in System!";
+                        $this->view('error/error', $data);
 
-                    }else if($result==NULL) {
-                        $data['isExist'] = false;
-                        $this->view('user/login', $data);
-                    } else {
-                        $user = $result;
-                        $this->createUserSession($user , $role);
-
-                        $params = array(
-                            'login' => 'success',
-                            'user' => lcfirst($role)
-                        );
-                        redirect(lcfirst($role).'/dashboard' , $params);
-
+                    }else {
+                        if(sizeof($result['value'])==0) {
+                            $data['isExist'] = false;
+                            $data['result'] = $result;
+                            $data['role'] = $role;
+                            $data['error_message'] = "No such user exists!";
+                            $this->view('error/error', $data);
+                        } else {
+                            $user = $result['value'];
+                            $this->createUserSession($user , $role);
+                            redirect(lcfirst($role).'/index?user='.lcfirst($role));
+    
+                        }
                     }
+                    
+                    
+                }else {
+                    // invalid input data
+                    $this->view('user/login?data=invalid' , $data) ; 
                 }
 
             }else {
+                // request is not post
                 $data =[ 
                     'role' => '',   
                     'email' => '',
@@ -65,10 +80,10 @@
 
         private function createUserSession($user , $role){
 
-            $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_email'] = $user->email;
-            $_SESSION['fname'] = $user->firstname;
-            $_SESSION['lname'] = $user->lastname;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['fname'] =$user['firstname'];
+            $_SESSION['lname'] =$user['lastname'];
             $_SESSION['role'] = $role;
         }
 
@@ -82,4 +97,9 @@
             session_destroy();
             redirect('users/login');
         }
+
+        public function showLogin(){
+            redirect('user/login'); 
+        }
+
     }

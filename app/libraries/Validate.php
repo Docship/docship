@@ -2,7 +2,7 @@
 
     final class Validate {
 
-        protected function __construct() {}
+        public function __construct() {}
 
         public function isEmptyString($str){
 
@@ -14,10 +14,10 @@
         public function isValidName($name){
             $result = true;
 
-            if(!preg_match("/^[a-z\d]{5,12}$/", $name)){
+            if(!preg_match("/^[a-z\d]{3,12}$/", $name)){
                 $result = false;
             }
-            return $result;
+            return true;
         }
 
         public function isValidEmail($email) {
@@ -33,7 +33,7 @@
 
         public function isValidTelephone($telephone){
 
-            return (strlen($telephone)!=10)?false:true;
+            return (strlen($telephone)==10)?true:false;
         }
 
         public function isStringMatching($str1 , $str2){
@@ -51,11 +51,11 @@
 
             if($this->isEmptyString($data['fname']) || !$this->isValidName($data['fname'])){
                 $result = false;
-                $data['fname_err'] = "Invalid Input format";
+                $data['fname_err'] = "Invalid Input format for First namr";
             }
             if($this->isEmptyString($data['lname']) || !$this->isValidName($data['lname']) ){
                 $result = false;
-                $data['lname_err'] = "Invalid Input format";
+                $data['lname_err'] = "Invalid Input format for Last namr";
             }
             if($this->isEmptyString($data['email']) || !$this->isValidEmail($data['email'])){
                 $result = false;
@@ -65,15 +65,15 @@
                 $result = false;
                 $data['telephone_err'] = "Invalid Phone Number format";
             }
-            if($this->isEmptyString($data['passward']) ||!$this->isValidPassward($data['passward'])){
+            if($this->isEmptyString($data['password']) ||!$this->isValidPassward($data['password'])){
                 $result = false;
                 $data['passward_err'] = "Invalid Passward formt";
             }
-            if($this->isEmptyString($data['repassward']) ||!$this->isValidPassward($data['repassward'])){
+            if($this->isEmptyString($data['repassword']) ||!$this->isValidPassward($data['repassword'])){
                 $result = false;
                 $data['passward_err'] = "Invalid Passward formt";
             }
-            if(!$this->isStringMatching($data['passward'] , $data['repassword'])){
+            if(!$this->isStringMatching($data['password'] , $data['repassword'])){
                 $result = false;
                 $data['passward_err'] = "Passward and Repassward are not matching each other.";
             }
@@ -88,9 +88,9 @@
                 $result = false;
                 $data['email_err'] = "Invalid Email format";
             }
-            if($this->isEmptyString($data['passward']) ||!$this->isValidPassward($data['passward'])){
+            if($this->isEmptyString($data['password']) ||!$this->isValidPassward($data['password'])){
                 $result = false;
-                $data['passward_err'] = "Invalid Passward formt";
+                $data['passw0rd_err'] = "Invalid Passw0rd formt";
             }
             return $result;
 

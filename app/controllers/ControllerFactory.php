@@ -9,7 +9,7 @@
 
         public static function getInstance(){
 
-            if(!is_null(self::$CtrlFactory)){
+            if(is_null(self::$CtrlFactory)){
                 self::$CtrlFactory = new ControllerFactory;
             }
             return self::$CtrlFactory;
@@ -20,6 +20,8 @@
             if(isset($libs[$name])){
                 return $libs[$name];
             }else{
+                // Require the controller
+                require_once $name . '.php';
                 $lib = new $name;
                 $libs[$name] = $lib;
                 return $lib;

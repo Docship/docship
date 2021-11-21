@@ -6,12 +6,13 @@ final class Database {
     private $pwd = DB_PASS;
     private $dbname = DB_NAME;
 
-    private $dbh;
+    private $mysqli;
 
     private static $database;
 
-    protected function __construct(){
+    public function __construct(){
 
+        /*
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true,
@@ -25,6 +26,11 @@ final class Database {
             echo $e->getMessage();
             die();
         }
+        */
+
+        $this->mysqli = new mysqli($this->host,$this->user,$this->pwd, $this->dbname);
+
+
     }
 
     public static function getInstance(){
@@ -35,6 +41,106 @@ final class Database {
         return self::$database;
       }
 
+    public function insert($sql , $params = []){
+
+        try{
+            if ($this->mysqli -> connect_errno) {
+                //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
+              }
+            $this->mysqli -> query($sql);
+            $this->mysqli -> close();
+            return 1;
+        }catch(Exception $e){
+            $this->mysqli -> close();
+            return -1;
+        }
+
+        /*
+        try{
+            $stmt = $this->dbh->prepare($sql);
+            foreach($params as $key => $val){
+                $type = $this->getType($val);
+                $stmt->bindValue($key , $val , $type);
+            }
+            $stmt->execute();
+            return 1; 
+        }catch(PDOException $e){
+            return -1;
+        }
+
+        */
+    }
+    
+    public function selectAll($sql , $params = []){
+
+        try{
+
+            if ($this->mysqli -> connect_errno) {
+                //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return null;
+            }
+            $result = $this->mysqli->query($sql);
+            $this->mysqli -> close();
+            
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }catch(Exception $e){
+            $this->mysqli -> close();
+            return null;
+        }
+
+        /*
+        try{
+            $stmt = $this->dbh->prepare($sql);
+            
+            foreach($params as $key => $val){
+                $type = $this->getType($val);
+                $stmt->bindValue($key , $val , $type);
+            }
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            die($e->getMessage());
+            return null;
+        }
+        */
+    }
+
+    public function selectOne($sql , $params = []){
+        try{
+            if ($this->mysqli -> connect_errno) {
+                //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return null;
+            }
+            $result = $this->mysqli->query($sql);
+            $this->mysqli -> close();
+            
+            return $result->fetch_assoc();
+        }catch(Exception $e){
+            $this->mysqli -> close();
+            return null;
+        }
+    }
+
+    private function getType($value , $type = null){
+        switch(true){
+            case is_int($value):
+                $type = PDO::PARAM_INT;
+                break;
+            case is_bool($value):
+                $type = PDO::PARAM_BOOL;
+                break;
+            case is_null($value):
+                $type = PDO::PARAM_NULL;
+                break;
+            default:
+                $type = PDO::PARAM_STR;    
+        }
+
+        return $type;
+    }
+      
     public function query($sql){
         $stmt = $this->dbh->prepare($sql);
         return $stmt;
@@ -72,9 +178,7 @@ final class Database {
             }
             return $stmt;
         }
-        return ERR_DB;
-
-        
+        return ERR_DB;  
     }
 
     public function execute($stmt){

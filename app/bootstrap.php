@@ -3,7 +3,9 @@
   require_once 'config/config.php';
 
   // Load Helpers
-  /*  can load helpers here */
+  require_once 'helpers/url_helper.php';
+
+  session_start();
 
   // Autoload Core Libraries
   /*
@@ -11,6 +13,7 @@
     require_once 'libraries/' . $className . '.php';
   });
   */
+  
 
-  require_once 'libraries/LibraryFactory.php';
+  require_once 'libraries/LibFactory.php';
 
