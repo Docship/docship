@@ -49,10 +49,10 @@ final class Database {
                 return -1;
               }
             $this->mysqli -> query($sql);
-            $this->mysqli -> close();
+            //$this->mysqli -> close();
             return 1;
         }catch(Exception $e){
-            $this->mysqli -> close();
+            //$this->mysqli -> close();
             return -1;
         }
 
@@ -81,11 +81,11 @@ final class Database {
                 return null;
             }
             $result = $this->mysqli->query($sql);
-            $this->mysqli -> close();
+            //$this->mysqli -> close();
             
             return $result->fetch_all(MYSQLI_ASSOC);
         }catch(Exception $e){
-            $this->mysqli -> close();
+            //$this->mysqli -> close();
             return null;
         }
 
@@ -114,11 +114,11 @@ final class Database {
                 return null;
             }
             $result = $this->mysqli->query($sql);
-            $this->mysqli -> close();
+            //$this->mysqli -> close();
             
             return $result->fetch_assoc();
         }catch(Exception $e){
-            $this->mysqli -> close();
+            //$this->mysqli -> close();
             return null;
         }
     }

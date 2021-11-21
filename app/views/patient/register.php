@@ -22,7 +22,7 @@
                 <form action="<?php echo URLROOT; ?>/patient/register" method="post" class="mx-sm-3 mx-md-4 mx-lg-5">
                     <h1 class="text-center my-0 topic">Welcome to DocShip</h1>
                     <p class="text-center mb-2">
-                        බිම්සර පම්කයෝ මෙතනට වදනක් දාපන්
+                        My Health. My Hospital.
                     </p>
                     <div class="form-row">
                         <div class="col-lg-6 my-1">

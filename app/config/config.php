@@ -9,7 +9,7 @@
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)));
   // URL Root
-  define('URLROOT', 'http://localhost/DOC');
+  define('URLROOT', 'http://localhost/docship');
   // Site Name
   define('SITENAME', 'DOCSHIP');
   // App Version
@@ -17,8 +17,8 @@
   
   
   //Variables
-  define('ERR', -1);
-  define('PASS', 0);
-  define('FAIL', 1);
-  define('ERR_DB', 'Database Error');
-  define('NULL' , null);
+  // define('ERR', -1);
+  // define('PASS', 1);
+  // define('FAIL', 0);
+  // define('ERR_DB', 'Database Error');
+  // define('NULL' , null);
