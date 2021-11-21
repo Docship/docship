@@ -9,7 +9,7 @@
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)));
   // URL Root
-  define('URLROOT', 'http://localhost/DOC');
+  define('URLROOT', 'http://localhost/docship');
   // Site Name
   define('SITENAME', 'DOCSHIP');
   // App Version
