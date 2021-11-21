@@ -40,7 +40,8 @@
                     if(!isset($result['value'])){
                         $data['system_err'] = 'Error Occured in System!';
                         $data['error_message'] = "Error Occured in System!";
-                        $this->view('error/error', $data);
+                        //$this->view('error/error', $data);
+                        $this->view('user/login?error=system_fail' , $data);
 
                     }else {
                         if(sizeof($result['value'])==0) {
@@ -48,7 +49,8 @@
                             $data['result'] = $result;
                             $data['role'] = $role;
                             $data['error_message'] = "No such user exists!";
-                            $this->view('error/error', $data);
+                            //$this->view('error/error', $data);
+                            $this->view('user/login?error=invalid_password' , $data);
                         } else {
                             $user = $result['value'];
                             $this->createUserSession($user , $role);

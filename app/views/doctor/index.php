@@ -11,6 +11,7 @@
     integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
+  
 </head>
 
 <body>
@@ -37,7 +38,7 @@
             <li class="nav-item">
               <a class="nav-link active" href="#" id="a">
                 <span data-feather="home"></span>
-                Home <span class="sr-only">(current)</span>
+                Home 
               </a>
             </li>
             <li class="nav-item">
@@ -49,7 +50,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#" id="c">
                 <span data-feather="users"></span>
-                Doctors
+                Patients
               </a>
             </li>
             <li class="nav-item">
@@ -252,7 +253,7 @@
         </div>
       </main>
 
-      <!-- Appointment form -->
+      <!-- Registration form -->
       <div class="popup-container">
         <div class="close-btn">&times;</div>
         <div class="container">
@@ -412,8 +413,8 @@
     integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-
   <script src="<?php echo URLROOT; ?>/js/dashboard.js"></script>
+  
 </body>
 
 </html>

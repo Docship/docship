@@ -43,27 +43,30 @@
             <li class="nav-item">
               <a class="nav-link" href="#" id="b">
                 <span data-feather="calendar"></span>
-                Appointments
+                Doctors
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" id="c">
                 <span data-feather="users"></span>
-                Doctors
+                Patients
               </a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="#" id="d">
+                <span data-feather="file-plus"></span>
+                Appointments
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="e">
                 <span data-feather="message-circle"></span>
                 Messages
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" id="e">
-                <span data-feather="file-plus"></span>
-                Prescriptions
-              </a>
-            </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="#" id="f">
                 <span data-feather="settings"></span>
@@ -143,28 +146,28 @@
       </main>
 
 
-      <!-- Appointments -->
-      <main role="main" class="appointments invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="B">
+      <!-- Doctors -->
+      <main role="main" class="doctors invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="B">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="title">Appointments</h2>
+          <h1 class="title">Doctors</h2>
           <div class="btn-toolbar mb-2 mb-md-0">
             <!-- <div class="btn-group mr-2">
               <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
               <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
             </div> -->
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="appointment-form">
-              <span data-feather="calendar"></span>
-              New Appointment
-            </button>
+            <a href="doctor-reg.html" type="button" class="btn btn-sm btn-outline-primary" id="appointment-form">
+              <span data-feather="user-plus"></span>
+              Add a doctor
+            </a>
           </div>
         </div>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
         <h2 class="subtitle">Upcoming Appointments</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
           <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
-            <span data-feather="x-circle" class="mr-2"></span>
-            Cancel
+            <span data-feather="trash-2" class="mr-2"></span>
+            Delete
           </button>
 
         </div>
@@ -251,52 +254,12 @@
           </table>
         </div>
       </main>
-
-      <!-- Appointment form -->
-      <div class="popup-container">
-        <div class="close-btn">&times;</div>
-        <div class="container">
-          <form class="mx-sm-1 mx-md-2 mx-lg-3 my-5">
-            <h2 class="text-center subtitle">New Appointment</h2>            
-
-                <input placeholder="Date" name="day" class="form-control  my-2 " type="text"
-                                    onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-        
-
-                <select id="inputGender" class="form-control my-2 ">
-                  <option selected>Doctor</option>
-                  <option>Dr. Dilusha</option>
-                  <option>Dr. Bimsara</option>
-                  <option>Dr. Kasun</option>
-                  <option>Dr. Nirmal</option>
-              </select>
-
-              <select id="inputTime" class="form-control my-2 ">
-                <option selected>Time</option>
-                <option>17.00</option>
-                <option>17.30</option>
-                <option>18.00</option>
-                <option>18.30</option>
-            </select>
-
-
-
-              <button type="submit" class="btn btn-danger w-100 my-2">
-                Create new Appointment
-              </button>
-
-            
-          </form>
-        </div>
-      </div>
-
-
       
-      <!-- Doctors -->
-      <main role="main" class="doctors invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="C">
+      <!-- Patients -->
+      <main role="main" class="patients invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="C">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="title">Doctors</h2>
+          <h1 class="title">Patients</h2>
           <div class="btn-toolbar mb-2 mb-md-0">
             <button type="button" class="btn btn-sm btn-outline-secondary">
               <span data-feather="calendar"></span>
@@ -304,7 +267,7 @@
             </button>
           </div>
         </div>
-        <h2 class="subtitle">Doctor List</h2>
+        <h2 class="subtitle">Patient List</h2>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
             <thead>
@@ -350,9 +313,66 @@
         </div>
       </main>
 
+            <!-- Appointments -->
+            <main role="main" class="appointments invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="D">
+              <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="title">Appointments Here</h2>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="calendar"></span>
+                    New Appointment
+                  </button>
+                </div>
+              </div>
+              <h2 class="subtitle">Doctor List</h2>
+              <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Header</th>
+                      <th>Header</th>
+                      <th>Header</th>
+                      <th>Header</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1,001</td>
+                      <td>random</td>
+                      <td>data</td>
+                      <td>placeholder</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>1,002</td>
+                      <td>placeholder</td>
+                      <td>irrelevant</td>
+                      <td>visual</td>
+                      <td>layout</td>
+                    </tr>
+                    <tr>
+                      <td>1,003</td>
+                      <td>data</td>
+                      <td>rich</td>
+                      <td>dashboard</td>
+                      <td>tabular</td>
+                    </tr>
+                    <tr>
+                      <td>1,003</td>
+                      <td>information</td>
+                      <td>placeholder</td>
+                      <td>illustrative</td>
+                      <td>data</td>
+                    </tr>             
+                  </tbody>
+                </table>
+              </div>
+            </main>
       
       <!-- Messages -->
-      <main role="main" class="messages invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="D">
+      <main role="main" class="messages invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="E">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="title">Messages</h2>
@@ -366,24 +386,6 @@
         <h2 class="subtitle">Messages</h2>
         <p>Messages are here</p>
       </main>
-
-      
-      <!-- Prescriptions -->
-      <main role="main" class="prescriptions invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="E">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="title">Prescriptions</h2>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <button type="button" class="btn btn-sm btn-outline-secondary">
-              <span data-feather="calendar"></span>
-              New Appointment
-            </button>
-          </div>
-        </div>
-        <h2 class="subtitle">Prescriptions</h2>
-        <p>prescriptions are here</p>
-      </main>
-
       
       <!-- Settings -->
       <main role="main" class="settings invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="F">

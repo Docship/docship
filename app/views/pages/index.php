@@ -80,9 +80,10 @@
                         <div class="col-md-4 style-3">
                             <div class="tour-item ">
                                 <div class="tour-desc bg-white">
-                                    <div class="tour-text color-grey-3 text-center">“At this School, our mission is to balance a rigorous comprehensive college preparatory curriculum with healthy social and emotional development.”</div>
+                                    <div class="tour-text color-grey-3 text-center">“Need to do an oddball talk with a specialist? Basically, pick a day and time and video channel a specialist inside the space of minutes by means of DocShip.
+                                       Interface carefully with your PCP at the time of your conference and get all the clinical guidance and care you really want from the solace of your home.”</div>
                                     <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people" src="/images/doc1.jpg" alt=""></div>
-                                    <div class="link-name d-flex justify-content-center">Bimsara Bo</div>
+                                    <div class="link-name d-flex justify-content-center">Team DOCSHIP</div>
                                     <div class="link-position d-flex justify-content-center">Software Engineer</div>
                                 </div>
                             </div>

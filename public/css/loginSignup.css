@@ -7,6 +7,7 @@
     --bg-dark: #191516;
     --bg-light: #fffdfa;
     --color-unimportant-text: #899097;
+    --color-important-text: #343a40;
 }
 
 .fill,
@@ -64,6 +65,15 @@
 .topic {
     font-size: 2rem;
     font-weight: var(--weightHeader);
+    color: var(--color-important-text);
+}
+
+.brand-color1{
+    color: var(--bg-blue);
+}
+
+.brand-color2{
+    color: var(--bg-green);
 }
 
 p {
@@ -90,12 +100,12 @@ input:focus::placeholder {
 
 
 /* *Buttons */
-.btn{
+.btn-n{
     background-color: var(--bg-blue);
     color: var(--bg-light);
 }
 
-.btn:hover{
+.btn-n:hover{
     background-color: var(--bg-blue-hover);
     color: var(--bg-light);
 }
