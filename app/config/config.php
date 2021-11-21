@@ -17,8 +17,8 @@
   
   
   //Variables
-  define('ERR', -1);
-  define('PASS', 0);
-  define('FAIL', 1);
-  define('ERR_DB', 'Database Error');
-  define('NULL' , null);
+  // define('ERR', -1);
+  // define('PASS', 1);
+  // define('FAIL', 0);
+  // define('ERR_DB', 'Database Error');
+  // define('NULL' , null);

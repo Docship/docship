@@ -15,6 +15,9 @@
 
     public function setAttributes(){
       $url = $this->getUrl();
+      if(empty($url)){
+        $url[0] = '';
+      }
       // Look in controllers for first value
       if(file_exists('../app/controllers/' . ucwords($url[0]). '.php')){
         // If exists, set as controller
