@@ -17,4 +17,8 @@
 
       $this->view('pages/about', $data);
     }
+
+    public function prohibit(){
+      $this->view('error/error1');
+    }
   }

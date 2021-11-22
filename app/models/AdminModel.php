@@ -1,6 +1,6 @@
 <?php
 
-    class PatientModel {
+    class AdminModel {
 
         private $DB;
 
@@ -11,7 +11,7 @@
 
         public function isExistByEmail($email){
 
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `admin` WHERE email='$email'";
             $result = $this->DB->selectAll($sql);
             
             if(!is_null($result)){
@@ -29,7 +29,7 @@
         }
 
         public function findByEmailAndPassword($email, $pwd){
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `admin` WHERE email='$email'";
             $result = $this->DB->selectOne($sql);
 
             $output = array();
@@ -62,21 +62,4 @@
             }
         }
 
-        public function insert($data){
-
-            $firstname = $data['fname'];
-            $lastname = $data['lname'];
-            $email = $data['email'];
-            $pwd = $data['hash_pwd'];
-            $bday = $data['bday'];
-            $gender = $data['gender'];
-            $telephone = $data['telephone'];
-
-            $sql = "INSERT INTO `patient` (firstname, lastname, email, pwd, bday, gender, telephone) VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' , '$telephone')";
-
-            $result = $this->DB->insert($sql);
-
-            return $result;
-
-        }
     }

@@ -3,9 +3,7 @@
 <body>
 
 <h1>Error Occured</h1>
-<p><?php echo $data['error_message'] ?></p><br/>
-
-
+<p><?php echo $data['role'] ?></p><br/>
 
 
 </body>
