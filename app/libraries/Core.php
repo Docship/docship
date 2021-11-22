@@ -34,7 +34,7 @@
 
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
       }
-      elseif(!empty($url) && (isset($_SESSION['role']) || ucwords($url[0])!=ucwords('user'))){
+      elseif((!empty($url) && (isset($_SESSION['role']) || ucwords($url[0])!=ucwords('user')))){
         if(ucwords($url[0])!=$_SESSION['role']){
           $this->currentController = 'Pages';
           $this->currentMethod = 'prohibit';

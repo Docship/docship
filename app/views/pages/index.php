@@ -7,7 +7,7 @@
     <title>Document</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>css/index.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/index.css">
     <title>DocShip</title>
   </head>
   <body>
@@ -34,7 +34,7 @@
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <a type="button" href="<?php echo URLROOT; ?>/user/login" class="btn btn-login mr-2"> LogIn</a>
-            <a type="button" href="<?php echo URLROOT; ?>/patient/showRegister" class="btn btn-register mr-3">Register</a>
+            <a type="button" href="<?php echo URLROOT; ?>/patient/register" class="btn btn-register mr-3">Register</a>
           </form>
         </div>
       </nav>
@@ -42,7 +42,7 @@
       <header id="home">
         <div class="overlay"></div>
         <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-          <source src="<?php echo URLROOT; ?>/img/video1.mp4" type="video/mp4">
+          <source src="<?php echo URLROOT; ?>/img/video.mp4" type="video/mp4">
         </video>
       
         <!-- The header content -->
@@ -50,7 +50,7 @@
           <div class="d-flex h-100 text-center align-items-center">
             <div class="w-100 text-white">
               <h1 class="display-1">My Health. My Hospital.</h1>
-              <h2 class="display-4">සංකලන පුතාගේ සියලු ග්‍රහ අපල දුරුවේවා!!!</h2>
+              <h2 class="display-4">දිලූශ පුතාගේ සියලු ග්‍රහ අපල දුරුවේවා!!!</h2>
               <p class="lead mb-0">Sri lankas Number #1 online healthcare platform</p>
             </div>
           </div>
@@ -80,10 +80,9 @@
                         <div class="col-md-4 style-3">
                             <div class="tour-item ">
                                 <div class="tour-desc bg-white">
-                                    <div class="tour-text color-grey-3 text-center">“Need to do an oddball talk with a specialist? Basically, pick a day and time and video channel a specialist inside the space of minutes by means of DocShip.
-                                       Interface carefully with your PCP at the time of your conference and get all the clinical guidance and care you really want from the solace of your home.”</div>
+                                    <div class="tour-text color-grey-3 text-center">“At this School, our mission is to balance a rigorous comprehensive college preparatory curriculum with healthy social and emotional development.”</div>
                                     <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people" src="/images/doc1.jpg" alt=""></div>
-                                    <div class="link-name d-flex justify-content-center">Team DOCSHIP</div>
+                                    <div class="link-name d-flex justify-content-center">Bimsara Bo</div>
                                     <div class="link-position d-flex justify-content-center">Software Engineer</div>
                                 </div>
                             </div>
