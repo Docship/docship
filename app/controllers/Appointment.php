@@ -33,8 +33,8 @@ class Appointment extends Controller
                 'isExist' => false
             ];
 
-            $validate = $this->getValidation();
-            $result = $validate->checkAppointmentData($data);
+            //$validate = $this->getValidation();
+            $result = Validate::checkAppointmentData($data);
 
             if ($result == true) {
                 // check existance of doctor data

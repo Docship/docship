@@ -38,7 +38,7 @@
                 <input
                   name="email"
                   type="email"
-                  class="form-control form-control-lg shadow-none"
+                  class="form-control form-control-lg shadow-none input-text-login"
                   placeholder="Email"
                   value = "<?php echo $data['email']; ?>"
                 />
@@ -51,7 +51,7 @@
                 <input
                   name="password"
                   type="password"
-                  class="form-control form-control-lg shadow-none"
+                  class="form-control form-control-lg shadow-none input-text-login"
                   placeholder="Password"
                   value = "<?php echo $data['password']; ?>"
                 />
@@ -100,7 +100,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="<?php echo URLROOT; ?>/js/loginSignup.js"></script>
+    <script src="<?php echo URLROOT; ?>/js/login.js"></script>
 
   </body>
 </html>

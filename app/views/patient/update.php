@@ -11,9 +11,9 @@
             </button>
           </div>
         </div>
-        <h2 class="subtitle">Settings Here</h2>
+        <h2 class="subtitle">Update Account</h2>
         <p>Messages are here</p>
 
       </main>
 
-      <?php require_once APPROOT."/views/inc/footer_patient.php"; ?>
+<?php require_once APPROOT."/views/inc/footer_patient.php"; ?>

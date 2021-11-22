@@ -1,6 +1,6 @@
 <?php
   // avoid warning messages
-  //error_reporting(E_ERROR | E_PARSE);
+  error_reporting(E_ERROR | E_PARSE);
 
   // Load Config
   require_once 'config/config.php';
@@ -18,6 +18,6 @@
   */
   
   require_once 'libraries/LibFactory.php';
-  //require_once 'libraries/Core.php';
+  require_once 'libraries/Validate.php';
   require_once 'libraries/Date.php';
 

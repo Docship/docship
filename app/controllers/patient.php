@@ -49,8 +49,8 @@
                     'isExist' => false
                   ];
 
-                $validate = $this->getValidation();
-                $result = $validate->checkPatientRegistrationData($data);
+                //$validate = $this->getValidation();
+                $result = Validate::checkPatientRegistrationData($data);
 
                 if($result==true){
                     $data['hash_pwd']=password_hash(trim($_POST['password']), PASSWORD_DEFAULT);

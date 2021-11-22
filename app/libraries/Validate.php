@@ -12,10 +12,10 @@
         }
 
         public static function isValidName($name){
-            $result = true;
+            $result = false;
 
-            if(!preg_match("/^[a-z\d]{3,12}$/", $name)){
-                $result = false;
+            if((preg_match('/^[a-zA-Z0-9]{3,20}$/', $name))){
+                $result = true;
             }
             return $result;
         }
@@ -193,6 +193,16 @@
             //              && len($bank_acc_no)=$lengthOfAccNo then return true
             // else return false;
             //}
+        }
+
+        public static function isValidAmount($amount){
+            // To convert this number to a string:
+            $amountString = (string)$amount;
+            // Try to convert the string to a float
+            $floatVal = floatval($amountString);
+            // If the parsing succeeded and the value is not equivalent to an int
+            return ($floatVal && intval($floatVal) != $floatVal); //$amount is a float
+        
         }
 
 
@@ -393,6 +403,25 @@
             if(self::isEmptyString($data['telephone']) || !self::isValidTelephone($data['telephone'])){
                 $result = false;
                 $data['telephone_err'] = "Invalid Phone Number format";
+            }
+
+            return $result;
+        }
+
+        public static function checkAppointmentData(&$data){
+            $result = true;
+
+            if(!self::isValidTime($data['time'])){
+                $result = false;
+                $data['time_err'] = "Invalid time";
+            }
+            if(!self::isValidDate($data['date'])){
+                $result = false;
+                $data['date_err'] = "Invalid date";
+            }
+            if(!self::isValidAmount($data['amount'])){
+                $result = false;
+                $data['amount_err'] = "Invalid amount";
             }
 
             return $result;

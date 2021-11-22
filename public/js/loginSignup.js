@@ -10,6 +10,7 @@ const submitReg = document.getElementById('submit-reg');
 const select = document.querySelector('select');
 const bday = document.getElementById('bday');
 
+
 //regex for validation
 const patterns = {
     telephone: /^\d{10}$/,

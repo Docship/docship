@@ -48,8 +48,8 @@
                     'isExist' => false
                   ];
 
-                $validate = $this->getValidation();
-                $result = $validate->checkAdminRegistrationData($data);
+                //$validate = $this->getValidation();
+                $result = Validate::checkAdminRegistrationData($data);
 
                 if($result==true){
                     $data['hash_pwd']=password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
@@ -176,8 +176,8 @@
                     'isExist' => false
                   ];
 
-                $validate = $this->getValidation();
-                $result = $validate->checkDoctorRegistrationData($data);
+                //$validate = $this->getValidation();
+                $result = Validate::checkDoctorRegistrationData($data);
 
                 if($result==true){
                     $data['hash_pwd']=password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
