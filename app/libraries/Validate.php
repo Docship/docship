@@ -54,12 +54,26 @@
         }
 
         public function isValidNic($nic){
-            //nic validation
-            //if length == 10 then first 9 must be numerical and last one must be wither V or X or (valid letter)
-            //if length == 12 all must be numerical
+            if(strlen($nic)==10){
+                $first_letters = substr($nic, 0, strlen($nic)-1);
+                $last_letter = substr($nic,strlen($nic)-1);
+                $last_letter_valid = $lastLetter==="V" || $lastLetter==="v" || $lastLetter==="X" || $lastLetter==="x";
+                if(is_numeric($first_letters) && last_letter_valid){
+                    return true;
+                }else{
+                    return false;
+                }
+            }if(strlen($nic)==12){
+                if(is_numeric($nic)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
         }
 
         public function isValidGovRegNo($gov_registration_no_err){
+            return true; //for the instance
             //gov_registration_no_err validation
         }
 
@@ -70,17 +84,105 @@
         public function isValidBank($bank_name){
             //put some banks in list
             //check if the given bank is in the list
+
+            //$banks = ['BOC', 'Peoples', 'NSB', 'Commercial', 'Sampath'];
+            //if $bank_name in $banks return true 
+            //else return false
+
+            $banks = array("BOC", "Peoples Bank", "NSB", "Commercial Bank", "Sampath Bank");
+
+            if (in_array($bank_name, $banks)){
+                return true;
+            }else{
+                return false;
+            }
         }
 
         public function isValidBankBranch($bank_branch, $bank_name){
             //put {bank(key): branches(values)} in a dictionary
             //and check if the given branch is available for the given bank
+
+            //$bank_branches = {'BOC' : ['Colombo', 'Negombo', 'Kaluthara', 'Galle'],
+            //                 'Peoples': ['Colombo', 'Negombo', 'Kaluthara'],
+            //                 'NSB': 'Colombo', 'Negombo', 'Mathara'],
+            //                 'Commercial': 'Colombo', 'Negombo', 'Galle'],
+            //                 'Sampath' : 'Colombo', 'Negombo', 'Kandy']};
+            //
+            //if $bank_branch in $bank_branches[$bank_name] return true
+            //else return false
+
+        
+            $bank_branches = array(
+                'BOC' => array('Colombo', 'Negombo', 'Kaluthara', 'Galle'),
+                'Peoples' => array('Colombo', 'Negombo', 'Kaluthara'),
+                'NSB' => array('Colombo', 'Negombo', 'Mathara'),
+                'Commercial Bank' => array('Colombo', 'Negombo', 'Galle'),
+                'Sampath Bank' => array('Colombo', 'Negombo', 'Kandy')
+            );
+            
+            if (isset($bank_branches[$bank_name])){
+                if (in_array($bank_branch, $bank_branches[$bank_name])){
+                    return true;
+                }else{
+                   return false;
+                }
+            }else{
+                return false;
+            }
+
+
+
         }
 
         public function isValidBankAccNo($bank_acc_no, $bank_name, $bank_branch){
+            return true;
             //make multiple dictionaries and name their varaible name as bank name
             //make a dictionary as {bankbranch(key): list[prefix, sufix, length](value)}
             //check if bank acc no's prefix, sufix, length is relevent to bank and branch and check length
+
+            //$BOC_banks = {'Colombo':['001','002',10], 'Negombo':['003','004',10], 
+            //              'Kaluthara':['005','006',10], 'Galle':['007','008',10]};
+            //$Peoples_banks = {'Colombo':['009','010',9], 'Negombo':['011','012',9], 
+            //              'Kaluthara':['013','014',9]};
+            //$NSB_banks = {'Colombo':['010','002',10], 'Negombo':['001','113',10], 
+            //              'Mathara':['001','150',10]};
+            //$Commercial_banks = {'Colombo':['101','002',8], 'Negombo':['111','002',8], 
+            //              'Galle':['001','222',8]};
+            //$Sampath_banks = {'Colombo':['081','072',12], 'Negombo':['701','902',12], 
+            //              'Kandy':['420','097',12]};
+            //
+            //
+            //switch($bank_name){
+            //  case 'BOC':
+            //      $bank_dictonary = $BOC_banks;
+            //      break;
+            //  case 'Peoples':
+            //      $bank_dictonary = $Peoples_banks;
+            //      break;
+            //  case 'NSB':
+            //      $bank_dictonary = $NSB_banks;
+            //      break;
+            //  case 'Commercial':
+            //      $bank_dictonary = $Commercial_banks;
+            //      break;
+            //  case 'Sampath':
+            //      $bank_dictonary = $Sampath_banks;
+            //      break;
+            //  defalut:
+            //      return false;
+            //}
+            //
+            // $branch = $Sampath_banks[$bank_branch];
+            //
+            // $prefix = $branch[0];
+            // $suffix = $branch[1];
+            // $lengthOfAccNo = $branch[2];
+            //
+            // if $bank_acc_no starts with prefix 
+            //          && $bank_acc_no ends with suffix 
+            //              && len($bank_acc_no)=$lengthOfAccNo then return true
+            // else return false;
+            //}
         }
 
         //patient registration validation
