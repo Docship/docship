@@ -15,15 +15,52 @@
 
     public function setAttributes(){
       $url = $this->getUrl();
-      if(empty($url)){
-        $url[0] = '';
+
+      if(!isset($_SESSION['role']) && !empty($url)){
+        $this->currentController = 'User';
+        $this->currentMethod = 'login';
+        $this->params = [];
+
+        // Require the controller Factory
+        require_once '../app/controllers/'. 'ControllerFactory' . '.php';
+
+        // Require the controller library
+        require_once 'Controller.php';
+
+        $controllers = ControllerFactory::getInstance();
+
+        // Instantiate controller class
+        $this->currentController = $controllers->getController($this->currentController);
+
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+      }
+      elseif(!empty($url) && (isset($_SESSION['role']) || ucwords($url[0])!=ucwords('user'))){
+        if(ucwords($url[0])!=$_SESSION['role']){
+          $this->currentController = 'Pages';
+          $this->currentMethod = 'prohibit';
+          $this->params = [];
+
+          // Require the controller Factory
+          require_once '../app/controllers/'. 'ControllerFactory' . '.php';
+
+          // Require the controller library
+          require_once 'Controller.php';
+
+          $controllers = ControllerFactory::getInstance();
+
+          // Instantiate controller class
+          $this->currentController = $controllers->getController($this->currentController);
+
+          call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+        }
       }
       // Look in controllers for first value
-      if(file_exists('../app/controllers/' . ucwords($url[0]). '.php')){
+      elseif(file_exists('../app/controllers/' . ucwords($url[0]). '.php')){
         // If exists, set as controller
         $this->currentController = ucwords($url[0]);
-        // Unset 0 Index
+          // Unset 0 Index
         unset($url[0]);
+        
       }
       elseif(isset($_SESSION['role'])){
         $this->currentController=$_SESSION['role'];

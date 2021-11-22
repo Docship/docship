@@ -1,6 +1,6 @@
 <?php
 
-    class PatientModel {
+    class DoctorModel {
 
         private $DB;
 
@@ -11,7 +11,7 @@
 
         public function isExistByEmail($email){
 
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `doctor` WHERE email='$email'";
             $result = $this->DB->selectAll($sql);
             
             if(!is_null($result)){
@@ -29,7 +29,7 @@
         }
 
         public function findByEmailAndPassword($email, $pwd){
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `doctor` WHERE email='$email'";
             $result = $this->DB->selectOne($sql);
 
             $output = array();
@@ -70,9 +70,15 @@
             $pwd = $data['hash_pwd'];
             $bday = $data['bday'];
             $gender = $data['gender'];
+            $charge_amount = $data['charge_amount'];
+            $category = $data['category'];
+            $working_from = $data['working_from'];
+            $working_to = $data['working_to'];
+            $nic = $data['nic'];
+            $discount = $data['discount'];
             $telephone = $data['telephone'];
 
-            $sql = "INSERT INTO `patient` (firstname, lastname, email, pwd, bday, gender, telephone) VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' , '$telephone')";
+            $sql = "INSERT INTO `doctor` (firstname, lastname, email, pwd, bday, gender, charge_amount, category, working_from, working_to, nic, discount, telephone) VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' ,'$charge_amount', '$category', '$working_from', '$working_to', '$nic', '$discount', '$telephone')";
 
             $result = $this->DB->insert($sql);
 

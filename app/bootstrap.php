@@ -1,4 +1,7 @@
 <?php
+  // avoid warning messages
+  error_reporting(E_ERROR | E_PARSE);
+
   // Load Config
   require_once 'config/config.php';
 
