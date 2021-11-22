@@ -91,6 +91,37 @@
             return checkdate($month, $day, $year);
         }
 
+
+        public static function isValidAmount($amount){
+            // To convert this number to a string:
+            $amountString = (string)$amount;
+            // Try to convert the string to a float
+            $floatVal = floatval($amountString);
+            // If the parsing succeeded and the value is not equivalent to an int
+            return ($floatVal && intval($floatVal) != $floatVal); //$amount is a float
+        
+        }
+
+        public static function checkAppointmentData(&$data){
+            $result = true;
+
+            if(!self::isValidTime($data['time'])){
+                $result = false;
+                $data['time_err'] = "Invalid time";
+            }
+            if(!self::isValidDate($data['date'])){
+                $result = false;
+                $data['date_err'] = "Invalid date";
+            }
+            if(!self::isValidAmount($data['amount'])){
+                $result = false;
+                $data['amount_err'] = "Invalid amount";
+            }
+
+
+            return $result;
+        }
+
         public static function isValidBank($bank_name){
             //put some banks in list
             //check if the given bank is in the list
