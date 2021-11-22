@@ -74,6 +74,7 @@
             $category = $data['category'];
             $working_from = $data['working_from'];
             $working_to = $data['working_to'];
+            $working_days = $data['working_days'];
             $nic = $data['nic'];
             $gov_registration_no = $data['gov_registration_no'];
             $discount = $data['discount'];
@@ -85,11 +86,11 @@
             $current_arrears = $data['current_arrears'];
 
             $sql = "INSERT INTO `doctor` (firstname, lastname, email, pwd, bday, gender, charge_amount, category, 
-                        working_from, working_to, nic, gov_registration_no, discount, telephone, bank_name, 
+                        working_from, working_to, working_days, nic, gov_registration_no, discount, telephone, bank_name, 
                             bank_branch, bank_acc_no, total_income, current_arrears) 
                                 VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , 
                                     '$bday' , '$gender' ,'$charge_amount', '$category', '$working_from', 
-                                        '$working_to', '$nic', '$gov_registration_no', $discount', '$telephone', 
+                                        '$working_to', '$working_days', '$nic', '$gov_registration_no', $discount', '$telephone', 
                                             '$bank_name', '$bank_branch', '$bank_acc_no', '$total_income', '$current_arrears')";
 
             $result = $this->DB->insert($sql);
