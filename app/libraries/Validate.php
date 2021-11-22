@@ -59,8 +59,28 @@
             //if length == 12 all must be numerical
         }
 
+        public function isValidGovRegNo($gov_registration_no_err){
+            //gov_registration_no_err validation
+        }
+
         public function isValidDate($date){
             //validate the date
+        }
+
+        public function isValidBank($bank_name){
+            //put some banks in list
+            //check if the given bank is in the list
+        }
+
+        public function isValidBankBranch($bank_branch, $bank_name){
+            //put {bank(key): branches(values)} in a dictionary
+            //and check if the given branch is available for the given bank
+        }
+
+        public function isValidBankAccNo($bank_acc_no, $bank_name, $bank_branch){
+            //make multiple dictionaries and name their varaible name as bank name
+            //make a dictionary as {bankbranch(key): list[prefix, sufix, length](value)}
+            //check if bank acc no's prefix, sufix, length is relevent to bank and branch and check length
         }
 
         //patient registration validation
@@ -186,6 +206,10 @@
                 $result = false;
                 $data['nic_err'] = "Invalid Input format for nic";
             }
+            if($this->isEmptyString($data['gov_registration_no']) || !$this->isValidGovRegNo($data['gov_registration_no']) ){
+                $result = false;
+                $data['gov_registration_no_err'] = "Invalid Input format for Government Registration No.";
+            }
             if($data['discount']<0.0){
                 $result = false;
                 $data['discount_err'] = "Discount cannot be lesser than 0.00";
@@ -194,6 +218,31 @@
                 $result = false;
                 $data['telephone_err'] = "Invalid Phone Number format";
             }
+
+
+            
+            if($this->isEmptyString($data['bank_name']) || !$this->isValidBank($data['bank_name'])){
+                $result = false;
+                $data['bank_name_err'] = "Invalid Bank name";
+            }
+            if($this->isEmptyString($data['bank_branch']) || !$this->isValidBankBranch($data['bank_branch'], $data['bank_name'])){
+                $result = false;
+                $data['bank_branch_err'] = "Invalid Bank branch";
+            }
+            if($this->isEmptyString($data['bank_acc_no']) || !$this->isValidBankAccNo($data['bank_acc_no'], $data['bank_name'], $data['bank_branch'])){
+                $result = false;
+                $data['bank_acc_no_err'] = "Invalid Bank account no";
+            }
+            if($this->isEmptyString($data['total_income']) || $data['total_income']!=0.0){
+                $result = false;
+                $data['total_income_err'] = "Total income must be 0.0 at the time of the registration.";
+            }
+            if($this->isEmptyString($data['current_arrears']) || $data['current_arrears']!=0.0){
+                $result = false;
+                $data['current_arrears_err'] = "Current arrears must be 0.0 at the time of the registration.";
+            }
+
+
 
             return $result;
         }

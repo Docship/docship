@@ -31,9 +31,14 @@
                     'working_from'=> trim($_POST['working_from']),
                     'working_to'=> trim($_POST['working_to']),
                     'nic'=> trim($_POST['nic']),
-                    //doctor's government registration no
+                    'gov_registration_no'=> trim($_POST['gov_registration_no']),
                     'discount'=> trim($_POST['discount']),
                     'telephone'=> trim($_POST['telephone']),
+                    'bank_name'=> trim($_POST['bank_name']),
+                    'bank_branch'=> trim($_POST['bank_branch']),
+                    'bank_acc_no'=> trim($_POST['bank_acc_no']),
+                    'total_income'=> trim($_POST['total_income']),
+                    'current_arrears'=> trim($_POST['current_arrears']),
                     
                     
                     'role_err'=>'',
@@ -50,9 +55,14 @@
                     'working_from_err'=>'',
                     'working_to_err'=>'',
                     'nic_err'=>'',
-                    //doctor's government registration no error
+                    'gov_registration_no_err'=>'',
                     'discount_err'=>'',
                     'telephone_err' => '',
+                    'bank_name_err' => '',
+                    'bank_branch_err' => '',
+                    'bank_acc_no_err' => '',
+                    'total_income_err' => '',
+                    'current_arrears_err' => '',
                     
                     'isExist' => false
                   ];
@@ -114,9 +124,14 @@
                     'working_from'=>'',
                     'working_to'=>'',
                     'nic'=>'',
-                    //doctor's government registration no
-                    'discount'=>'',
-                    'telephone' => '',
+                    'gov_registration_no'=> '',
+                    'discount'=> '',
+                    'telephone'=> '',
+                    'bank_name'=> '',
+                    'bank_branch'=> '',
+                    'bank_acc_no'=> '',
+                    'total_income'=> '',
+                    'current_arrears'=> '',
 
                     
                     'role_err'=>'',
@@ -132,10 +147,15 @@
                     'college_err'=>'',
                     'working_from_err'=>'',
                     'working_to_err'=>'',
-                    'nic_err'=>'',
-                    //doctor's government registration no error
+                    'gov_registration_no_err'=>'',
                     'discount_err'=>'',
                     'telephone_err' => '',
+                    'bank_name_err'=> '',
+                    'bank_branch_err'=> '',
+                    'bank_acc_no_err' => '',
+                    'total_income_err' => '',
+                    'current_arrears_err' => '',
+
                     'isExist' => false
                   ];
                 

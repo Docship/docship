@@ -75,10 +75,22 @@
             $working_from = $data['working_from'];
             $working_to = $data['working_to'];
             $nic = $data['nic'];
+            $gov_registration_no = $data['gov_registration_no'];
             $discount = $data['discount'];
             $telephone = $data['telephone'];
+            $bank_name = $data['bank_name'];
+            $bank_branch = $data['bank_branch'];
+            $bank_acc_no = $data['bank_acc_no'];
+            $total_income = $data['total_income'];
+            $current_arrears = $data['current_arrears'];
 
-            $sql = "INSERT INTO `doctor` (firstname, lastname, email, pwd, bday, gender, charge_amount, category, working_from, working_to, nic, discount, telephone) VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' ,'$charge_amount', '$category', '$working_from', '$working_to', '$nic', '$discount', '$telephone')";
+            $sql = "INSERT INTO `doctor` (firstname, lastname, email, pwd, bday, gender, charge_amount, category, 
+                        working_from, working_to, nic, gov_registration_no, discount, telephone, 'bank_name', 
+                            'bank_branch', bank_acc_no, total_income, current_arrears) 
+                                VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , 
+                                    '$bday' , '$gender' ,'$charge_amount', '$category', '$working_from', 
+                                        '$working_to', '$nic', '$gov_registration_no', $discount', '$telephone', 
+                                            '$bank_name', '$bank_branch', '$bank_acc_no', '$total_income', '$current_arrears')";
 
             $result = $this->DB->insert($sql);
 
