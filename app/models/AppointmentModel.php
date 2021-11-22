@@ -54,17 +54,21 @@
 
         public function insert($data){
 
-            $patient = $data['patient'];
-            $doctor = $data['doctor'];
+            $patient_id = $data['patient_id'];
+            $doctor_id = $data['doctor_id'];
             $time = $data['time'];
             $date = $data['date'];
-            $receipt = $data['receipt'];
-            $prescription  = $data['prescription'];
+            $receipt_id = $data['receipt_id'];
+            $prescription_id  = $data['prescription_id'];
             $is_paid  = $data['is_paid'];
+            $status  = $data['status'];
             $description = $data['description'];
             
 
-            $sql = "INSERT INTO `appointment` (patient, doctor, time, date, receipt, prescription, is_paid, description) VALUES ('$patient' , '$doctor' , '$time' , '$date' , '$receipt' , '$prescription' , '$is_paid' , '$description')";
+            $sql = "INSERT INTO `appointment` (patient_id, doctor_id, time, date, 
+                        receipt_id, prescription_id, is_paid, status, description) 
+                            VALUES ('$patient_id' , '$doctor_id' , '$time' , '$date' , 
+                                '$receipt_id' , '$prescription_id' , '$is_paid' , '$status' , '$description')";
 
             $result = $this->DB->insert($sql);
 
