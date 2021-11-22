@@ -54,16 +54,22 @@
 
         public function insert($data){
 
-            $appointment = $data['appointment'];
+            $patient_id = $data['patient_id'];
+            $bank_name = $data['bank_name'];
+            $bank_branch = $data['bank_branch'];
+            $bank_acc_no = $data['bank_acc_no'];
             $discount = $data['discount'];
             $amount = $data['amount'];
-            $current_paid = $data['current_paid'];
             $issue_date = $data['issue_date'];
+            $expiry_date = $data['expiry_date'];
             $description = $data['description'];
             $is_complete = $data['is_complete'];
         
 
-            $sql = "INSERT INTO `receipt` (appointment, discount, amount, current_paid, issue_date, description, is_complete) VALUES ('$appointment' , '$discount' , '$amount' , '$current_paid' , '$issue_date' , '$description' ,'$is_complete')";
+            $sql = "INSERT INTO `receipt` (patient_id, bank_name, bank_branch, bank_acc_no, 
+                        discount, amount, issue_date, expiry_date, description, is_complete) 
+                            VALUES ('$patient_id' , '$bank_name' , '$bank_branch' , '$bank_acc_no' , 
+                                '$discount' , '$amount' , '$issue_date' , '$expiry_date' , '$description' ,'$is_complete')";
 
             $result = $this->DB->insert($sql);
 
