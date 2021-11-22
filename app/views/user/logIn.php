@@ -70,7 +70,7 @@
               Submit
             </button>
             <p class="text-center">
-              New here? <a href="<?php echo URLROOT; ?>/patient/showRegister" id="sign-up" class="sign-up">Sign up</a> |
+              New here? <a href="<?php echo URLROOT; ?>/patient/register" id="sign-up" class="sign-up">Sign up</a> |
               <a href="#" id="lost-password" class="lost-password"
                 >Lost Password</a
               >

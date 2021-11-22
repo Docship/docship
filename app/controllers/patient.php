@@ -3,14 +3,25 @@
     class Patient extends Controller{
 
         public function index(){
+
+            if($_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
             $this->view('patient/index', []);
         }
 
+        /*
         public function showRegister(){
             redirect('patient/register') ;
         }
+        */
 
         public function register(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -51,10 +62,10 @@
 
                         $result = $patientModel->insert($data);
 
-                        if($result==1){
+                        if($result!=-1){
                             redirect('user/login?user=patient');
                         }else {
-                            $data['system_err'] = 'Error Occured in System!';
+                            $data['db_err'] = 'Error Occured in System!';
                             $data['result'] = $result;
                             $this->view('patient/register', $data);
                         }
@@ -64,7 +75,7 @@
                         //$this->view('patient/dumy', $data);
                         $this->view('patient/register', $data);
                     } else {
-                        $data['system_err'] = 'Error Occured in System! patient existance checking fail';
+                        $data['db_err'] = 'Error Occured in System! patient existance checking fail';
                         //$this->view('patient/dumy', $data);
                         $this->view('patient/register', $data);
                     }

@@ -3,16 +3,25 @@
     class Admin extends Controller{
 
         public function index(){
+
+            if($_SESSION['role'] != 'admin'){
+                redirect('pages/prohibite?user='.$_SESSION['role']);
+            }
+
             $this->view('admin/index', []);
         }
 
         //extra - admin doesn't need to be registered explicitly
         public function showRegister(){
-            redirect('admin/register') ;
+            redirect('doctor/register?user=admin');
         }
 
         //extra - admin doesn't need to be registered explicitly
         public function register(){
+
+            if($_SESSION['role'] != 'admin'){
+                redirect('pages/prohibite?user='.$_SESSION['role']);
+            }
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -53,8 +62,8 @@
 
                         $result = $adminModel->insert($data);
 
-                        if($result==1){
-                            redirect('user/login?user=admin');
+                        if($result!=-1){
+                            redirect('admin/index?user=admin');
                             //or else redirect to user admin!?
                         }else {
                             $data['system_err'] = 'Error Occured in System!';
@@ -64,11 +73,10 @@
                         
                     }if($result==1) {
                         $data['isExist'] = true;
-                        //$this->view('doctor/dumy', $data);
                         $this->view('admin/register', $data);
                     } else {
                         $data['system_err'] = 'Error Occured in System! admin existance checking fail';
-                        //$this->view('doctor/dumy', $data);
+
                         $this->view('admin/register', $data);
                     }
                 }else {
@@ -101,7 +109,7 @@
                     'isExist' => false
                   ];
                 
-                $this->view('admin/register' , $data) ;
+                $this->view('admin/doc_register' , $data);
             }
         }
     }

@@ -66,8 +66,8 @@
             $is_complete = $data['is_complete'];
         
 
-            $sql = "INSERT INTO `receipt` (patient_id, bank_name, bank_branch, bank_acc_no, 
-                        discount, amount, issue_date, expiry_date, description, is_complete) 
+            $sql = "INSERT INTO `receipt` (`patient_id`, `bank_name`, `bank_branch`, `bank_acc_no`, 
+                        `discount`, `amount`, `issue_date`, `expiry_date`, `description`, `is_complete`) 
                             VALUES ('$patient_id' , '$bank_name' , '$bank_branch' , '$bank_acc_no' , 
                                 '$discount' , '$amount' , '$issue_date' , '$expiry_date' , '$description' ,'$is_complete')";
 
@@ -76,4 +76,6 @@
             return $result;
 
         }
+
+
     }

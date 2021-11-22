@@ -48,9 +48,15 @@ final class Database {
                 //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
                 return -1;
               }
+
             $this->mysqli -> query($sql);
             //$this->mysqli -> close();
-            return 1;
+            $id = $this->mysqli->insert_id;
+            if(is_null($id)){
+                // did for safety reasons
+                $id = -1;
+            }
+            return $id;
         }catch(Exception $e){
             //$this->mysqli -> close();
             return -1;
@@ -140,6 +146,8 @@ final class Database {
 
         return $type;
     }
+
+    /*
       
     public function query($sql){
         $stmt = $this->dbh->prepare($sql);
@@ -209,5 +217,6 @@ final class Database {
         return ERR_DB;
         
     }
+    */
 
 }

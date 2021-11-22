@@ -14,6 +14,16 @@
   define('SITENAME', 'DOCSHIP');
   // App Version
   define('APPVERSION', '1.0.0');
+
+  //Bank Details
+  define('BANK_NAME', 'BOC');
+  define('BANK_BARNCH', 'Negambo');
+  define('BANK_ACC', '0123456789');
+
+  //Formats
+  define('FORMAT_DATE' , 'yyyy-MM-dd');
+  define('FORMAT_TIME' , 'h:i A');
+
   
   
   //Variables

@@ -3,16 +3,24 @@
     class Doctor extends Controller{
 
         public function index(){
+            if($_SESSION['role'] != 'doctor'){
+                redirect('pages/prohibite?user='.$_SESSION['role']);
+            }
+
             $this->view('doctor/index', []);
         }
 
         public function showRegister(){
-            redirect('doctor/register') ;
+            redirect('doctor/register?user='.$_SESSION['role']) ;
         }
 
         public function register(){
 
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if($_SESSION['role'] != 'admin'){
+                redirect('pages/prohibite?user='.$_SESSION['role']);
+            }
+
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -81,11 +89,11 @@
 
                         $result = $doctorModel->insert($data);
 
-                        if($result==1){
-                            redirect('user/login?user=doctor');
+                        if($result!=-1){
+                            redirect('admin/index?user=admin');
                             //or else redirect to user admin!?
                         }else {
-                            $data['system_err'] = 'Error Occured in System!';
+                            $data['db_err'] = 'Error Occured in System!';
                             $data['result'] = $result;
                             $this->view('doctor/register', $data);
                         }
@@ -95,7 +103,7 @@
                         //$this->view('doctor/dumy', $data);
                         $this->view('doctor/register', $data);
                     } else {
-                        $data['system_err'] = 'Error Occured in System! doctor existance checking fail';
+                        $data['db_err'] = 'Error Occured in System! doctor existance checking fail';
                         //$this->view('doctor/dumy', $data);
                         $this->view('doctor/register', $data);
                     }

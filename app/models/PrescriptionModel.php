@@ -58,7 +58,7 @@
             $description = $data['description'];
             $issue_date = $data['issue_date'];    
 
-            $sql = "INSERT INTO `prescription` (patient_id , description, issue_date) 
+            $sql = "INSERT INTO `prescription` (`patient_id` , `description`, `issue_date`) 
                         VALUES ('$patient_id ' , '$description' ,'$issue_date')";
 
             $result = $this->DB->insert($sql);

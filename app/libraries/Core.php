@@ -14,9 +14,13 @@
     }
 
     public function setAttributes(){
+
+      $this->resetAttribute();
+
       $url = $this->getUrl();
 
-      if(!isset($_SESSION['role']) && !empty($url)){
+      
+      if(isset($_SESSION['time'])){
         $this->currentController = 'User';
         $this->currentMethod = 'login';
         $this->params = [];
@@ -33,9 +37,32 @@
         $this->currentController = $controllers->getController($this->currentController);
 
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+
       }
+      
+      
+
+      /*
       elseif((!empty($url) && (isset($_SESSION['role']) || ucwords($url[0])!=ucwords('user')))){
-        if(ucwords($url[0])!=$_SESSION['role']){
+
+        if($_SESSION['role']=='admin' && ucwords($url[0])==ucwords('doctor') && (ucwords($url[1])==ucwords('regsiter') || ucwords($url[1])==ucwords('update'))){
+
+          $this->currentController = ucwords('doctor');
+          // Require the controller Factory
+          require_once '../app/controllers/'. 'ControllerFactory' . '.php';
+
+          // Require the controller library
+          require_once 'Controller.php';
+
+          $controllers = ControllerFactory::getInstance();
+
+          // Instantiate controller class
+          $this->currentController = $controllers->getController($this->currentController);
+        }
+        */
+
+        /*
+        elseif(ucwords($url[0])!=ucwords($_SESSION['role'])){
           $this->currentController = 'Pages';
           $this->currentMethod = 'prohibit';
           $this->params = [];
@@ -54,29 +81,27 @@
           call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
         }
       }
-      // Look in controllers for first value
-      elseif(file_exists('../app/controllers/' . ucwords($url[0]). '.php')){
+      */
+      if(file_exists('../app/controllers/' . ucwords($url[0]). '.php')){
         // If exists, set as controller
         $this->currentController = ucwords($url[0]);
           // Unset 0 Index
         unset($url[0]);
         
-      }
-      elseif(isset($_SESSION['role'])){
+      }elseif(isset($_SESSION['role'])){
         $this->currentController=$_SESSION['role'];
       }
 
-      // Require the controller Factory
-      require_once '../app/controllers/'. 'ControllerFactory' . '.php';
+       // Require the controller Factory
+       require_once '../app/controllers/'. 'ControllerFactory' . '.php';
 
-      // Require the controller library
-      require_once 'Controller.php';
+       // Require the controller library
+       require_once 'Controller.php';
 
-      $controllers = ControllerFactory::getInstance();
+       $controllers = ControllerFactory::getInstance();
 
-      // Instantiate controller class
-      $this->currentController = $controllers->getController($this->currentController);
-
+       // Instantiate controller class
+       $this->currentController = $controllers->getController($this->currentController);
       // Check for second part of url
       if(isset($url[1])){
         // Check to see if method exists in controller
@@ -116,5 +141,11 @@
         return $config;
       }
       return false;
+    }
+
+    private function resetAttribute(){
+      $this->currentController = 'pages';
+      $this->currentMethod = 'index';
+      $this->params = [];
     }
   } 

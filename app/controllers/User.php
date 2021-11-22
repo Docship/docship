@@ -86,7 +86,7 @@
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['fname'] =$user['firstname'];
             $_SESSION['lname'] =$user['lastname'];
-            $_SESSION['role'] = $role;
+            $_SESSION['role'] = lcfirst($role);
         }
 
         public function logout(){
@@ -97,7 +97,7 @@
             unset($_SESSION['lname']);
             unset($_SESSION['role']);
             session_destroy();
-            redirect('users/login');
+            redirect('users/login?logout=success&user='.$_SESSION['role']);
         }
 
         public function showLogin(){

@@ -65,14 +65,35 @@
             $description = $data['description'];
             
 
-            $sql = "INSERT INTO `appointment` (patient_id, doctor_id, time, date, 
-                        receipt_id, prescription_id, is_paid, status, description) 
+            $sql = "INSERT INTO `appointment` (`patient_id`, `doctor_id`, `time, date`, 
+                        `receipt_id`, `prescription_id`, `is_paid`, `status`, `description`) 
                             VALUES ('$patient_id' , '$doctor_id' , '$time' , '$date' , 
                                 '$receipt_id' , '$prescription_id' , '$is_paid' , '$status' , '$description')";
 
             $result = $this->DB->insert($sql);
 
             return $result;
+
+        }
+
+        public function isDoctorFree($id , $date , $time) {
+            $sql = "SELECT * FROM `appointment` WHERE `doctor_id`='$id' AND `time`='$time' AND `date`='$date'";
+            $result = $this->DB->selectOne($sql);
+
+            $output = array();
+            
+            if(!is_null($result)){
+                if(sizeof($result)>0){
+                    // busy
+                    return 1;
+                }else {
+                    // free
+                    return 0;
+                }
+            }else {
+                // db error
+                return -1;
+            }
 
         }
     }
