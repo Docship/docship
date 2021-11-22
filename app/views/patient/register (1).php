@@ -1,4 +1,3 @@
-<?php require_once APPROOT."/views/inc/error_input.php";?>
 <!doctype html>
 <html lang="en">
 
@@ -27,82 +26,55 @@
                     </p>
                     <div class="form-row">
                         <div class="col-lg-6 my-1">
-                            <input name="fname" type="text" class="form-control shadow-none input-text"
-                                value = "<?php echo $data['fname']; ?>"
+                            <input name="fname" type="text" class="form-control shadow-none"
                                 placeholder="First name" />
-                                <div><?php 
-                                    echo getErrorMessage($data['fname_err']);
-                                ?></div>
+                            <small>Please enter a valid name</small>
                         </div>
                         <div class="col-lg-6 my-1">
-                            <input name="lname" type="text" class="form-control shadow-none input-text"
-                                value = "<?php echo $data['lname']; ?>"
+                            <input name="lname" type="text" class="form-control shadow-none"
                                 placeholder="Last name" />
-                                <div><?php 
-                                    echo getErrorMessage($data['lname_err']);
-                                ?></div>
+                            <small id="error-first-name">Please enter a valid name</small>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col-lg-6 my-1">
-                            <input name="email" type="email" class="form-control shadow-none input-text" placeholder="Email" value = "<?php echo $data['email']; ?>"/>
-                            <div><?php 
-                                    echo getErrorMessage($data['email_err']);
-                                ?>
-                            </div>
+                            <input name="email" type="email" class="form-control shadow-none" placeholder="Email" />
+                            <small id="error-email">Please enter a valid email</small>
                         </div>
                         <div class="col-lg-6 my-1">
-                            <input name="telephone" type="tel" class="form-control shadow-none input-text"
-                                value = "<?php echo $data['telephone']; ?>"
+                            <input name="telephone" type="tel" class="form-control shadow-none"
                                 placeholder="Whatsapp No" />
-                                <div><?php 
-                                    echo getErrorMessage($data['telephone_err']);
-                                ?>
-                                </div>
+                            <small id="error-whatsapp-no">Please enter a valid phone no</small>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col-lg-6 my-1">
-                            <input name="password" id="passwordInput" type="password" class="form-control shadow-none input-text"
-                                value = "<?php echo $data['password']; ?>"
+                            <input name="password" id="passwordInput" type="password" class="form-control shadow-none"
                                 placeholder="Password" />
-                                <div><?php 
-                                    echo getErrorMessage($data['password_err']);
-                                ?>
-                                </div>
+                            <small id="error-password">Please enter a valid password</small>
                         </div>
                         <div class="col-lg-6 my-1">
-                            <input name="repassword" type="password" class="form-control shadow-none input-text"
-                                value = "<?php echo $data['repassword']; ?>"
+                            <input name="repassword" type="password" class="form-control shadow-none"
                                 placeholder="Re-type password" />
-                                <div><?php 
-                                    echo getErrorMessage($data['repassword_err']);
-                                ?>
-                                </div>
+                            <small id="re-type-password">Please enter a valid password</small>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col-lg-6 my-1">
-                            <input placeholder="Birthday" name="bday" class="form-control shadow-none" id="bday" type="text"
-                                onfocus="(this.type='date')" onblur="(this.type='text')" id="date" value = "<?php echo $data['bday']; ?>" />
-                                <div><?php 
-                                    echo getErrorMessage($data['bday_err']);
-                                ?>
-                                </div>
+                            <input placeholder="Birthday" name="bday" class="form-control shadow-none" type="text"
+                                onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                            <small id="error-bday">Please enter a valid birthday</small>
                         </div>
                         <div class="col-lg-6 my-1">
                             <select id="inputGender" name="gender" class="form-control shadow-none">
-                                <option value="error" selected disabled>Gender</option>
-                                <option value="Male" <?php echo ((isset($data['gender'])) && $data['gender']=="Male") ? "selected":""; ?>>Male</option>
-                                <option value="Female" <?php echo ((isset($data['gender'])) && $data['gender']=="Female") ? "selected":""; ?>>Female</option>
+                                <option selected disabled>Gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
                             </select>
-                            <div><?php 
-                                    echo getErrorMessage($data['gender_err']);
-                                ?>
-                            </div>
+                            <small id="error-gender">Please enter the gender</small>
                         </div>
                     </div>
 
@@ -134,3 +106,4 @@
 </body>
 
 </html>
+

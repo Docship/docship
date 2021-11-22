@@ -23,6 +23,8 @@
                     'password' => trim($_POST['password']),
                     'email_err' => '',
                     'password_err' => '',
+                    'role_err' => '',
+                    
                     'isExist' => true      
                   ];
 
@@ -38,19 +40,18 @@
                     $result = $model->findByEmailAndPassword($data['email'] , $data['password']);
 
                     if(!isset($result['value'])){
-                        $data['system_err'] = 'Error Occured in System!';
-                        $data['error_message'] = "Error Occured in System!";
-                        //$this->view('error/error', $data);
-                        $this->view('user/login?error=system_fail' , $data);
+                        $data['db_err'] = 'Error Occured in System!';
+                        $this->view('user/login' , $data);
 
                     }else {
                         if(sizeof($result['value'])==0) {
-                            $data['isExist'] = false;
-                            $data['result'] = $result;
-                            $data['role'] = $role;
-                            $data['error_message'] = "No such user exists!";
+                            if($result['error']=="invalid_email"){
+                                $data['email_err'] = "No such account for this email address";
+                            }elseif($result['error']=="wrong_password"){
+                                $data['password_err'] = "Invalid password";
+                            }
                             //$this->view('error/error', $data);
-                            $this->view('user/login?error=invalid_password' , $data);
+                            $this->view('user/login' , $data);
                         } else {
                             $user = $result['value'];
                             $this->createUserSession($user , $role);
@@ -62,7 +63,7 @@
                     
                 }else {
                     // invalid input data
-                    $this->view('user/login?data=invalid' , $data) ; 
+                    $this->view('user/login' , $data); 
                 }
 
             }else {
@@ -72,6 +73,7 @@
                     'email' => '',
                     'password' => '',
                     'email_err' => '',
+                    'role_err' => '',
                     'password_err' => '',
                     'isExist' => true         
                   ];

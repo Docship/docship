@@ -65,7 +65,7 @@
             $description = $data['description'];
             
 
-            $sql = "INSERT INTO `appointment` (`patient_id`, `doctor_id`, `time, date`, 
+            $sql = "INSERT INTO `appointment` (`patient_id`, `doctor_id`, `time`, `date`, 
                         `receipt_id`, `prescription_id`, `is_paid`, `status`, `description`) 
                             VALUES ('$patient_id' , '$doctor_id' , '$time' , '$date' , 
                                 '$receipt_id' , '$prescription_id' , '$is_paid' , '$status' , '$description')";

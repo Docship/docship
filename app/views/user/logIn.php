@@ -1,3 +1,4 @@
+<?php require_once APPROOT."/views/inc/error_input.php";?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,8 +40,12 @@
                   type="email"
                   class="form-control form-control-lg shadow-none"
                   placeholder="Email"
+                  value = "<?php echo $data['email']; ?>"
                 />
-                <small>demo</small>
+                <div><?php 
+                echo getErrorMessage($data['email_err']);
+                ?></div>
+
               </div>
               <div class="col-sm-12" id="log-password">
                 <input
@@ -48,17 +53,20 @@
                   type="password"
                   class="form-control form-control-lg shadow-none"
                   placeholder="Password"
+                  value = "<?php echo $data['password']; ?>"
                 />
-                <small>demo</small>
+                <div><?php 
+                echo getErrorMessage($data['password_err']);
+                ?></div>
               </div>
               <div class="col-sm-12" id="role">
-                <select id="inputGender" name="role" class="form-control form-control-lg shadow-none">
+                <select id="inputRole" name="role" class="form-control form-control-lg shadow-none">
                     <option selected disabled>I am a</option>
-                    <option value="doctor">Doctor</option>
-                    <option value="patient">Patient</option>
-                    <option value="admin">Admin</option>
+                    <option value="doctor" <?php echo ((isset($data['role'])) && $data["role"]=="doctor") ? "selected":""; ?>>Doctor</option>
+                    <option value="patient" <?php echo ((isset($data['role'])) && $data["role"]=="patient") ? "selected":""; ?>>Patient</option>
+                    <option value="admin" <?php echo ((isset($data['role'])) && $data["role"]=="admin") ? "selected":""; ?>>Admin</option>
                 </select>
-                <small>demo</small>
+                <div><?php echo getErrorMessage($data['role_err'])?></div>
               </div>
             </div>
             <button
@@ -93,5 +101,6 @@
     ></script>
 
     <script src="<?php echo URLROOT; ?>/js/loginSignup.js"></script>
+
   </body>
 </html>

@@ -29,8 +29,8 @@
 
                 $data =[
                     'role'=> 'patient',
-                    'fname'=> trim($_POST['fname']),
-                    'lname'=> trim($_POST['lname']),
+                    'fname'=> ucwords(trim($_POST['fname'])),
+                    'lname'=> ucwords(trim($_POST['lname'])),
                     'email' => trim($_POST['email']),
                     'bday'=> trim($_POST['bday']),
                     'telephone'=> trim($_POST['telephone']),
@@ -45,6 +45,7 @@
                     'email_err'=>'',
                     'telephone_err' => '',
                     'bday_err'=>'',
+                    'gender_err'=>'',
                     'isExist' => false
                   ];
 
@@ -66,12 +67,11 @@
                             redirect('user/login?user=patient');
                         }else {
                             $data['db_err'] = 'Error Occured in System!';
-                            $data['result'] = $result;
                             $this->view('patient/register', $data);
                         }
                         
-                    }if($result==1) {
-                        $data['isExist'] = true;
+                    }elseif($result==1) {
+                        $data['email_err'] = "Already account exist for this email";
                         //$this->view('patient/dumy', $data);
                         $this->view('patient/register', $data);
                     } else {
@@ -107,10 +107,98 @@
                     'email_err'=>'',
                     'telephone_err' => '',
                     'bday_err'=>'',
+                    'gender_err'=>'',
                     'isExist' => false
                   ];
                 
                 $this->view('patient/register' , $data) ;
             }
+        }
+
+        public function appointment(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                //$result = $this->model('Appointment');
+
+                $this->view('patient/appointments') ;
+
+            }
+
+
+        }
+
+        public function prescriptions(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $result = $this->model('Prescriptions');
+
+                $this->view('patient/prescriptions') ;
+
+
+            }
+
+
+        }
+
+        public function message(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                //$result = $this->model('Message');
+
+                $this->view('patient/messages') ;
+
+
+            }
+
+
+        }
+
+        public function update(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $result = $this->model('Patient');
+
+                $this->view('patient/update') ;
+
+
+            }
+
+
         }
     }

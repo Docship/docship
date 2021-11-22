@@ -19,17 +19,17 @@
 
       $url = $this->getUrl();
 
-      
+      // Require the controller Factory
+      require_once '../app/controllers/'. 'ControllerFactory' . '.php';
+
+      // Require the controller library
+      require_once 'Controller.php';
+
+  
       if(isset($_SESSION['time'])){
         $this->currentController = 'User';
         $this->currentMethod = 'login';
         $this->params = [];
-
-        // Require the controller Factory
-        require_once '../app/controllers/'. 'ControllerFactory' . '.php';
-
-        // Require the controller library
-        require_once 'Controller.php';
 
         $controllers = ControllerFactory::getInstance();
 
@@ -39,6 +39,7 @@
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
 
       }
+      
       
       
 
@@ -91,12 +92,6 @@
       }elseif(isset($_SESSION['role'])){
         $this->currentController=$_SESSION['role'];
       }
-
-       // Require the controller Factory
-       require_once '../app/controllers/'. 'ControllerFactory' . '.php';
-
-       // Require the controller library
-       require_once 'Controller.php';
 
        $controllers = ControllerFactory::getInstance();
 

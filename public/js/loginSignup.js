@@ -4,18 +4,19 @@ const signIn = document.querySelectorAll(".sign-in"),
     signInForm = document.querySelector(".sign-in-form"),
     signUpForm = document.querySelector(".sign-up-form"),
     lostPasswordForm = document.querySelector(".lost-password-form");
-const inputs = document.querySelectorAll('input');
+const inputs = document.querySelectorAll('.input-text');
 const smalls = document.querySelectorAll('small');
 const submitReg = document.getElementById('submit-reg');
 const select = document.querySelector('select');
+const bday = document.getElementById('bday');
 
 //regex for validation
 const patterns = {
     telephone: /^\d{10}$/,
-    firstName: /^[a-z\d]{3,12}$/,
-    lastName: /^[a-z\d]{3,12}$/,
+    firstName: /^[a-zA-Z\d]{3,12}$/,
+    lastName: /^[a-zA-Z\d]{3,12}$/,
     password: /^[\w@-]{8,20}$/,
-    email: /^([a-z\d\.-]+)(@[a-z\d-]+)\.([a-z]+)(\.[a-z]+)?$/,
+    email: /^([a-zA-Z\d\.-]+)(@[a-zA-Z\d-]+)\.([a-zA-Z]+)(\.[a-zA-Z]+)?$/,
     repassword: /^$/
 };
 
@@ -34,11 +35,12 @@ function validate(field, regex) {
     }
 }
 
-inputs[6].addEventListener('change', (e) => {
+bday.addEventListener('change', (e) => {
     if (e.target.value != '') {
         e.target.classList.add('valid');
         isBdaySelect=true;
-    }
+    }else isBdaySelect=false;
+
     buttonDisabler(addedInputData,genderSelect,isBdaySelect);
 });
 
@@ -47,7 +49,7 @@ inputs[6].addEventListener('change', (e) => {
 select.addEventListener('change', (e) => {
     e.target.classList.add('valid')
     genderSelect = true;
-    console.log(addedInputData,genderSelect,isBdaySelect);
+    //console.log(addedInputData,genderSelect,isBdaySelect);
     buttonDisabler(addedInputData,genderSelect,isBdaySelect);
 });
 
@@ -80,7 +82,8 @@ inputs.forEach((input) => {
         });
         console.log(valids);
         if ((valids == 6)) addedInputData=true;
-        else inputData=false;
+        else addedInputData=false;
+        //console.log(addedInputData);
         buttonDisabler(addedInputData,genderSelect,isBdaySelect);
     });
 });

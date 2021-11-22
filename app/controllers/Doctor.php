@@ -13,7 +13,7 @@
         public function showRegister(){
             redirect('doctor/register?user='.$_SESSION['role']) ;
         }
-
+        /*
         public function register(){
 
             if($_SESSION['role'] != 'admin'){
@@ -170,4 +170,5 @@
                 $this->view('doctor/register' , $data) ;
             }
         }
+        */
     }

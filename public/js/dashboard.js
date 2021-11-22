@@ -1,10 +1,13 @@
 /* globals Chart:false, feather:false */
+
 (function () {
     'use strict'
     feather.replace();
 })();
 
+
 /* add and hide sections */
+/*
 var selectors = []
 var destination = []
 for (let i = 0; i < 6; i++) {
@@ -25,6 +28,7 @@ for (let i of selectors) {
         }
     });
 }
+*/
 
 /* form */
 document.querySelector("#appointment-form").addEventListener("click", function () {

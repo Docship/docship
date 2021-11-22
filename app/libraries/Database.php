@@ -116,8 +116,8 @@ final class Database {
     public function selectOne($sql , $params = []){
         try{
             if ($this->mysqli -> connect_errno) {
-                //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
-                return null;
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
             }
             $result = $this->mysqli->query($sql);
             //$this->mysqli -> close();
@@ -125,7 +125,7 @@ final class Database {
             return $result->fetch_assoc();
         }catch(Exception $e){
             //$this->mysqli -> close();
-            return null;
+            return -1;
         }
     }
 

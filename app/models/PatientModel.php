@@ -34,8 +34,8 @@
 
             $output = array();
             
-            if(!is_null($result)){
-                if(empty($result)){
+            if($result!=-1){
+                if(is_null($result)){
                     $output['error'] = "invalid_email";
                     $output['value'] = [];
                     // email not exist
@@ -52,6 +52,7 @@
                 }else {
                     // pwd not match with email
                     $output['error'] = "wrong_password";
+                    $output['value'] = [];
                     // email not exist
                     return $output;
                 }
