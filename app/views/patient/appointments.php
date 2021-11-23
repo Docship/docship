@@ -1,153 +1,195 @@
-<?php require_once APPROOT."/views/inc/header_patient.php"; ?>
+<?php 
+  function getStatusColor($status){
+    switch($status){
+      case 'PENDING':
+        return 'orange';
+      case 'CONFIRMED':
+        return 'green';
+      case 'CANCELED':
+        return 'red';
+      default: return 'black';       
+    }
+  }
+?>
+<?php require_once APPROOT . "/views/inc/header_patient.php"; ?>
 
 
 <!-- Appointments -->
-<main role="main" class="appointments invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="b">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="title">Appointments</h2>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <!-- <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div> -->
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="appointment-form">
-              <!--<span data-feather="calendar"></span>-->
-              New Appointment
-            </button>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-        <h2 class="subtitle">Upcoming Appointments</h2>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
-            <!--<span data-feather="x-circle" class="mr-2"></span>-->
-            Cancel
-          </button>
-
-        </div>
+<main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="b">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="title">Appointments</h2>
+    <div class="show-appointment-error">
+          <?php 
+            $message = "";
+            if(isset($data['db_err'])){ $message .= 'System was failed to do the task.' . '</br>';}
+            else {
+              if(isset($data['date_err']) && !empty($data['date_err'])){
+                if($data['date_err'] == 'invalid_input'){ $message .= 'You entered date input is invalid'. '</br>';}
+                else {
+                  $message .= $data['date_err']. '</br>';
+                }
+              }if(isset($data['time_err']) && !empty($data['time_err'])){
+                if($data['time_err'] == 'invalid_input'){ $message .= 'You entered time input is invalid'. '</br>';}
+                else {
+                  $message .= $data['time_err']. '</br>';
+                }
+              }
+            }
+            echo $message;
+          ?>
+    </div>
+      <div class="btn-toolbar mb-2 mb-md-0<?php echo !(isset($data['doctors']) && !empty($data['doctors']))? ' invisible':''; ?>">
+        <button type="button" class="btn btn-sm btn-outline-primary" id="appointment-form">
+          <span data-feather="calendar"></span>
+          New Appointment
+        </button>
       </div>
-        
-        <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Doctor</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 1</td>
-                <td>2021/10/29</td>
-                <td>15:10</td>
-                <td>Dr.Bimsara</td>
-                <td><span class="status green"></span>
-                  Confirmed</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 2</td>
-                <td>2021/10/30</td>
-                <td>14:10</td>
-                <td>Dr.Dilusha</td>
-                <td><span class="status orange"></span>
-                  Pending</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 3</td>
-                <td>2021/10/30</td>
-                <td>15:10</td>
-                <td>Dr.Kasun</td>
-                <td><span class="status red"></span>
-                  Cancelled</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 4</td>
-                <td>2021/11/3</td>
-                <td>18:00</td>
-                <td>Dr.Nirmal</td>
-                <td><span class="status green"></span>
-                  Confirmed</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 5</td>
-                <td>2021/10/29</td>
-                <td>15:10</td>
-                <td>Dr.Bimsara</td>
-                <td><span class="status orange"></span>
-                  Pending</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 6</td>
-                <td>2021/10/30</td>
-                <td>14:10</td>
-                <td>Dr.Dilusha</td>
-                <td><span class="status red"></span>
-                  Cancelled</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 7</td>
-                <td>2021/10/30</td>
-                <td>15:10</td>
-                <td>Dr.Kasun</td>
-                <td><span class="status green"></span>
-                  Confirmed</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 8</td>
-                <td>2021/11/3</td>
-                <td>18:00</td>
-                <td>Dr.Nirmal</td>
-                <td><span class="status orange"></span>
-                  Pending</td>
-              </tr>
+  </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
+    <!--<h2 class="subtitle">All Appointments</h2>-->
+    <div class="btn-toolbar mb-2 mb-md-0<?php echo !(isset($data['appointments']) && !empty($data['appointments']))? ' invisible':''; ?>">
+      <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
+        <span data-feather="x-circle" class="mr-2"></span>
+        Cancel
+      </button>
+
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-sm<?php echo !(isset($data['appointments']))? ' invisible':''; ?>" >
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Doctor ID</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+          if(isset($data['appointments'])){
+            if(!empty($data['appointments'])){
+              foreach($data['appointments'] as $appointment){
+                $r1 = "<td><input type='checkbox' >". $appointment['id'] . "</td>";
+                $r2 = "<td>" . $appointment['date'] . "</td>";
+                $r3 = "<td>" . $appointment['doctor_id'] . "</td>";
+                $color = getStatusColor($appointment['status']);
+                $r4 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . "</tr>";
+
+                echo $row;
+              }
              
-            </tbody>
-          </table>
-        </div>
-      </main>
+            }else {
+              echo "<p>" . 'No any Appointment available.' . "</p>";
+            }
+          }
+        ?>
+      </tbody>
+    </table>
+  </div>
+</main>
 
-      <!-- Appointment form -->
+<!-- Appointment form -->
+
+<div class="popup-container">
+  <div class="close-btn">&times;</div>
+  <div class="container">
+    <form action="<?php echo URLROOT; ?>/appointment/add" method="post"class="mx-sm-1 mx-md-2 mx-lg-3 my-5">
+      <h2 class="text-center subtitle">New Appointment</h2>
+
+      <input placeholder="Date" name="day" class="form-control  my-2 " type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+
+      <select id="inputGender" name="category" id="category" class="form-control shadow-none">
+                                <option selected disabled>Specialization</option>
+                                <option>Allergist</option>
+                                <option>Dermatologist</option>
+                                <option>Ophthalmologist</option>
+                                <option>Obstetrician</option>
+                                <option>Gynecologist</option>
+                                <option>Cardiologist</option>
+                                <option>Endocrinologist</option>
+                                <option>Gastroenterologist</option>
+      </select>
+
+
+      <select id="doctor" class="form-control my-2 ">
+        <option selected>Doctor</option>
+        <?php
+        if(isset($data['doctors']) && !is_null($data['doctors'])){
+          $category = $dochtml->getElementById('category');
+          if(is_null($category)){
+            foreach($data['doctors'] as $doctor){
+              $option = "<option value = ".$doctor['id'] ."> Dr ". $doctor['firstname'] . "</option>" ;
+              echo $option;
+            }
+          }else {
+            foreach($data['doctors'] as $doctor){
+              if($doctor['category'] == $category){
+                $option = "<option value = ".$doctor['id'] ."> Dr ". $doctor['firstname'] . "</option>" ;
+                echo $option;
+              }
+              
+            }
+          }
+        }
+      ?>
+      </select>
+
+      <?php 
+        if(isset($data['doctors']) && !is_null($data['doctors'])){
+          $doctor_id = $dochtml->getElementById('doctor');
+          if($doctor_id!=null){
+            $amount = 0.0;
+            foreach($data['doctors'] as $doctor){
+              if($doctor['id'] == $doctor_id){
+                $amount = $doctor['charge_amount'];
+                echo "<input class='form-control' name='amount' id='amount' type='text' placeholder='charge' value='Rs. " . $amount. "' disabled>";
+              }
+            }
+          }
+        }
       
-      <div class="popup-container">
-        <div class="close-btn">&times;</div>
-        <div class="container">
-          <form class="mx-sm-1 mx-md-2 mx-lg-3 my-5">
-            <h2 class="text-center subtitle">New Appointment</h2>            
+      ?>
+      
+      <!--<input class="form-control" name="amount" id="amount" type="text" placeholder="charge" disabled>-->
 
-                <input placeholder="Date" name="day" class="form-control  my-2 " type="text"
-                                    onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-        
-
-                <select id="inputGender" class="form-control my-2 ">
-                  <option selected>Doctor</option>
-                  <option>Dr. Dilusha</option>
-                  <option>Dr. Bimsara</option>
-                  <option>Dr. Kasun</option>
-                  <option>Dr. Nirmal</option>
-              </select>
-
-              <select id="inputTime" class="form-control my-2 ">
-                <option selected>Time</option>
-                <option>17.00</option>
-                <option>17.30</option>
-                <option>18.00</option>
-                <option>18.30</option>
-            </select>
-
-
-
-              <button type="submit" class="btn btn-danger w-100 my-2">
-                Create new Appointment
-              </button>
-
-            
-          </form>
-        </div>
-      </div>
+      <select id="inputTime" class="form-control my-2 ">
+        <option selected>Time</option>
+        <option>05.00Am</option>
+                                <option>06.00Am</option>
+                                <option>07.00Am</option>
+                                <option>08.00Am</option>
+                                <option>09.00Am</option>
+                                <option>10.00Am</option>
+                                <option>11.00Am</option>
+                                <option>12.00Pm</option>
+                                <option>01.00Pm</option>
+                                <option>02.00Pm</option>
+                                <option>03.00Pm</option>
+                                <option>04.00Pm</option>
+                                <option>05.00Pm</option>
+                                <option>06.00Pm</option>
+                                <option>07.00Pm</option>
+                                <option>08.00Pm</option>
+                                <option>09.00Pm</option>
+                                <option>10.00Pm</option>
+                                <option>11.00Pm</option>
+                                <option>12.00Pm</option>
+      </select>
 
 
-<?php require_once APPROOT."/views/inc/footer_patient.php"; ?>
+
+      <button type="submit" class="btn btn-primary w-100 my-2">
+        Create new Appointment
+      </button>
+
+
+    </form>
+  </div>
+</div>
+
+
+<?php require_once APPROOT . "/views/inc/footer_patient.php"; ?>

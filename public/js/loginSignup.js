@@ -6,7 +6,7 @@ const signIn = document.querySelectorAll(".sign-in"),
     lostPasswordForm = document.querySelector(".lost-password-form");
 const inputs = document.querySelectorAll('.input-text');
 const smalls = document.querySelectorAll('small');
-const submitReg = document.getElementById('submit-reg');
+const submitReg = document.getElementById('submit-reg-patient');
 const select = document.querySelector('select');
 const bday = document.getElementById('bday');
 
@@ -14,8 +14,8 @@ const bday = document.getElementById('bday');
 //regex for validation
 const patterns = {
     telephone: /^\d{10}$/,
-    firstName: /^[a-zA-Z\d]{3,12}$/,
-    lastName: /^[a-zA-Z\d]{3,12}$/,
+    fname: /^[a-zA-Z\d]{3,12}$/,
+    lname: /^[a-zA-Z\d]{3,12}$/,
     password: /^[\w@-]{8,20}$/,
     email: /^([a-zA-Z\d\.-]+)(@[a-zA-Z\d-]+)\.([a-zA-Z]+)(\.[a-zA-Z]+)?$/,
     repassword: /^$/

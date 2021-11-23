@@ -96,4 +96,28 @@
             }
 
         }
+
+        public function findByPatientId($patientid){
+            $sql = "SELECT * FROM `appointment` WHERE patient_id='$patientid'";
+            $result = $this->DB->selectOne($sql);
+
+            $output = array();
+            
+            if(!is_null($result)){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+        }
     }

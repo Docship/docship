@@ -236,3 +236,10 @@ tr td:last-child{
 .close-btn:hover{
   background-color: #FF605C;
 }
+
+.show-appointment-error{
+  color: #C82333;
+  border: 1px solid #C82333;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  border-radius: 0.2rem;
+}

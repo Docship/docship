@@ -107,7 +107,7 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary w-100 shadow-none my-1" name="submit" id="submit-reg-patient">
+                    <button type="submit" class="btn btn-primary w-100 shadow-none my-1" name="submit" id="submit-reg-patient" disabled>
                         Create My Account
                     </button>
                     <p class="text-center">

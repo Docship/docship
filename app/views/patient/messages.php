@@ -1,6 +1,6 @@
 <?php require_once APPROOT."/views/inc/header_patient.php"; ?>
       <!-- Messages -->
-      <main role="main" class="messages invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="D">
+      <main role="main" class="messages col-md-9 ml-sm-auto col-lg-10 px-md-4" id="D">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="title">Messages</h2>

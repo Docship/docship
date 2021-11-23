@@ -413,11 +413,11 @@
 
             if(!self::isValidTime($data['time'])){
                 $result = false;
-                $data['time_err'] = "Invalid time";
+                $data['time_err'] = "invalid_input";
             }
             if(!self::isValidDate($data['date'])){
                 $result = false;
-                $data['date_err'] = "Invalid date";
+                $data['date_err'] = "invalid_input";
             }
             if(!self::isValidAmount($data['amount'])){
                 $result = false;

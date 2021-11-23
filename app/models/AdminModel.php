@@ -34,24 +34,25 @@
 
             $output = array();
             
-            if(!is_null($result)){
-                if(empty($result)){
+            if($result!=-1){
+                if(is_null($result)){
                     $output['error'] = "invalid_email";
                     $output['value'] = [];
                     // email not exist
                     return $output;
                 }
-                $patient = $result;
-                $password = $patient['pwd'];
+                $admin = $result;
+                $password = $admin['pwd'];
                 $pwdmatch = password_verify($pwd , $password);
                 if($pwdmatch){
                     // patient
-                    $output['value'] = $patient;
+                    $output['value'] = $admin;
                     // email not exist
                     return $output;
                 }else {
                     // pwd not match with email
                     $output['error'] = "wrong_password";
+                    $output['value'] = [];
                     // email not exist
                     return $output;
                 }

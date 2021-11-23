@@ -145,8 +145,8 @@
                     'bank_name'=> trim($_POST['bank_name']),
                     'bank_branch'=> trim($_POST['bank_branch']),
                     'bank_acc_no'=> trim($_POST['bank_acc_no']),
-                    'total_income'=> trim($_POST['total_income']),
-                    'current_arrears'=> trim($_POST['current_arrears']),
+                    'total_income'=> 0.0,
+                    'current_arrears'=> 0.0,
                     
                     
                     'role_err'=>'',

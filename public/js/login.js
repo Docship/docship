@@ -14,7 +14,6 @@ var isInputed =false;
 role.addEventListener('change', (e) => {
     e.target.classList.add('valid');
     isRoleSelect = true;
-    console.log(isroleSelect,isInputed);
     buttonDisabler(isRoleSelect,isInputed);
 });
 
@@ -30,10 +29,7 @@ function validate(field, regex) {
 
 inputTexts.forEach((input) => {
     input.addEventListener('keyup', (e) => {
-        console.log(isroleSelect,isInputed);
         validate(e.target, patterns[e.target.attributes.name.value])
-        
-
         // check are there any warnings. if have submit button will disable 
         var valids = 0;
         inputTexts.forEach((input1) => {

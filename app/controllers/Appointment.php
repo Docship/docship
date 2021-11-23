@@ -23,7 +23,7 @@ class Appointment extends Controller
                 'amount' => trim($_POST['amount']),
                 'time' => trim($_POST['time']),
 
-
+                'status' => 'PENDING',
                 'date_err' => '',
                 'category_err' => '',
                 'doctor_err' => '',
@@ -100,25 +100,10 @@ class Appointment extends Controller
                     $this->view('patient/appointments', $data);
                 }
             } else {
-                // request is not post request
-                $data = [
-                    'date' => '',
-                    'category' => '',
-                    'doctor' => '',
-                    'amount' => '',
-                    'time' => '',
+                // handle get request
 
-
-                    'date_err' => '',
-                    'category_err' => '',
-                    'doctor_err' => '',
-                    'amount_err' => '',
-                    'time_err' => '',
-
-                    'isExist' => false
-                ];
-
-                $this->view('patient/appointments', $data);
+                //$this->view('patient/appointments', $data);
+                redirect('patient/appointment');
             }
         }
     }

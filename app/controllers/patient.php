@@ -129,10 +129,28 @@
 
                 //$result = $this->model('Appointment');
 
+                //$result = $this->model('Message');
+
+                $result = $this->model('Doctor')->getAll();
+                $data = array();
+                if($result==-1){
+                    //$data['db_err'] = "system failure";
+                    //$this->view('patient/messages' , $data);
+                }else {
+                    $data['doctors'] = $result;
+                    //$this->view('patient/messages' , $data);
+                }
+
+                $appointments_result = $this->model('Appointment')->findByPatientId($_SESSION['user_id']);
+
+                if(isset($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
                 $this->view('patient/appointments') ;
-
             }
-
 
         }
 
@@ -151,11 +169,7 @@
                 $result = $this->model('Prescriptions');
 
                 $this->view('patient/prescriptions') ;
-
-
             }
-
-
         }
 
         public function message(){
@@ -165,18 +179,11 @@
             }
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
+                redirect('pages/prohibit?user='.$_SESSION['role']);
             }
-
             else {
-
-                //$result = $this->model('Message');
-
-                $this->view('patient/messages') ;
-
-
+                $this->view('patient/messages');
             }
-
 
         }
 

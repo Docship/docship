@@ -84,7 +84,7 @@ final class Database {
 
             if ($this->mysqli -> connect_errno) {
                 //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
-                return null;
+                return -1;
             }
             $result = $this->mysqli->query($sql);
             //$this->mysqli -> close();
@@ -92,7 +92,7 @@ final class Database {
             return $result->fetch_all(MYSQLI_ASSOC);
         }catch(Exception $e){
             //$this->mysqli -> close();
-            return null;
+            return -1;
         }
 
         /*
