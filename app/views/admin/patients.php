@@ -1,21 +1,20 @@
 
 
-      <!-- Home -->
-      <main role="main" class="home col-md-9 ml-sm-auto col-lg-10 px-md-4" id="A">
+
+      
+      <!-- Patients -->
+      <main role="main" class="patients invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="C">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="title">Home</h1>
+          <h1 class="title">Patients</h2>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary ">
+            <button type="button" class="btn btn-sm btn-outline-secondary">
               <span data-feather="calendar"></span>
+              New Appointment
             </button>
           </div>
         </div>
-        <h2 class="subtitle">Section title</h2>
+        <h2 class="subtitle">Patient List</h2>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
             <thead>
@@ -55,14 +54,7 @@
                 <td>placeholder</td>
                 <td>illustrative</td>
                 <td>data</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-              </tr>
+              </tr>             
             </tbody>
           </table>
         </div>

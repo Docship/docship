@@ -69,7 +69,7 @@
                             $data['db_err'] = 'Error Occured in System!';
                             $this->view('patient/register', $data);
                         }
-                        
+
                     }elseif($result==1) {
                         $data['email_err'] = "Already account exist for this email";
                         //$this->view('patient/dumy', $data);
@@ -110,7 +110,7 @@
                     'gender_err'=>'',
                     'isExist' => false
                   ];
-                
+
                 $this->view('patient/register' , $data) ;
             }
         }
@@ -131,7 +131,7 @@
 
                 //$result = $this->model('Message');
 
-                
+
 
                 $result = $this->model('Doctor')->getAll();
                 $data = array();
@@ -150,7 +150,7 @@
                 }else {
                     //$data['appointments'] = null;
                 }
-                
+
 
                 $this->view('patient/appointments' , $data) ;
             }
@@ -234,7 +234,7 @@
                     //$this->view('patient/messages' , $data);
                 }
 
-                $this->view('patient/dumy' , $data) ;
+                $this->view('patient/doctors' , $data) ;
 
 
             }

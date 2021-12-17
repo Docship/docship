@@ -1,13 +1,13 @@
 <?php require_once APPROOT."/views/inc/header_patient.php"; ?>
 
 <!-- Doctors -->
-<main role="main" class="invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="C">
+<main role="main" class="doctors col-md-9 ml-sm-auto col-lg-10 px-md-4" id="C">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="title">Doctors</h2>
         </div>
         <h2 class="subtitle">Doctor List</h2>
         <div class="table-responsive">
-        <?php 
+        <?php
           if(isset($data['doctors'])){
             if(!empty($data['doctors'])){
               echo "<table class='table table-striped table-sm' >";
@@ -33,7 +33,7 @@
               }
               echo " </tbody>";
               echo "</table>";
-             
+
             }else {
               echo "<br><p>" . 'No any Doctor available in the System.' . "</p>";
             }
