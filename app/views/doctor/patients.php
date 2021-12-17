@@ -1,5 +1,6 @@
+<?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
 <!-- Patients -->
-<main role="main" class="doctors invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="C">
+<main role="main" class="doctors col-md-9 ml-sm-auto col-lg-10 px-md-4" id="C">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="title">Patients</h2>
@@ -50,8 +51,10 @@
                 <td>placeholder</td>
                 <td>illustrative</td>
                 <td>data</td>
-              </tr>             
+              </tr>
             </tbody>
           </table>
         </div>
       </main>
+
+<?php require_once APPROOT."/views/inc/footer_patient.php"; ?>

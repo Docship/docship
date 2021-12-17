@@ -35,8 +35,8 @@
                     'password'=>trim($_POST['password']),
                     'repassword'=>trim($_POST['repassword']),
                     'telephone'=> trim($_POST['telephone']),
-                    
-                    
+
+
                     'role_err'=>'',
                     'fname_err'=>'',
                     'lname_err'=>'',
@@ -44,7 +44,7 @@
                     'password_err' => '',
                     'repassword_err' => '',
                     'telephone_err' => '',
-                    
+
                     'isExist' => false
                   ];
 
@@ -70,10 +70,10 @@
                             $data['result'] = $result;
                             $this->view('admin/register', $data);
                         }
-                        
+
                     }if($result==1) {
                         $data['isExist'] = true;
-                        $this->view('admin/register', $data);
+                        $this->view('admin/doctor_register', $data);
                     } else {
                         $data['system_err'] = 'Error Occured in System! admin existance checking fail';
 
@@ -98,7 +98,7 @@
                     'repassword' => '',
                     'telephone' => '',
 
-                    
+
                     'role_err'=>'',
                     'fname_err'=>'',
                     'lname_err'=>'',
@@ -108,12 +108,12 @@
                     'telephone_err' => '',
                     'isExist' => false
                   ];
-                
-                $this->view('admin/doc_register' , $data);
+
+                $this->view('admin/register' , $data);
             }
         }
 
-        public function register_doctor(){
+        public function doctor_register(){
 
             if($_SESSION['role'] != 'admin'){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
@@ -147,8 +147,8 @@
                     'bank_acc_no'=> trim($_POST['bank_acc_no']),
                     'total_income'=> 0.0,
                     'current_arrears'=> 0.0,
-                    
-                    
+
+
                     'role_err'=>'',
                     'fname_err'=>'',
                     'lname_err'=>'',
@@ -172,7 +172,7 @@
                     'bank_acc_no_err' => '',
                     'total_income_err' => '',
                     'current_arrears_err' => '',
-                    
+
                     'isExist' => false
                   ];
 
@@ -191,26 +191,26 @@
                         $result = $doctorModel->insert($data);
 
                         if($result!=-1){
-                            redirect('admin/index?user=admin');
+                            redirect('admin/doctors');
                             //or else redirect to user admin!?
                         }else {
                             $data['db_err'] = 'Error Occured in System!';
                             $data['result'] = $result;
-                            $this->view('admin/register_doctor', $data);
+                            $this->view('admin/doctor_register', $data);
                         }
-                        
+
                     }if($result==1) {
                         $data['isExist'] = true;
                         //$this->view('doctor/dumy', $data);
-                        $this->view('admin/register_doctor', $data);
+                        $this->view('admin/doctor_register', $data);
                     } else {
                         $data['db_err'] = 'Error Occured in System! doctor existance checking fail';
                         //$this->view('doctor/dumy', $data);
-                        $this->view('admin/register_doctor', $data);
+                        $this->view('admin/doctor_register', $data);
                     }
                 }else {
                     //invalid input data
-                    $this->view('admin/register_doctor', $data);
+                    $this->view('admin/doctor_register', $data);
                 }
 
 
@@ -243,7 +243,7 @@
                     'total_income'=> '',
                     'current_arrears'=> '',
 
-                    
+
                     'role_err'=>'',
                     'fname_err'=>'',
                     'lname_err'=>'',
@@ -269,8 +269,139 @@
 
                     'isExist' => false
                   ];
-                
-                  $this->view('admin/register_doctor', $data);
+
+                  $this->view('admin/doctor_register', $data);
             }
         }
-    }
+
+        public function appointments(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->getAll();
+
+                if($appointments_result!=-1){
+                    $data['appointments'] = $appointments_result;
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+
+                $this->view('admin/appointments' , $data) ;
+            }
+
+        }
+
+        public function doctors(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                //$result = $this->model('Appointment');
+
+                //$result = $this->model('Message');
+
+
+
+                $result = $this->model('Doctor')->getAll();
+                $data = array();
+                if($result==-1){
+                    //$data['db_err'] = "system failure";
+                    //$this->view('patient/messages' , $data);
+                }else {
+                    $data['doctors'] = $result;
+                    //$this->view('patient/messages' , $data);
+                }
+
+                $this->view('admin/doctors' , $data) ;
+            }
+
+        }
+
+        public function message(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                //
+            }
+            else {
+                $this->view('admin/messages');
+            }
+
+        }
+
+        /*
+        public function update(){
+
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $result = $this->model('Admin');
+
+                $this->view('admin/update') ;
+
+
+            }
+
+        }
+        */
+
+        public function patients(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                //$result = $this->model('Appointment');
+
+                //$result = $this->model('Message');
+
+
+
+                $result = $this->model('Patient')->getAll();
+                $data = array();
+                if($result==-1){
+                    //$data['db_err'] = "system failure";
+                    //$this->view('patient/messages' , $data);
+                }else {
+                    $data['patients'] = $result;
+                    //$this->view('patient/messages' , $data);
+                }
+
+                $this->view('admin/patients' , $data) ;
+            }
+
+        }
+}

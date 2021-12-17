@@ -23,9 +23,21 @@
     </button>
     
     <div class="user-wrapper mx-2">
-      <img src="<?php echo URLROOT; ?>/img/user.png" alt="" width="40px" height="40px" />
+      <img src="<?php echo URLROOT; ?>/img/user.png" alt="" width="40px" height="40px" 
+      data-toggle="modal" data-target=".logout-popup"
+      />
     </div>
   </nav>
+
+  <div class="modal logout-popup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header"><h4>Logout <i class="fa fa-lock"></i></h4></div>
+        <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+        <div class="modal-footer"><a href="<?php echo URLROOT; ?>/user/logout" class="btn btn-primary btn-block">Logout</a></div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="container-fluid">
@@ -35,13 +47,13 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#" id="a">
+              <a class="nav-link active" href="<?php echo URLROOT; ?>\admin\index" id="a">
                 <span data-feather="home"></span>
                 Home <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\index" id="b">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="b">
                 <span data-feather="calendar"></span>
                 Doctors
               </a>
@@ -50,12 +62,6 @@
               <a class="nav-link" href="<?php echo URLROOT; ?>\admin\patients" id="c">
                 <span data-feather="users"></span>
                 Patients
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="c">
-                <span data-feather="users"></span>
-                Doctors
               </a>
             </li>
 
@@ -67,18 +73,12 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\messages" id="e">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\message" id="e">
                 <span data-feather="message-circle"></span>
                 Messages
               </a>
             </li>
             
-            <li class="nav-item">
-              <a class="nav-link" href="#" id="f">
-                <span data-feather="settings"></span>
-                Settings
-              </a>
-            </li>
           </ul>          
         </div>
       </nav>

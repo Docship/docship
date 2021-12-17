@@ -1,4 +1,18 @@
-<main role="main" class="appointments invisible col-md-9 ml-sm-auto col-lg-10 px-md-4" id="B">
+<?php 
+  function getStatusColor($status){
+    switch($status){
+      case 'PENDING':
+        return 'orange';
+      case 'CONFIRMED':
+        return 'green';
+      case 'CANCELED':
+        return 'red';
+      default: return 'black';       
+    }
+  }
+?>
+<?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
+<main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="B">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="title">Appointments</h2>
@@ -23,85 +37,43 @@
 
         </div>
       </div>
-        
+
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Doctor</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 1</td>
-                <td>2021/10/29</td>
-                <td>15:10</td>
-                <td>Dr.Bimsara</td>
-                <td><span class="status green"></span>
-                  Confirmed</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 2</td>
-                <td>2021/10/30</td>
-                <td>14:10</td>
-                <td>Dr.Dilusha</td>
-                <td><span class="status orange"></span>
-                  Pending</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 3</td>
-                <td>2021/10/30</td>
-                <td>15:10</td>
-                <td>Dr.Kasun</td>
-                <td><span class="status red"></span>
-                  Cancelled</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 4</td>
-                <td>2021/11/3</td>
-                <td>18:00</td>
-                <td>Dr.Nirmal</td>
-                <td><span class="status green"></span>
-                  Confirmed</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 5</td>
-                <td>2021/10/29</td>
-                <td>15:10</td>
-                <td>Dr.Bimsara</td>
-                <td><span class="status orange"></span>
-                  Pending</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 6</td>
-                <td>2021/10/30</td>
-                <td>14:10</td>
-                <td>Dr.Dilusha</td>
-                <td><span class="status red"></span>
-                  Cancelled</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 7</td>
-                <td>2021/10/30</td>
-                <td>15:10</td>
-                <td>Dr.Kasun</td>
-                <td><span class="status green"></span>
-                  Confirmed</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="" id=""> 8</td>
-                <td>2021/11/3</td>
-                <td>18:00</td>
-                <td>Dr.Nirmal</td>
-                <td><span class="status orange"></span>
-                  Pending</td>
-              </tr>
+        <?php 
+          if(isset($data['appointments'])){
+            if(!empty($data['appointments'])){
+              echo "<table class='table table-striped table-sm' >";
+              echo "<thead>";
+              echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Date</th>";
+                echo "<th>Time</th>";
+                echo "<th>Doctor ID</th>";
+                echo "<th>Status</th>";
+              echo "</tr>";
+              echo "</thead>";
+              echo "<tbody>";
+              foreach($data['appointments'] as $appointment){
+                $r1 = "<td><input type='checkbox' >". $appointment['id'] . "</td>";
+                $r2 = "<td>" . $appointment['date'] . "</td>";
+                $r3 = "<td>" . $appointment['time'] . "</td>";
+                $r4 = "<td>" . $appointment['doctor_id'] . "</td>";
+                $color = getStatusColor($appointment['status']);
+                $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . "</tr>";
+
+                echo $row;
+              }
+              echo " </tbody>";
+              echo "</table>";
              
-            </tbody>
-          </table>
+            }else {
+              echo "<br><p>" . 'No any Appointment available.' . "</p>";
+            }
+          }else {
+            echo "<br><p style='color:red'>" . 'System failure.' . "</p>";
+          }
+        ?>
         </div>
       </main>
+<?php require_once APPROOT."/views/inc/footer_patient.php"; ?>
