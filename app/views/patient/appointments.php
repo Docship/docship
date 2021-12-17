@@ -18,27 +18,12 @@
 <main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="b">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2 class="title">Appointments</h2>
+    <!--
     <div class="show-appointment-error">
-          <?php 
-            $message = "";
-            if(isset($data['db_err'])){ $message .= 'System was failed to do the task.' . '</br>';}
-            else {
-              if(isset($data['date_err']) && !empty($data['date_err'])){
-                if($data['date_err'] == 'invalid_input'){ $message .= 'You entered date input is invalid'. '</br>';}
-                else {
-                  $message .= $data['date_err']. '</br>';
-                }
-              }if(isset($data['time_err']) && !empty($data['time_err'])){
-                if($data['time_err'] == 'invalid_input'){ $message .= 'You entered time input is invalid'. '</br>';}
-                else {
-                  $message .= $data['time_err']. '</br>';
-                }
-              }
-            }
-            echo $message;
-          ?>
+          
     </div>
-      <div class="btn-toolbar mb-2 mb-md-0<?php echo !(isset($data['doctors']) && !empty($data['doctors']))? ' invisible':''; ?>">
+-->
+      <div class="btn-toolbar mb-2 mb-md-0">
         <button type="button" class="btn btn-sm btn-outline-primary" id="appointment-form">
           <span data-feather="calendar"></span>
           New Appointment
@@ -46,8 +31,8 @@
       </div>
   </div>
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-    <!--<h2 class="subtitle">All Appointments</h2>-->
-    <div class="btn-toolbar mb-2 mb-md-0<?php echo !(isset($data['appointments']) && !empty($data['appointments']))? ' invisible':''; ?>">
+    <h2 class="subtitle">Upcoming Appointments</h2>
+    <div class="btn-toolbar mb-2 mb-md-0">
       <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
         <span data-feather="x-circle" class="mr-2"></span>
         Cancel
@@ -57,38 +42,41 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-striped table-sm<?php echo !(isset($data['appointments']))? ' invisible':''; ?>" >
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Doctor ID</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
         <?php 
           if(isset($data['appointments'])){
             if(!empty($data['appointments'])){
+              echo "<table class='table table-striped table-sm' >";
+              echo "<thead>";
+              echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Date</th>";
+                echo "<th>Time</th>";
+                echo "<th>Doctor ID</th>";
+                echo "<th>Status</th>";
+              echo "</tr>";
+              echo "</thead>";
+              echo "<tbody>";
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td><input type='checkbox' >". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . $appointment['doctor_id'] . "</td>";
+                $r3 = "<td>" . $appointment['time'] . "</td>";
+                $r4 = "<td>" . $appointment['doctor_id'] . "</td>";
                 $color = getStatusColor($appointment['status']);
-                $r4 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . "</tr>";
+                $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . "</tr>";
 
                 echo $row;
               }
+              echo " </tbody>";
+              echo "</table>";
              
             }else {
-              echo "<p>" . 'No any Appointment available.' . "</p>";
+              echo "<br><p>" . 'No any Appointment available.' . "</p>";
             }
+          }else {
+            echo "<br><p style='color:red'>" . 'System failure.' . "</p>";
           }
         ?>
-      </tbody>
-    </table>
   </div>
 </main>
 
@@ -118,7 +106,7 @@
       <select id="doctor" class="form-control my-2 ">
         <option selected>Doctor</option>
         <?php
-        if(isset($data['doctors']) && !is_null($data['doctors'])){
+        if(isset($data['doctors']) && !empty($data['doctors'])){
           $category = $dochtml->getElementById('category');
           if(is_null($category)){
             foreach($data['doctors'] as $doctor){

@@ -99,7 +99,7 @@
             unset($_SESSION['lname']);
             unset($_SESSION['role']);
             session_destroy();
-            redirect('users/login?logout=success&user='.$_SESSION['role']);
+            redirect('users/login?logout=success');
         }
 
         public function showLogin(){

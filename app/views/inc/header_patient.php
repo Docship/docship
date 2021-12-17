@@ -72,7 +72,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\prescription" id="e">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\prescriptions" id="e">
                 <span data-feather="file-plus"></span>
                 Prescriptions
               </a>

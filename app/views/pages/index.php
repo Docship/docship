@@ -74,7 +74,7 @@
             <div class="col-md-4 style-3">
               <div class="tour-item ">
                 <div class="tour-desc bg-white">
-                  <div class="tour-text color-grey-3 text-center">“Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quia eos accusantium amet, fugit blanditiis exercitationem excepturi, labore officia consequatur maxime nihil molestias sapiente enim aperiam quibusdam quos natus odit.”</div>
+                  <div class="tour-text color-grey-3 text-center">“Book limitless physical checkups by picking the best medical services plan for yourself as well as your family by utilizing an oDoc Subscription bundle.”</div>
                   <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people" src="<?php echo URLROOT; ?>/img/doc0.jpg"
                       alt=""></div>
                   <div class="link-name d-flex justify-content-center">John Doe</div>
@@ -85,7 +85,7 @@
             <div class="col-md-4 style-3">
               <div class="tour-item ">
                 <div class="tour-desc bg-white">
-                  <div class="tour-text color-grey-3 text-center">“Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quia eos accusantium amet, fugit blanditiis exercitationem excepturi, labore officia consequatur maxime nihil molestias sapiente enim aperiam quibusdam quos natus odit.”</div>
+                  <div class="tour-text color-grey-3 text-center">“Need to do an oddball talk with a specialist? Basically pick a day and time and video channel a specialist inside the space of minutes through DocShip. Send notes and photographs at the hour of your counsel and get all the clinical guidance and care you want from the solace of your home.”</div>
                   <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people" src="<?php echo URLROOT; ?>/img/doc1.jpg"
                       alt=""></div>
                   <div class="link-name d-flex justify-content-center">Bimsara Bo</div>
@@ -96,7 +96,7 @@
             <div class="col-md-4 style-3">
               <div class="tour-item ">
                 <div class="tour-desc bg-white">
-                  <div class="tour-text color-grey-3 text-center">“Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quia eos accusantium amet, fugit blanditiis exercitationem excepturi, labore officia consequatur maxime nihil molestias sapiente enim aperiam quibusdam quos natus odit.”</div>
+                  <div class="tour-text color-grey-3 text-center">“Giving individuals available and reasonable medical services is the foundation of Docship. That incorporates your workers also. Join Docship and backing the wellbeing and prosperity of your workers.”</div>
                   <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people" src="<?php echo URLROOT; ?>/img/doc2.jpg"
                       alt=""></div>
                   <div class="link-name d-flex justify-content-center">John Smith</div>

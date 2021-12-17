@@ -82,7 +82,7 @@
 
             $output = array();
             
-            if(!is_null($result)){
+            if($result!=-1){
                 if(sizeof($result)>0){
                     // busy
                     return 1;
@@ -99,11 +99,11 @@
 
         public function findByPatientId($patientid){
             $sql = "SELECT * FROM `appointment` WHERE patient_id='$patientid'";
-            $result = $this->DB->selectOne($sql);
+            $result = $this->DB->selectAll($sql);
 
             $output = array();
             
-            if(!is_null($result)){
+            if($result!=-1){
                 if(empty($result)){
                     $output['error'] = "empty";
                     $output['value'] = [];
