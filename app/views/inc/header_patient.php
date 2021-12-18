@@ -49,7 +49,7 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href=" id="a">
+              <a class="nav-link active" href="<?php echo URLROOT; ?>\patient\index" id="a">
                 <span data-feather="home"></span>
                 Home <span class="sr-only">(current)</span>
               </a>
@@ -73,7 +73,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\prescriptions" id="e">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\prescription" id="e">
                 <span data-feather="file-plus"></span>
                 Prescriptions
               </a>

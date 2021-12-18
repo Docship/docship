@@ -58,4 +58,10 @@
         </div>
       </main>
 
+<<<<<<< HEAD
       <?php require_once APPROOT."/views/inc/footer.php"; ?>
+=======
+
+
+      <?php require_once APPROOT."/views/inc/footer_patient.php"; ?>
+>>>>>>> dev-dil
