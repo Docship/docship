@@ -15,4 +15,4 @@
         <p>Messages are here</p>
       </main>
 
-      <?php require_once APPROOT."/views/inc/footer_patient.php"; ?>
+      <?php require_once APPROOT."/views/inc/footer.php"; ?>
