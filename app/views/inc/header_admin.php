@@ -5,12 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <title><?php echo SITENAME; ?></title>
+  <title>DocShip | Dashboard</title>
 
-    <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
-  <!-- FontAwesome pro -->
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
 </head>
 
@@ -41,7 +40,6 @@
   </div>
 
 
-
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar menu -->
@@ -49,41 +47,38 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="<?php echo URLROOT; ?>\patient\index" id="a">
+              <a class="nav-link active" href="<?php echo URLROOT; ?>\admin\index" id="a">
                 <span data-feather="home"></span>
                 Home <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\appointment" id="b">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="b">
                 <span data-feather="calendar"></span>
-                Appointments
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\doctors" id="c">
-                <span data-feather="users"></span>
                 Doctors
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\message" id="d">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\patients" id="c">
+                <span data-feather="users"></span>
+                Patients
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\appointments" id="d">
+                <span data-feather="file-plus"></span>
+                Appointments
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\message" id="e">
                 <span data-feather="message-circle"></span>
                 Messages
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\prescriptions" id="e">
-                <span data-feather="file-plus"></span>
-                Prescriptions
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\update" id="f">
-                <span data-feather="settings"></span>
-                Edit Account
-              </a>
-            </li>
+            
           </ul>          
         </div>
       </nav>

@@ -11,37 +11,34 @@
     }
   }
 ?>
-<?php require_once APPROOT . "/views/inc/header_patient.php"; ?>
+<?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
+<main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="B">
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="title">Appointments</h2>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <!-- <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            </div> -->
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="appointment-form">
+              <span data-feather="calendar"></span>
+              New Appointment
+            </button>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
+        <h2 class="subtitle">Upcoming Appointments</h2>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
+            <span data-feather="x-circle" class="mr-2"></span>
+            Cancel
+          </button>
 
-
-<!-- Appointments -->
-<main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="b">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="title">Appointments</h2>
-    <!--
-    <div class="show-appointment-error">
-          
-    </div>
--->
-      <div class="btn-toolbar mb-2 mb-md-0">
-        <button type="button" class="btn btn-sm btn-outline-primary" id="appointment-form">
-          <span data-feather="calendar"></span>
-          New Appointment
-        </button>
+        </div>
       </div>
-  </div>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-    <h2 class="subtitle">Upcoming Appointments</h2>
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
-        <span data-feather="x-circle" class="mr-2"></span>
-        Cancel
-      </button>
 
-    </div>
-  </div>
-
-  <div class="table-responsive">
+        <div class="table-responsive">
         <?php 
           if(isset($data['appointments'])){
             if(!empty($data['appointments'])){
@@ -77,7 +74,6 @@
             echo "<br><p style='color:red'>" . 'System failure.' . "</p>";
           }
         ?>
-  </div>
-</main>
-
-<?php require_once APPROOT."/views/inc/footer.php"; ?>
+        </div>
+      </main>
+<?php require_once APPROOT."/views/inc/footer_patient.php"; ?>

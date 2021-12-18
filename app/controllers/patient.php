@@ -69,7 +69,7 @@
                             $data['db_err'] = 'Error Occured in System!';
                             $this->view('patient/register', $data);
                         }
-                        
+
                     }elseif($result==1) {
                         $data['email_err'] = "Already account exist for this email";
                         //$this->view('patient/dumy', $data);
@@ -110,7 +110,7 @@
                     'gender_err'=>'',
                     'isExist' => false
                   ];
-                
+
                 $this->view('patient/register' , $data) ;
             }
         }
@@ -131,6 +131,8 @@
 
                 //$result = $this->model('Message');
 
+
+
                 $result = $this->model('Doctor')->getAll();
                 $data = array();
                 if($result==-1){
@@ -149,7 +151,8 @@
                     //$data['appointments'] = null;
                 }
 
-                $this->view('patient/appointments') ;
+
+                $this->view('patient/appointments' , $data) ;
             }
 
         }
@@ -166,7 +169,7 @@
 
             else {
 
-                $result = $this->model('Prescriptions');
+                $result = $this->model('Prescription');
 
                 $this->view('patient/prescriptions') ;
             }
@@ -202,6 +205,36 @@
                 $result = $this->model('Patient');
 
                 $this->view('patient/update') ;
+
+
+            }
+
+
+        }
+
+        public function doctors(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $result = $this->model('Doctor')->getAll();
+                $data = array();
+                if($result==-1){
+                    //$data['db_err'] = "system failure";
+                    //$this->view('patient/messages' , $data);
+                }else {
+                    $data['doctors'] = $result;
+                    //$this->view('patient/messages' , $data);
+                }
+
+                $this->view('patient/doctors' , $data) ;
 
 
             }

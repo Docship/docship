@@ -10,4 +10,15 @@
       return $message;
     }
   }
+
+  function isExist($var)
+  {
+    $message = "";
+    if($var){
+      $error = "Email already exist.";
+      $message = "<small style = 'color:red;'> ".$error." </small>";
+    }
+    return $message;
+    
+  }
 ?>

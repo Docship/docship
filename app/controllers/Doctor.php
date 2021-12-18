@@ -47,8 +47,8 @@
                     'bank_acc_no'=> trim($_POST['bank_acc_no']),
                     'total_income'=> trim($_POST['total_income']),
                     'current_arrears'=> trim($_POST['current_arrears']),
-                    
-                    
+
+
                     'role_err'=>'',
                     'fname_err'=>'',
                     'lname_err'=>'',
@@ -71,7 +71,7 @@
                     'bank_acc_no_err' => '',
                     'total_income_err' => '',
                     'current_arrears_err' => '',
-                    
+
                     'isExist' => false
                   ];
 
@@ -97,7 +97,7 @@
                             $data['result'] = $result;
                             $this->view('doctor/register', $data);
                         }
-                        
+
                     }if($result==1) {
                         $data['isExist'] = true;
                         //$this->view('doctor/dumy', $data);
@@ -141,7 +141,7 @@
                     'total_income'=> '',
                     'current_arrears'=> '',
 
-                    
+
                     'role_err'=>'',
                     'fname_err'=>'',
                     'lname_err'=>'',
@@ -166,9 +166,90 @@
 
                     'isExist' => false
                   ];
-                
+
                 $this->view('doctor/register' , $data) ;
             }
         }
         */
+
+        public function appointments(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'doctor'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->findByDoctorId($_SESSION['user_id']);
+
+                if(isset($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+
+                $this->view('doctor/appointments' , $data) ;
+            }
+
+        }
+
+        public function prescriptions(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'doctor'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $result = $this->model('Prescription');
+
+                $this->view('doctor/prescriptions') ;
+            }
+        }
+
+        public function message(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'doctor'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+            else {
+                $this->view('doctor/messages');
+            }
+
+        }
+
+        public function update(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'doctor'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $result = $this->model('Doctor');
+
+                $this->view('doctor/update') ;
+
+
+            }
+
+
+        }
     }

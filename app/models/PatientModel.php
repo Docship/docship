@@ -80,4 +80,10 @@
             return $result;
 
         }
+
+        public function getAll(){
+            $sql = "SELECT * FROM `patient` WHERE 1";
+            $result = $this->DB->selectAll($sql);
+            return $result;
+        }
     }

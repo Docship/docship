@@ -16,8 +16,7 @@
     require_once 'libraries/' . $className . '.php';
   });
   */
-  
+
   require_once 'libraries/LibFactory.php';
   require_once 'libraries/Validate.php';
   require_once 'libraries/Date.php';
-
