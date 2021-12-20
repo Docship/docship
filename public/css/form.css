@@ -10,16 +10,9 @@
     --color-important-text: #343a40;
 }
 
-.fill,
-.image {
-    transition: all 0.5s ease-in-out;
-}
-
-.sign-in-form .image,
-.sign-up-form .image,
-.lost-password-form .image {
+.image-login,
+.image-register{
     padding: 0;
-    background: url("http://localhost/docship/img/img1.jpg");
     height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
@@ -29,9 +22,8 @@
 @media screen and (max-width:810px) {
 
     /*ipad width*/
-    .sign-in-form .image,
-    .sign-up-form .image,
-    .lost-password-form .image {
+    .image-register,
+    .image-login{
         height: 30vh;
     }
 
@@ -55,7 +47,7 @@
 
 .sign-in-form .fill,
 .sign-up-form .fill,
-.lost-password-form .fill {
+.lost-password-form .fill{
     display: flex;
     align-items: center;
     justify-content: center;

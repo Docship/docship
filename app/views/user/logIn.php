@@ -20,7 +20,7 @@
   <body>
     <div class="container-fluid sign-in-form">
       <div class="row">
-        <div class="col-lg-5 .image-login"></div>
+        <div class="col-lg-5 image-login" style="background:url(<?php echo URLROOT; ?>/img/img-register.jpg)"></div>
 
         <div class="col-lg-7 px-5 fill">
           <form
