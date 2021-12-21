@@ -115,7 +115,7 @@
             }
         }
 
-        public function appointment(){
+        public function appointments(){
 
             if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
@@ -156,6 +156,25 @@
             }
 
         }
+
+        public function appointment(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+                $data = array();
+                $this->view('patient/appointment' , $data) ;
+            }
+
+        }
+
+
 
         public function prescriptions(){
 

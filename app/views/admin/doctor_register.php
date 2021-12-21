@@ -253,7 +253,7 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
 
-    <script src="<?php echo URLROOT; ?>/js/loginSignup.js"></script>
+    <script src="<?php echo URLROOT; ?>/js/doctorReg.js"></script>
 
 </body>
 

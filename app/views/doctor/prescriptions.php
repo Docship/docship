@@ -14,4 +14,4 @@
         <h2 class="subtitle">Prescriptions</h2>
         <p>prescriptions are here</p>
       </main>
-<?php require_once APPROOT."/views/inc/footer_patient.php"; ?>
+<?php require_once APPROOT."/views/inc/footer.php"; ?>

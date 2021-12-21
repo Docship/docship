@@ -8,4 +8,4 @@
         <h2 class="subtitle">Edit</h2>
 
       </main>
-<?php require_once APPROOT."/views/inc/footer_patient.php"; ?>
+<?php require_once APPROOT."/views/inc/footer.php"; ?>

@@ -36,6 +36,14 @@
 
                     $role = ucwords($data['role']);
                     $model = $this->model($role);
+
+                    
+                    if($model==null){
+                        $data["role_err"] = "Invalid role selected.";
+                        $this->view('user/login' , $data);
+                        return; 
+                    }
+                    
                     
                     $result = $model->findByEmailAndPassword($data['email'] , $data['password']);
 

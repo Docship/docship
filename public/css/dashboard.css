@@ -29,8 +29,8 @@
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 3.5rem 0 0; /* Height of navbar */
+  z-index: 100; 
+  padding: 3.5rem 0 0; 
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
@@ -42,8 +42,11 @@
   .flex-column{
     display: flex;
     align-items: center;
+  }  
+
+  .user-wrapper{
+    display: none;
   }
-  
 }
 
 .sidebar-sticky {
@@ -108,10 +111,10 @@
 }
 
 
-.navbar .navbar-toggler {
-  top: .25rem;
+/* .navbar .navbar-toggler {
+  top: 1rem;
   right: 1rem;
-}
+} */
 
 .user-wrapper{
   display: flex;
@@ -146,10 +149,14 @@ button:focus{
 }
 
 /* * Home */
-.home{
-  
+.highlight-card{
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 0px rgba(125,125,125,0.5);
 }
 
+.highlight-card:hover{
+  box-shadow: 2px 2px 7.5px 0px rgba(150,150,150,0.75);
+}
 
 /* * Appointments */
 td .status{
