@@ -24,7 +24,7 @@
     </div>
 -->
       <div class="btn-toolbar mb-2 mb-md-0">
-        <button type="button" class="btn btn-sm btn-outline-primary" id="appointment-form">
+        <button type="button" class="btn btn-sm btn-primary" id="appointment-form">
           <span data-feather="calendar"></span>
           New Appointment
         </button>
@@ -33,7 +33,7 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
     <h2 class="subtitle">Upcoming Appointments</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
-      <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
+      <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center" id="appointment-form">
         <span data-feather="x-circle" class="mr-2"></span>
         Cancel
       </button>

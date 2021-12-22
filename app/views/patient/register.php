@@ -27,7 +27,7 @@
                     My Health. My Hospital.
                     </p>
                     <div class="form-row">
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <input name="fname" type="text" class="form-control shadow-none input-text"
                                 value = "<?php echo $data['fname']; ?>"
                                 placeholder="First name" />
@@ -35,7 +35,7 @@
                                     echo getErrorMessage($data['fname_err']);
                                 ?></div>
                         </div>
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <input name="lname" type="text" class="form-control shadow-none input-text"
                                 value = "<?php echo $data['lname']; ?>"
                                 placeholder="Last name" />
@@ -46,14 +46,14 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <input name="email" type="email" class="form-control shadow-none input-text" placeholder="Email" value = "<?php echo $data['email']; ?>"/>
                             <div><?php 
                                     echo getErrorMessage($data['email_err']);
                                 ?>
                             </div>
                         </div>
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <input name="telephone" type="tel" class="form-control shadow-none input-text"
                                 value = "<?php echo $data['telephone']; ?>"
                                 placeholder="Whatsapp No" />
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <input name="password" id="passwordInput" type="password" class="form-control shadow-none input-text"
                                 value = "<?php echo $data['password']; ?>"
                                 placeholder="Password" />
@@ -74,7 +74,7 @@
                                 ?>
                                 </div>
                         </div>
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <input name="repassword" type="password" class="form-control shadow-none input-text"
                                 value = "<?php echo $data['repassword']; ?>"
                                 placeholder="Re-type password" />
@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <input placeholder="Birthday" name="bday" class="form-control shadow-none" id="bday" type="text"
                                 onfocus="(this.type='date')" onblur="(this.type='text')" id="date" value = "<?php echo $data['bday']; ?>" />
                                 <div><?php 
@@ -94,7 +94,7 @@
                                 ?>
                                 </div>
                         </div>
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-6 mt-1">
                             <select id="inputGender" name="gender" class="form-control shadow-none">
                                 <option value="error" selected disabled>Gender</option>
                                 <option value="Male" <?php echo ((isset($data['gender'])) && $data['gender']=="Male") ? "selected":""; ?>>Male</option>
@@ -108,7 +108,7 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary w-100 shadow-none my-1" name="submit" id="submit-reg-patient-change">
+                    <button type="submit" class="btn btn-primary w-100 shadow-none mt-1" name="submit" id="submit-reg-patient-change">
                         Create My Account
                     </button>
                     <p class="text-center">
