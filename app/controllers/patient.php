@@ -198,13 +198,21 @@
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            }
-
-            else {
-
-                $result = $this->model('Patient');
-
-                $this->view('patient/update') ;
+            }else {
+                $data = array();
+                $result = $this->model('Patient')->findById($_SESSION['user_id']);
+                if (isset($result['value'])) {
+                    if (isset($result['error'])){
+                        $data['isExist'] = false;
+                    }else{
+                        $data['patient'] = $result['value'];
+                        $data['isExist'] = true;
+                    }
+                }else{
+                    $data['db_err'] = "System Error";
+                }
+                
+                $this->view('patient/update', $data) ;
 
 
             }

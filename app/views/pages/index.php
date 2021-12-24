@@ -53,12 +53,12 @@
 
     <!-- The header content -->
     <div class="container h-100">
-      <div class="d-flex h-100 text-center align-items-center">
-        <div class="w-100 text-white">
-          <h1 class="header">Channel your Doctor from <b>Anywhere.</b> <b>Anytime.</b></h1>
-
-          <p class="lead mb-0">The #1 doctor channelling platform in SriLanka</p>
+      <div class="d-flex h-100 align-items-center text-white">
+        <div class="w-100">
+        <h1 class="header text-center">Channel your Doctor from <br> <span id="change">Anywhere.</span> <span>Anytime.</span></h1>
+        <h2 class="text-center">The #1 doctor channelling platform in SriLanka</h2>
         </div>
+          
       </div>
     </div>
   </header>
@@ -141,7 +141,9 @@
     </div>
   </section>
   <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="<?php echo URLROOT; ?>/js/index.js"></script>
   <script src="<?php echo URLROOT; ?>/js/jquery.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/popper.min.js"></script>
   <script src="<?php echo URLROOT; ?>/js/bootstrap.min.js"></script>
 </body>
 

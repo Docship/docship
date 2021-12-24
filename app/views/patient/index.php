@@ -50,7 +50,7 @@
         
         <h2 class="subtitle my-3">Upcoming Appointments</h2>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>Date</th>

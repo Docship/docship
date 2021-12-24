@@ -4,14 +4,14 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="title">Update Account</h2>
     </div>
-    <!-- <h2 class="subtitle">Settings Here</h2>
+    <!-- <h2 class="subtitle">Update your account here</h2>
         <p>Messages are here</p> -->
     <div class="container rounded bg-white">
         <div class="row">
             <div class="col-lg-4 border-right">
                 <div class="d-flex flex-column align-items-center text-center py-5">
                   <img class="rounded-circle" src="<?php echo URLROOT; ?>/img/user.png" width="90">
-                    <span class="font-weight-bold">Nirmal Sankalana</span>
+                    <span class="font-weight-bold"><?php echo $data['patient']['firstname'] ?></span>
                     <span class="text-black-50">sankalana.nirmal@gmail.com</span>
                     <span>Male</span></div>
                     <div class="row">

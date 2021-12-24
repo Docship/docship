@@ -83,7 +83,6 @@
         }
 
         private function createUserSession($user , $role){
-
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['fname'] =$user['firstname'];

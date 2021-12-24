@@ -12,6 +12,13 @@
 
 html {
   scroll-behavior: smooth;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .navbar{
@@ -41,7 +48,7 @@ html {
   }
 
   .btn:focus, .btn.focus{
-      outline: none !important;
+      outline: none;
       box-shadow: none;
   }
   .btn-login{
@@ -56,60 +63,17 @@ html {
 
   .btn-register:hover{
     background-color: var(--bg-blue-hover);
-    color: var(--bg-light);
   }
 
   .btn-login:hover{
     background-color: var(--bg-green-hover);
-    color: var(--bg-light);
   }
 
 
 
-/* *navbar */
 
-@media (max-width: 992px) {
-    .navbar-collapse {
-        position: fixed;
-        top: 3rem;
-        padding: 1rem 0 1rem 0;
-        text-align: center;
-        width: 66%;
-        height: 100%;
-        background-color: #343a40;
-       
-    }
-
-    .form-inline{
-        display: block;
-    }
-
-    .btn{
-        display: block;
-        margin-bottom: 1rem;
-    }
-    
-
-    .navbar-collapse.collapsing {
-        left: -75%;
-        transition: height 0s ease;
-    }
-
-    .navbar-collapse.show {
-        left: 0;
-        transition: left 300ms ease-in-out;
-    }
-
-    .navbar-toggler.collapsed ~ .navbar-collapse {
-        transition: left 500ms ease-in-out;
-    }
-}
-  
-
-
-   header {
+header {
     position: relative;
-    /* background-color: black; */
     height: 100vh;
     min-height: 25rem;
     width: 100%;
@@ -125,7 +89,6 @@ html {
     width: auto;
     height: auto;
     z-index: 0;
-
     transform: translateX(-50%) translateY(-50%);
   }
   
@@ -140,13 +103,37 @@ html {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     opacity: 0.5;
     z-index: 1;
   }
 
-  
+  header h1{
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+  }
 
+  h2 {
+    -webkit-animation : slideIn 1s forwards;
+    -moz-animation    : slideIn 1s forwards;
+    animation         : slideIn 1s forwards;
+  } 
+  @-webkit-keyframes slideIn {
+    0%   { transform: translateY(450px); }
+    100% { transform: translateY(0);      }
+  }
+  @-moz-keyframes slideIn {
+    0%   { transform: translateY(450px); }
+    100% { transform: translateY(0);      }
+  }
+  @keyframes slideIn {
+    0%   { transform: translateY(450px); }
+    100% { transform: translateY(0);      }
+  }
+
+  header h1 span{
+    font-weight: 700;
+  }
 
   .about {
     background-color: var(--bg-light);
