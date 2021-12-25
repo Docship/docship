@@ -7,8 +7,12 @@ const signIn = document.querySelectorAll(".sign-in"),
 const inputs = document.querySelectorAll('.input-text');
 const smalls = document.querySelectorAll('small');
 const submitReg = document.getElementById('submit-reg-patient');
-const select = document.querySelector('select');
+const select = document.getElementById('inputGender');
 const bday = document.getElementById('bday');
+// const loginInputs=document.getElementsByClassName('input-text-login');
+// const loginRole = document.getElementById('inputRole');
+// const loginSubmit=document.getElementById('loginSubmit');
+
 
 
 //regex for validation
@@ -35,6 +39,38 @@ function validate(field, regex) {
         field.classList.remove('valid');
     }
 }
+
+
+// var isLoginInputsCorrect=false;
+// var isLoginRoleSelect=false;
+
+// loginInputs.forEach(input => {
+//     input.addEventListener('keyup',(e)=>{
+//         validate(e.target, patterns[e.target.attributes.name.value]);
+//         var valids=0;
+//         loginInputs.forEach(element => {
+//             if (element.classList.contains('valid')) {
+//                 valids++;
+//             }
+//         });
+//         if (valids==2) {
+//             isLoginInputsCorrect=true;
+//             buttonDisablerLogin(isLoginInputsCorrect,isLoginRoleSelect);
+//         }else isLoginInputsCorrect=false;
+//     })
+// });
+
+
+// function buttonDisablerLogin(isLoginInputsCorrect,isLoginRoleSelect) {
+//     if (isLoginInputsCorrect && isLoginRoleSelect) loginSubmit.disabled = false;
+//     else loginSubmit.disabled = true;
+// }
+
+// loginRole.addEventListener('change', (e) => {
+//     e.target.classList.add('valid')
+//     isLoginRoleSelect = true;
+//     buttonDisablerLogin(isLoginInputsCorrect,isLoginRoleSelect);
+// });
 
 bday.addEventListener('change', (e) => {
     if (e.target.value != '') {
@@ -81,7 +117,7 @@ inputs.forEach((input) => {
                 valids++;
             }
         });
-        console.log(valids);
+        //console.log(valids);
         if ((valids == 6)) addedInputData=true;
         else addedInputData=false;
         //console.log(addedInputData);
