@@ -1,6 +1,6 @@
 const inputTexts=document.querySelectorAll('.input-text-login');
 const role = document.getElementById('inputRole');
-const loginReg = document.getElementById('submit-log');
+const loginReg = document.getElementById('loginSubmit');
 
 
 const patterns = {
