@@ -8,7 +8,27 @@
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 
-            $this->view('patient/index', []);
+            $data = array();
+            $appointments_result1 = $this->model('Appointment')->getAll();
+            if($appointments_result1!=-1){
+                $data['appointments'] = array_slice($appointments_result1, 0, 3);
+            }else {
+                $data['db_err_1'] = "appointments limited searching failed"; 
+            }
+            if($appointments_result1!=-1){
+                $data['appointments_size'] = sizeof($appointments_result1);
+            }else {
+                $data['db_err_2'] = "appointments size finding failed"; 
+            }
+
+            $prescriptions_result1 = $this->model('Prescription')->getAll();
+            if($prescriptions_result1!=-1){
+                $data['prescriptions_size'] = sizeof($prescriptions_result1);
+            }else {
+                $data['db_err_3'] = "prescriptions size finding failed"; 
+            }
+
+            $this->view('patient/index', $data);
         }
 
         /*
@@ -64,24 +84,24 @@
                         $result = $patientModel->insert($data);
 
                         if($result!=-1){
-                            redirect('user/login?user=patient');
+                            redirect('user/login');
                         }else {
                             $data['db_err'] = 'Error Occured in System!';
-                            $this->view('patient/register', $data);
+                            $this->view('patient/appointment' , $data) ;
                         }
 
                     }elseif($result==1) {
                         $data['email_err'] = "Already account exist for this email";
                         //$this->view('patient/dumy', $data);
-                        $this->view('patient/register', $data);
+                        $this->view('patient/register' , $data) ;
                     } else {
                         $data['db_err'] = 'Error Occured in System! patient existance checking fail';
                         //$this->view('patient/dumy', $data);
-                        $this->view('patient/register', $data);
+                        $this->view('patient/register' , $data) ;
                     }
                 }else {
                     //invalid input data
-                    $this->view('patient/register', $data);
+                    $this->view('patient/register' , $data) ;
                 }
 
 

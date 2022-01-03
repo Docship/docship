@@ -61,9 +61,23 @@
             $sql = "INSERT INTO `prescription` (`patient_id` , `description`, `issue_date`) 
                         VALUES ('$patient_id ' , '$description' ,'$issue_date')";
 
-            $result = $this->DB->insert($sql);
+            $result = $this->DB->insert($sql , [] , 'prescription');
 
             return $result;
 
+        }
+
+        public function getAll(){
+            $status = false;
+            $sql = "SELECT * FROM `prescription`";
+            $result = $this->DB->selectAll($sql);
+            return $result;
+        }
+
+        public function getLimited($limit){
+            $status = false;
+            $sql = "SELECT * FROM `prescription` WHERE `is_exit`='$status' LIMIT '$limit'";
+            $result = $this->DB->selectAll($sql);
+            return $result;
         }
     }
