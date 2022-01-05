@@ -63,6 +63,28 @@
             }
         }
 
+        public function findById($id){
+            $sql = "SELECT * FROM `patient` WHERE id='$id'";
+            $result = $this->DB->selectAll($sql);
+            $output = [];
+            
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "invalid_email";
+                    $output['value'] = [];
+                    // email not exist
+                    return $output;
+                }
+                $patient = $result[0];
+                $output['value'] = $patient;
+                return $output;
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+        }
+
         public function insert($data){
 
             $firstname = $data['fname'];
@@ -75,7 +97,7 @@
 
             $sql = "INSERT INTO `patient` (firstname, lastname, email, pwd, bday, gender, telephone) VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' , '$telephone')";
 
-            $result = $this->DB->insert($sql);
+            $result = $this->DB->insert($sql , [] , 'patient');
 
             return $result;
 

@@ -17,8 +17,8 @@
 
         public function getModel($name){
             $name = ucwords($name);
-            if(isset($libs[$name])){
-                return $libs[$name];
+            if(isset($models[$name])){
+                return $models[$name];
             }else{
                 //require_once '../app/libraries/LibFactory.php';
                 // Require the Model
@@ -29,7 +29,7 @@
                     //require_once $name . 'Model.php';
                     $model = $name . 'Model';
                     $lib = new $model;
-                    $libs[$name] = $lib;
+                    $models[$name] = $lib;
                     return $lib;
                 }
                 catch(Exception $e) {    

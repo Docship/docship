@@ -21,7 +21,7 @@
   define('BANK_ACC', '0123456789');
 
   //Formats
-  define('FORMAT_DATE' , 'yyyy-MM-dd');
+  define('FORMAT_DATE' , '"Y-m-d"');
   define('FORMAT_TIME' , 'h:i A');
 
   

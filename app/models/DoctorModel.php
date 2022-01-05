@@ -54,14 +54,14 @@
             
             $output = array();
             
-            if(!is_null($result)){
+            if($result!=-1){
                 if(empty($result)){
                     $output['error'] = "invalid_id";
                     $output['value'] = [];
                     // email not exist
                     return $output;
                 }else {
-                    $output['value'] = $result;
+                    $output['value'] = $result[0];
                     return $output;
                 }
             }else {
@@ -116,8 +116,8 @@
             $gender = $data['gender'];
             $charge_amount = $data['charge_amount'];
             $category = $data['category'];
-            $working_from = $data['working_from'];
-            $working_to = $data['working_to'];
+            $working_from = $data['working_from_24hrs'];
+            $working_to = $data['working_to_24hrs'];
             $working_days = $data['working_days'];
             $nic = $data['nic'];
             $gov_registration_no = $data['gov_registration_no'];
@@ -137,7 +137,7 @@
                                         '$working_to', '$working_days' , '$nic', '$gov_registration_no', $discount', '$telephone', 
                                             '$bank_name', '$bank_branch', '$bank_acc_no', '$total_income', '$current_arrears')";
 
-            $result = $this->DB->insert($sql);
+            $result = $this->DB->insert($sql , [] , 'doctor');
 
             return $result;
 

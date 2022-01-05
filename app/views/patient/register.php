@@ -19,7 +19,7 @@
 <body>
     <div class="container-fluid sign-up-form">
         <div class="row">
-            <div class="col-lg-4 image"></div>
+            <div class="col-lg-4 image" style="background:url(<?php echo URLROOT; ?>/img/img-register.jpg)"></div>
             <div class="col-lg-8 px-5 fill">
                 <form action="<?php echo URLROOT; ?>/patient/register" method="post" class="mx-sm-3 mx-md-4 mx-lg-5">
                     <h1 class="text-center my-0 topic">Welcome to DocShip</h1>

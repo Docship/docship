@@ -41,7 +41,7 @@ final class Database {
         return self::$database;
       }
 
-    public function insert($sql , $params = []){
+    public function insert($sql , $params = [] , $table){
 
         try{
             if ($this->mysqli -> connect_errno) {
@@ -50,13 +50,17 @@ final class Database {
               }
 
             $this->mysqli -> query($sql);
-            //$this->mysqli -> close();
-            $id = $this->mysqli->insert_id;
-            if(is_null($id)){
-                // did for safety reasons
-                $id = -1;
+            sleep(1);
+            
+            /*
+            if (!$this->mysqli -> query($sql)) {
+                return -1;
             }
-            return $id;
+            */
+            return 0;
+            //$this->mysqli -> close();
+            
+            //return $id;
         }catch(Exception $e){
             //$this->mysqli -> close();
             return -1;
@@ -218,5 +222,42 @@ final class Database {
         
     }
     */
+
+    public function delete($sql , $params = []){
+        try{
+            if ($this->mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
+            }
+            if($this->mysqli->query($sql)){
+                return 0;
+            }
+            if($this->mysqli→errno){
+                return 1;
+            }
+            
+        }catch(Exception $e){
+            return -1;
+        }
+    }
+
+    public function update($sql , $params = []){
+        try{
+            if ($this->mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
+            }
+            if($this->mysqli->query($sql)){
+                return 0;
+            }
+            if($this->mysqli→errno){
+                return 1;
+            }
+            
+        }catch(Exception $e){
+            return -1;
+        }
+    }
+
 
 }

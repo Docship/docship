@@ -20,6 +20,15 @@
             return $result;
         }
 
+        public static function isValidCollege($name){
+            $result = false;
+
+            if((preg_match('/^[a-z\d\s]+$/', $name))){
+                $result = true;
+            }
+            return $result;
+        }
+
         public static function isValidEmail($email) {
 
             $result = true;
@@ -46,10 +55,18 @@
             return (strlen($pwd)<8 && !preg_match("/^[\w@-]{8,20}$/" , $pwd))?false:true;
         }
 
-        public static function isValidTime($working_time){
+        public static function isValidTimeFormate($time){
             //validate the time
             //format = 10.21 AM 
-            return (!preg_match("/^[0-1]\d\.[0-1]\d (A|P)M/" , $working_time))?false:true;
+            return (!preg_match("/^1?\d.\d\d\s[AP]M$/" , $time))?false:true;
+            //return is_object(DateTime::createFromFormat('h:i a', $time));
+        }
+
+        public static function isValidTime($time){
+            //validate the time
+            //format = 10.21 AM 
+            //return (!preg_match("/^[0-1]\d\.[0-1]\d (A|P)M/" , $working_time))?false:true;
+            return is_object(DateTime::createFromFormat('h:i a', $time));
         }
 
         public static function isValidGender($gender){
@@ -89,6 +106,36 @@
             $day   = $date_arr[2];
 
             return checkdate($month, $day, $year);
+        }
+
+        public static function getDateNumber($date){
+            $weekday = date('l', strtotime($date));
+            $map = array(
+            "Monday" => 1,
+            "Tuesday" => 2,
+            "Wednesday" => 3,
+            "Thursday" => 4,
+            "Friday" => 5,
+            "Saturday" => 6,
+            "Sunday" => 7
+            );
+
+            return $map[$weekday];
+        }
+
+        public static function isTimeBetween($t1 , $t2 , $t3){
+            $t1 =  date("H:i", strtotime($t1)); 
+            $t2 =  date("H:i", strtotime($t2)); 
+            $t3 =  date("H:i", strtotime($t3)); 
+            $start = strtotime($t1);
+            $end = strtotime($t2);
+            $time = strtotime($t3);
+            
+            if($time >= $start && $time <= $end) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public static function isValidBank($bank_name){
@@ -196,12 +243,21 @@
         }
 
         public static function isValidAmount($amount){
+            /*
             // To convert this number to a string:
             $amountString = (string)$amount;
             // Try to convert the string to a float
             $floatVal = floatval($amountString);
             // If the parsing succeeded and the value is not equivalent to an int
             return ($floatVal && intval($floatVal) != $floatVal); //$amount is a float
+            */
+
+            
+            $amountString = (string)$amount;
+            if(!preg_match("/^\d+(\.\d\d?)?$/" , $amountString)){
+                return false;
+            }
+            return true;
         
         }
 
@@ -313,15 +369,15 @@
                 $result = false;
                 $data['category_err'] = "Invalid Input format for category";
             }
-            if(self::isEmptyString($data['college']) || !self::isValidName($data['college']) ){
+            if(self::isEmptyString($data['college']) || !self::isValidCollege($data['college']) ){
                 $result = false;
                 $data['college_err'] = "Invalid Input format for college";
             }
-            if(!self::isValidTime($data['working_from'])){
+            if(!self::isValidTimeFormate($data['working_from'])){
                 $result = false;
                 $data['working_from_err'] = "Invalid Input format for college 'Working From' time";
             }
-            if(!self::isValidTime($data['working_to'])){
+            if(!self::isValidTimeFormate($data['working_to'])){
                 $result = false;
                 $data['working_to_err'] = "Invalid Input format for college 'Working To' time";
             }
@@ -411,17 +467,21 @@
         public static function checkAppointmentData(&$data){
             $result = true;
 
-            if(!self::isValidTime($data['time'])){
+            if($data['time']=="" || !self::isValidTimeFormate($data['time'])){
                 $result = false;
-                $data['time_err'] = "invalid_input";
+                $data['time_err'] = "invalid input";
             }
-            if(!self::isValidDate($data['date'])){
+            if($data['date']=="" || !self::isValidDate($data['date'])){
                 $result = false;
-                $data['date_err'] = "invalid_input";
+                $data['date_err'] = "invalid input";
             }
-            if(!self::isValidAmount($data['amount'])){
+            if($data['charge']=="" || !self::isValidAmount($data['charge'])){
                 $result = false;
-                $data['amount_err'] = "Invalid amount";
+                if(!($data['doctor']=="" || $data['doctor']=="Doctor")) $data['amount_err'] = "Invalid amount";
+            }
+            if($data['doctor']=="" || $data['doctor']=="Doctor"){
+                $result = false;
+                $data['doctor_err'] = "Select doctor";
             }
 
             return $result;
