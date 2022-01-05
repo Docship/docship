@@ -178,6 +178,162 @@ tr td:last-child{
   justify-content: center; */
 }
 
+/* *messages */
+.form-control:focus,
+.btn:focus {
+  border-color: none;
+  box-shadow: none;
+}
+
+.wrapper .container .row .border{
+  border-radius: 1rem;
+}
+
+.content {
+  border-radius: 1rem;  
+}
+
+.content .user{
+  border-top-left-radius: inherit; 
+  border-top-right-radius: inherit; 
+  background-color: var(--color-unimportant-text);
+}
+
+.content .user .col-2 button{
+  color: var(--bg-blue);
+  font-size: 1.5rem;
+}
+
+.chat{
+  position: relative;
+  border-bottom-left-radius: 1rem; 
+  border-bottom-right-radius: 1rem; 
+}
+
+
+.send .col-10 input{
+  border: none;
+}
+
+.send .col-2 button{
+  height:2rem;
+  width: 2rem;
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+/* .user-list {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+  height: calc(100vh - 6rem);
+} */
+
+img {
+  object-fit: cover;
+}
+
+.status {
+  background-color: var(--green);
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+
+.imessage {
+  border-radius: 0.25rem;
+  flex-direction: column;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+  height: calc(100vh - 8rem);
+}
+
+.imessage::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+
+.imessage p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  max-width: 75%;
+  padding: 0.5rem .875rem;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.imessage p::before,
+.imessage p::after {
+  bottom: -0.1rem;
+  content: "";
+  height: 1rem;
+  position: absolute;
+}
+
+p.from-me {
+  align-self: flex-end;
+  background-color: var(--bg-blue);
+  color: #fff; 
+}
+
+p.from-me::before {
+  border-bottom-left-radius: 0.8rem 0.7rem;
+  border-right: 1rem solid var(--bg-blue);
+  right: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-me::after {
+  background-color: #fff;
+  border-bottom-left-radius: 0.5rem;
+  right: -40px;
+  transform:translate(-30px, -2px);
+  width: 10px;
+}
+
+p[class^="from-"] {
+  margin: 0.5rem 0;
+  width: fit-content;
+}
+
+p.from-me ~ p.from-me {
+  margin: 0.25rem 0 0;
+}
+
+p.from-me ~ p.from-me:not(:last-child) {
+  margin: 0.25rem 0 0;
+}
+
+p.from-me ~ p.from-me:last-child {
+  margin-bottom: 0.5rem;
+}
+
+p.from-them {
+  align-items: flex-start;
+  background-color: #e5e5ea;
+  color: #000;
+}
+
+p.from-them:before {
+  border-bottom-right-radius: 0.8rem 0.7rem;
+  border-left: 1rem solid #e5e5ea;
+  left: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-them::after {
+  background-color: #fff;
+  border-bottom-right-radius: 0.5rem;
+  left: 20px;
+  transform: translate(-30px, -2px);
+  width: 10px;
+}
+
+
+
+
+
 /* * update */
 
 .form-control:focus {
