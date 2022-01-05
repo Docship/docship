@@ -252,4 +252,34 @@
 
 
         }
+
+        public function delete(){
+            if ($_SESSION['role'] != 'admin') {
+                redirect('pages/prohibite?user=' . $_SESSION['role']);
+            }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data = array();
+                $params = file_get_contents( "php://input" );
+                $params = json_decode( $params); 
+                $model = $this->model('doctor');
+                if(!empty($params)){
+                    foreach($params as $id){
+                        $result = $model->delete($id);
+                        if($result!=0){
+                            $data['cancel_err_id'] = $id;
+                            echo json_encode(array('success' => 1)); // 1 means false
+                        }
+                    }
+                }else {
+                    //redirect('patient/index');
+                }
+    
+                echo json_encode(array('success' => 0)); // 0 -> true
+            }
+    
+            else {
+                
+    
+            }
+    
+        }
     }

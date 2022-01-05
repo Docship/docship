@@ -234,10 +234,78 @@
             if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
-
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            }else {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data =[
+                    'role'=> 'patient',
+                    'fname'=> ucwords(trim($_POST['fname'])),
+                    'lname'=> ucwords(trim($_POST['lname'])),
+                    'email' => trim($_POST['email']),
+                    'bday'=> trim($_POST['bday']),
+                    'telephone'=> trim($_POST['telephone']),
+                    'gender'=> trim($_POST['gender']),
+                    'password'=>trim($_POST['password']),
+                    'repassword'=>trim($_POST['repassword']),
+                    'password_err' => '',
+                    'repassword_err' => '',
+                    'role_err'=>'',
+                    'fname_err'=>'',
+                    'lname_err'=>'',
+                    'email_err'=>'',
+                    'telephone_err' => '',
+                    'bday_err'=>'',
+                    'gender_err'=>'',
+                    'isExist' => false
+                  ];
+
+                //$validate = $this->getValidation();
+                $result = Validate::checkPatientUpdateData($data);
+
+                if($result==true){
+                    $data['hash_pwd']=password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+
+                    $patientModel = $this->model('Patient');
+
+                    $result1 = $patientModel->findByemail($data['email']);
+                    $result2 = $patientModel->findById($_SESSION('user_id'));
+
+                    if(isset($result['value']) && isset($result2['value'])){
+
+                        if(isset($result2['error'])){
+                            $data['session_err'] = 'Error Occured in User Session!';
+                            $this->view('patient/update' , $data) ;
+                        }
+
+                        if(!isset($result1['error']) && $result1['value']['id']!=$result2['value']['id']){
+                            $data['email_err'] = 'email already exist!';
+                            $this->view('patient/update' , $data) ;
+                        }
+
+                        $data['id'] = $result2['value']['id'];
+                        $result = $patientModel->update($data);
+
+                        if($result==0){
+                            redirect('patient/update');
+                        }else {
+                            $data['db_err'] = 'System failure';
+                            $this->view('patient/update' , $data) ;
+                        }
+
+
+                    }
+                    else {
+                        $data['db_err'] = 'Error Occured in System! current patient existance checking fail';
+                        //$this->view('patient/dumy', $data);
+                        $this->view('patient/update' , $data) ;
+                    }
+                }else {
+                    //invalid input data
+                    $this->view('patient/update' , $data) ;
+                }
+
+            } else {
                 $data = array();
                 $result = $this->model('Patient')->findById($_SESSION['user_id']);
                 if (isset($result['value'])) {

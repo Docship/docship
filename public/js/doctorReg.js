@@ -6,17 +6,18 @@ const checkBoxes = document.querySelectorAll('.doc-reg-check');
 const inputChanges = document.querySelectorAll('.input-change'); //birthday charge discount
 const daysDiv = document.querySelector('.days');
 const dayOut=document.getElementById("daysSelected");
+const days=document.getElementById('daysSelected');
 
 //regex for validation
 const patterns = {
     telephone: /^\d{10}$/,
-    fname: /^[a-z\d]{3,12}$/,
-    lname: /^[a-z\d]{3,12}$/,
+    fname: /^[a-zA-Z\d]{3,12}$/,
+    lname: /^[a-zA-Z\d]{3,12}$/,
     password: /^[\w@-]{8,20}$/,
     email: /^([a-z\d\.-]+)(@[a-z\d-]+)\.([a-z]+)(\.[a-z]+)?$/,
     //repassword: /^$/,
     nic: /^\d{9}\w$/,
-    college: /^[a-z\d\s]+$/,
+    college: /^[a-zA-Z\d\s]+$/,
     accountNo:/^\d/
 };
 
@@ -32,7 +33,33 @@ var isValidSelected = false;
 //input texts (8)
 var addedInputData = false;
 
+window.addEventListener('load', checkWhenLoad);
 
+
+function checkWhenLoad() {
+    //console.log("onload called");
+    inputs.forEach(input => {
+        //console.log("input.name.value: "+input.name);
+        if (input.name == 'repassword') {
+            if (input.value == document.getElementById('passwordInput').value) {
+                input.classList.add('valid');
+                input.classList.remove('invalid');
+            } else {
+                input.classList.add('invalid');
+                input.classList.remove('valid');
+            }
+        } else {
+            validate(input, patterns[input.attributes.name.value]);
+        }
+    });
+    
+    var daysArray = days.value.split("");
+    checkBoxes.forEach(e => {
+        if (daysArray.indexOf(e.value) !== -1) {
+            e.checked=true;
+        }
+    });
+}
 
 function validate(field, regex) {
     if (regex.test(field.value)) {
@@ -63,20 +90,23 @@ inputChanges.forEach((inputChange) => {
     });
 
 });
+
 //check boxes
 //////////////////////////////////////////////////////
+var days2 = ""; 
 checkBoxes.forEach((box) => {
     box.addEventListener('change', (e) => {
         var boxselect = 0;
-        var days = "";
+        days2 = "";
         checkBoxes.forEach((box1) => {
             
             if (box1.checked) {
                 boxselect++;
-                days+=box1.value;
-                //console.log(days);
+                days2+=box1.value;
+                //console.log(days2);
             }
         });
+        dayOut.value=days2;
         if (boxselect != 0) {
             daysDiv.classList.remove('invalid');
             isCheked = true;

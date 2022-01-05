@@ -63,7 +63,7 @@
             $is_paid  = '0';
             $status  = $data['status'];
             $description = "Automatically added.";
-            $exit = '0'; 
+            $exit = 0; 
 
 
             $sql = "INSERT INTO `appointment` (patient_id, doctor_id, time, date,
@@ -110,7 +110,7 @@
         }
 
         public function findByPatientId($patientid){
-            $sql = "SELECT * FROM `appointment` WHERE patient_id='$patientid'";
+            $sql = "SELECT * FROM `appointment` WHERE patient_id='$patientid' AND is_exit = 0";
             $result = $this->DB->selectAll($sql);
 
             $output = array();
@@ -158,7 +158,7 @@
         }
 
         public function getAll(){
-            $sql = "SELECT * FROM `appointment` WHERE `is_exit`='0'";
+            $sql = "SELECT * FROM `appointment` WHERE is_exit= 0";
             $result = $this->DB->selectAll($sql);
             return $result;
         }
@@ -171,7 +171,7 @@
         }
 
         public function cancel($id){
-            $sql = "UPDATE `appointment` SET `is_exit` = '1' WHERE id = $id;";
+            $sql = "UPDATE `appointment` SET `is_exit` = 1 WHERE id = $id;";
             $result = $this->DB->update($sql);
             return $result;
         }

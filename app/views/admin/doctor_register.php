@@ -161,7 +161,7 @@
                                 <label class="checkbox-inline">
                                     <input class="doc-reg-check" name="saturday" type="checkbox" value="6"> Sat
                                 </label>
-                                <input type="hidden" id="daysSelected" name="days" value="">
+                                <input type="hidden" id="daysSelected" name="days" value="<?php echo $data['working_days']; ?>">
                             </div>
                             <div><?php 
                                     echo getErrorMessage($data['working_days_err']);
@@ -237,7 +237,7 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-n btn-primary w-100 shadow-none my-1" name="submit" id="submit-reg" disabled = true>
+                    <button type="submit" class="btn btn-n btn-primary w-100 shadow-none my-1" name="submit" id="submit-reg" disabled = false>
                         Create Doctor Account
                     </button>
                     <p class="text-center">

@@ -30,18 +30,18 @@
 
         public function findByEmailAndPassword($email, $pwd){
             $sql = "SELECT * FROM `patient` WHERE email='$email'";
-            $result = $this->DB->selectOne($sql);
+            $result = $this->DB->selectAll($sql);
 
             $output = array();
             
             if($result!=-1){
-                if(is_null($result)){
+                if(empty($result)){
                     $output['error'] = "invalid_email";
                     $output['value'] = [];
                     // email not exist
                     return $output;
                 }
-                $patient = $result;
+                $patient = $result[0];
                 $password = $patient['pwd'];
                 $pwdmatch = password_verify($pwd , $password);
                 if($pwdmatch){
@@ -65,6 +65,28 @@
 
         public function findById($id){
             $sql = "SELECT * FROM `patient` WHERE id='$id'";
+            $result = $this->DB->selectAll($sql);
+            $output = [];
+            
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "invalid_id";
+                    $output['value'] = [];
+                    // email not exist
+                    return $output;
+                }
+                $patient = $result[0];
+                $output['value'] = $patient;
+                return $output;
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+        }
+
+        public function findByemail($email){
+            $sql = "SELECT * FROM `patient` WHERE email='$email'";
             $result = $this->DB->selectAll($sql);
             $output = [];
             
@@ -101,7 +123,28 @@
 
             return $result;
 
+        } 
+
+        public function update($data){
+
+            $id = $data['id'];
+            $firstname = $data['fname'];
+            $lastname = $data['lname'];
+            $email = $data['email'];
+            $pwd = $data['hash_pwd'];
+            $bday = $data['bday'];
+            $gender = $data['gender'];
+            $telephone = $data['telephone'];
+
+            $sql = "UPDATE `patient` SET `firstname`=$firstname,`lastname`=$lastname,`email`=$email,`pwd`=$pwd,`bday`=$bday,`gender`=$gender,`telephone`=$telephone WHERE id=$id";
+
+            $result = $this->DB->update($sql , [] , 'patient');
+
+            return $result;
+
         }
+
+
 
         public function getAll(){
             $sql = "SELECT * FROM `patient` WHERE 1";

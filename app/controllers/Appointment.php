@@ -170,7 +170,6 @@ class Appointment extends Controller
         if ($_SESSION['role'] != 'patient') {
             redirect('pages/prohibite?user=' . $_SESSION['role']);
         }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
-            redirect('patient/index');
             $data = array();
             $params = file_get_contents( "php://input" );
             $params = json_decode( $params); 
@@ -180,13 +179,14 @@ class Appointment extends Controller
                     $result = $model->cancel($id);
                     if($result!=0){
                         $data['cancel_err_id'] = $id;
-                        //$this->viewAppointments($data);
-                        return;
+                        echo json_encode(array('success' => 1)); // 1 means false
                     }
                 }
+            }else {
+                //redirect('patient/index');
             }
 
-            redirect('patient/appointments');
+            echo json_encode(array('success' => 0)); // 0 -> true
         }
 
         else {

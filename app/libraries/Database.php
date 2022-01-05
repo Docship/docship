@@ -49,7 +49,13 @@ final class Database {
                 return -1;
               }
 
-            $this->mysqli -> query($sql);
+            if($this->mysqli->query($sql)){
+                return 0;
+            }
+            if($this->mysqli→errno){
+                include_once '../app/views/' . "admin/dumy" . '.php';
+                return;
+            }
             sleep(1);
             
             /*

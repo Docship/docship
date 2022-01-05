@@ -14,7 +14,7 @@
             $sql = "SELECT * FROM `doctor` WHERE email='$email'";
             $result = $this->DB->selectAll($sql);
             
-            if(!is_null($result)){
+            if(($result!=-1)){
                 if(sizeof($result)>0){
                     // exist
                     return 1;
@@ -116,11 +116,12 @@
             $gender = $data['gender'];
             $charge_amount = $data['charge_amount'];
             $category = $data['category'];
+            $college = $data['college'];
             $working_from = $data['working_from_24hrs'];
             $working_to = $data['working_to_24hrs'];
             $working_days = $data['working_days'];
             $nic = $data['nic'];
-            $gov_registration_no = $data['gov_registration_no'];
+            //$gov_registration_no = $data['gov_registration_no'];
             $discount = $data['discount'];
             $telephone = $data['telephone'];
             $bank_name = $data['bank_name'];
@@ -130,13 +131,18 @@
             $current_arrears = $data['current_arrears'];
 
             $sql = "INSERT INTO `doctor` (firstname, lastname, email, pwd, bday, gender, charge_amount, category, 
-                        working_from, working_to, working_days, nic, gov_registration_no, discount, telephone, bank_name, 
-                            bank_branch, bank_acc_no, total_income, current_arrears) 
+                        working_from, working_to, working_days, nic, discount, telephone, bank_name, 
+                            bank_branch, bank_acc_no, total_income, current_arrears , college) 
                                 VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , 
-                                    '$bday' , '$gender' ,'$charge_amount', '$category', '$working_from', 
-                                        '$working_to', '$working_days' , '$nic', '$gov_registration_no', $discount', '$telephone', 
-                                            '$bank_name', '$bank_branch', '$bank_acc_no', '$total_income', '$current_arrears')";
-
+                                    '$bday' , '$gender' ,$charge_amount, '$category', '$working_from', 
+                                        '$working_to', '$working_days' , '$nic', $discount, '$telephone', 
+                                            '$bank_name', '$bank_branch', '$bank_acc_no', $total_income, $current_arrears , '$college')";
+            /*
+            $data1 = array();
+            $data1['sql'] = $sql;
+            include_once '../app/views/' . "admin/dumy" . '.php';
+            return;
+            */
             $result = $this->DB->insert($sql , [] , 'doctor');
 
             return $result;
@@ -186,6 +192,12 @@
         public function getAll(){
             $sql = "SELECT * FROM `doctor` WHERE 1";
             $result = $this->DB->selectAll($sql);
+            return $result;
+        }
+
+        public function delete($id){
+            $sql = "DELETE FROM `doctor` WHERE id='$id'";
+            $result = $this->DB->delete($sql);
             return $result;
         }
 

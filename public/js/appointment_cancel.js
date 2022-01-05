@@ -33,19 +33,35 @@ function cancel(){
         }
     }
 
-    if(arr.length > 0){
-        console.log(arr);
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if( xmlhttp.readyState==4 && xmlhttp.status==200 ){
-                console.log( xmlhttp.responseText );
-            }
-        };
-        console.log("done");
-        xmlhttp.open( "POST", "http://localhost/docship/appointment/delete",false );
-        xmlhttp.setRequestHeader( "Content-Type", "application/json" );
-        console.log("done");
-        xmlhttp.send( JSON.stringify(arr));
-    }
+    console.log(arr);
 
+    if(arr.length > 0){
+        var method = "POST";
+        var url = window.location.href+ '/../../appointment/cancel';
+        console.log(url);
+        var data = arr;
+
+        $.ajax({
+            type: method,
+            url: url,
+            data: JSON.stringify(data),
+            success: function(response)
+            {
+                console.log(response);
+                var jsonData = JSON.parse(response);
+
+                //console.log(jsonData);
+ 
+                if (jsonData.success == "0")
+                {
+                    location.href = 'appointments';
+                }
+                else
+                {
+                    alert('Cancellation fails');
+                }
+           }
+       });
+
+    }
 }

@@ -137,14 +137,13 @@
                     'college'=> trim($_POST['college']),
                     'working_from'=> trim($_POST['working_from']),
                     'working_to'=> trim($_POST['working_to']),
-                    'working_days'=> trim($_POST['working_days']),
+                    'working_days'=> trim($_POST['days']),
                     'nic'=> trim($_POST['nic']),
-                    'gov_registration_no'=> trim($_POST['gov_registration_no']),
                     'discount'=> trim($_POST['discount']),
                     'telephone'=> trim($_POST['telephone']),
-                    'bank_name'=> trim($_POST['bank_name']),
-                    'bank_branch'=> trim($_POST['bank_branch']),
-                    'bank_acc_no'=> trim($_POST['bank_acc_no']),
+                    'bank_name'=> "Dumy",
+                    'bank_branch'=> "Dumy",
+                    'bank_acc_no'=> "Dumy",
                     'total_income'=> 0.0,
                     'current_arrears'=> 0.0,
 
@@ -192,6 +191,7 @@
                         $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
                         $result = $doctorModel->insert($data);
 
+                        
                         if($result!=-1){
                             redirect('admin/doctors');
                             //or else redirect to user admin!?
@@ -200,6 +200,7 @@
                             $data['result'] = $result;
                             $this->view('admin/doctor_register', $data);
                         }
+                        
 
                     }if($result==1) {
                         $data['isExist'] = true;
