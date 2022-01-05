@@ -39,7 +39,7 @@ window.addEventListener('load', checkWhenLoad);
 function checkWhenLoad() {
     //console.log("onload called");
     inputs.forEach(input => {
-        console.log("input.name.value: "+input.name);
+        //console.log("input.name.value: "+input.name);
         if (input.name == 'repassword') {
             if (input.value == document.getElementById('passwordInput').value) {
                 input.classList.add('valid');
@@ -106,6 +106,7 @@ checkBoxes.forEach((box) => {
                 //console.log(days2);
             }
         });
+        dayOut.value=days2;
         if (boxselect != 0) {
             daysDiv.classList.remove('invalid');
             isCheked = true;
