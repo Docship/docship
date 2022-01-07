@@ -11,6 +11,39 @@ const patterns = {
 var isRoleSelect = false;
 var isInputed =false;
 
+document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === "complete") {
+        onChangeValidate();
+    }
+});
+
+
+function onChangeValidate(){
+    if (role.value!="") {
+        role.classList.add('valid');
+        isRoleSelect = true;
+    }
+
+    inputTexts.forEach(element => {
+        if (element.value!="") {
+            validate(element, patterns[element.attributes.name.value]);
+        }
+        
+        // check are there any warnings. if have submit button will disable 
+    });
+    var valids =0;
+    inputTexts.forEach((input1) => {
+        if (input1.classList.contains('valid')) {
+            valids++;
+        }
+    });
+    //console.log(valids);
+    if ((valids == 2)) isInputed=true;
+    else isInputed=false;
+    buttonDisabler(isRoleSelect,isInputed);
+}
+
+
 role.addEventListener('change', (e) => {
     e.target.classList.add('valid');
     isRoleSelect = true;
