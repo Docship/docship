@@ -5,8 +5,8 @@ const selects = document.querySelectorAll('select');
 const checkBoxes = document.querySelectorAll('.doc-reg-check');
 const inputChanges = document.querySelectorAll('.input-change'); //birthday charge discount
 const daysDiv = document.querySelector('.days');
-const dayOut=document.getElementById("daysSelected");
-const days=document.getElementById('daysSelected');
+const dayOut = document.getElementById("daysSelected");
+const days = document.getElementById('daysSelected');
 
 //regex for validation
 const patterns = {
@@ -18,7 +18,7 @@ const patterns = {
     //repassword: /^$/,
     nic: /^\d{9}\w$/,
     college: /^[a-zA-Z\d\s]+$/,
-    accountNo:/^\d/
+    accountNo: /^\d/
 };
 
 //validation function
@@ -33,14 +33,24 @@ var isValidSelected = false;
 //input texts (8)
 var addedInputData = false;
 
-window.addEventListener('load', checkWhenLoad);
+
+document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === "complete") {
+        checkWhenLoad();
+    }
+});
+//window.addEventListener('load', checkWhenLoad);
 
 
 function checkWhenLoad() {
+    /////////////////////////////////////////////////////
     //console.log("onload called");
     inputs.forEach(input => {
+        //console.log(input.value);
         //console.log("input.name.value: "+input.name);
-        if (input.name == 'repassword') {
+        if (input.value == "") {
+            //console.log("1");
+        } else if (input.name == 'repassword') {
             if (input.value == document.getElementById('passwordInput').value) {
                 input.classList.add('valid');
                 input.classList.remove('invalid');
@@ -52,13 +62,53 @@ function checkWhenLoad() {
             validate(input, patterns[input.attributes.name.value]);
         }
     });
-    
+
+    var inputsOnload = 0;
+    inputs.forEach(e => {
+        if (e.classList.contains('valid')) {
+            inputsOnload++;
+        }
+    });
+    if ((inputsOnload == 8)) addedInputData = true;
+    ///////////////////////////////////////////////////////
+    var inputChangeOnload = 0
+    inputChanges.forEach((inputChange1) => {
+        if (inputChange1.value != "") {
+            inputChange1.classList.add('valid');
+            inputChangeOnload++;
+        }
+    });
+    if (inputChangeOnload == 3) {
+        isInputChanged = true;
+    } else {
+        isInputChanged = false;
+    }
+
+    ///////////////////////////////////////////////////////
+    var checkBoxesOnload = 0;
     var daysArray = days.value.split("");
     checkBoxes.forEach(e => {
         if (daysArray.indexOf(e.value) !== -1) {
-            e.checked=true;
+            e.checked = true;
+            checkBoxesOnload++;
         }
     });
+    if (checkBoxesOnload > 0) {
+        isCheked = true;
+    }
+    /////////////////////////////////////////////////////
+    var selectsOnload = 0;
+    selects.forEach(e => {
+        if (e.value != "") {
+            e.classList.add('valid');
+            selectsOnload++;
+        }
+    });
+    if (selectsOnload == 4) {
+        isValidSelected = true;
+    }
+
+    buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
 }
 
 function validate(field, regex) {
@@ -84,29 +134,29 @@ inputChanges.forEach((inputChange) => {
         });
         if (changes == 3) {
             isInputChanged = true;
-        }else isInputChanged=false;
+        } else isInputChanged = false;
         //console.log(changes);
-        buttonDisabler(isInputChanged, isCheked, isValidSelected,addedInputData);
+        buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
     });
 
 });
 
 //check boxes
 //////////////////////////////////////////////////////
-var days2 = ""; 
+var days2 = "";
 checkBoxes.forEach((box) => {
     box.addEventListener('change', (e) => {
         var boxselect = 0;
         days2 = "";
         checkBoxes.forEach((box1) => {
-            
+
             if (box1.checked) {
                 boxselect++;
-                days2+=box1.value;
+                days2 += box1.value;
                 //console.log(days2);
             }
         });
-        dayOut.value=days2;
+        dayOut.value = days2;
         if (boxselect != 0) {
             daysDiv.classList.remove('invalid');
             isCheked = true;
@@ -114,7 +164,7 @@ checkBoxes.forEach((box) => {
             daysDiv.classList.add('invalid');
             isCheked = false;
         }
-        buttonDisabler(isInputChanged, isCheked, isValidSelected,addedInputData);
+        buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
     });
 });
 
@@ -132,7 +182,7 @@ selects.forEach((select) => {
         if (validSelects == 4) {
             isValidSelected = true;
         }
-        buttonDisabler(isInputChanged, isCheked, isValidSelected,addedInputData);
+        buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
     });
 });
 
@@ -166,11 +216,11 @@ inputs.forEach((input) => {
         //console.log(valids);
         if ((valids == 8)) addedInputData = true;
         else addedInputData = false;
-        buttonDisabler(isInputChanged, isCheked, isValidSelected,addedInputData);
+        buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
     });
 });
 
-function buttonDisabler(isInputChanged, isCheked, isValidSelected,addedInputData) {
+function buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData) {
     //console.log(isInputChanged,isCheked,isValidSelected,addedInputData);
     if (isInputChanged && isCheked && isValidSelected && addedInputData) submitReg.disabled = false;
     else submitReg.disabled = true;
