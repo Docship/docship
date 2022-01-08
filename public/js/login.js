@@ -19,7 +19,7 @@ document.addEventListener('readystatechange', event => {
 
 
 function onChangeValidate(){
-    if (role.value!="") {
+    if (role.value!="I am a") {
         role.classList.add('valid');
         isRoleSelect = true;
     }

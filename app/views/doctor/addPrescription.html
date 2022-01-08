@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  <title>Daily Journal</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../public/css/addPrescription.css">
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <p class="navbar-brand">DAILY JOURNAL</p>
+      </div>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- 6 -->
+          <li id="home"><a href="/">HOME</a></li>
+          <li id="about"><a href="about">ABOUT US</a></li>
+          <li id="contact"><a href="contact">CONTACT US</a></li>
+        </ul>
+    </div>
+  </nav>
+</head>
+<body>
+    <div class="container">
+    <h1>Compose</h1>
+    <form class="" action="/compose" method="post">
+      <div class="">
+        <label class="form-label" for="">Title</label><br>
+        <textarea class="form-control" name="postTitle" rows="1" cols="160"></textarea><br>
+      </div>
+      <div class="">
+        <label class="form-label" for="">Post</label><br>
+        <textarea class="form-control" name="postBody" rows="8" cols="160"></textarea><br>
+      </div>
+      <button class="btn btn-primary" type="submit" name="button">Publish</button>
+    </form>
+</div>
+<div class="footer-padding" style="text-algn:center"></div>
+  <div class="footer">
+    <p>Made with ❤️ by The App Brewery</p>
+  </div>
+</div>
+</body>
+</html>

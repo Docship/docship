@@ -136,7 +136,6 @@
     }
     genderValidate();
     bdayValidate();
-
   });
 
   function validate(field, regex) {
