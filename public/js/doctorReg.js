@@ -7,16 +7,19 @@ const inputChanges = document.querySelectorAll('.input-change'); //birthday char
 const daysDiv = document.querySelector('.days');
 const dayOut=document.getElementById("daysSelected");
 
+// including feather icons
+feather.replace();
+
 //regex for validation
 const patterns = {
     telephone: /^\d{10}$/,
-    firstName: /^[a-z\d]{3,12}$/,
-    lastName: /^[a-z\d]{3,12}$/,
+    fname: /^[a-z\d]{3,12}$/,
+    lname: /^[a-z\d]{3,12}$/,
     password: /^[\w@-]{8,20}$/,
     email: /^([a-z\d\.-]+)(@[a-z\d-]+)\.([a-z]+)(\.[a-z]+)?$/,
     //repassword: /^$/,
     nic: /^\d{9}\w$/,
-    college: /^[a-z\d]{3,12}$/,
+    college: /^[a-z\d\s]+$/,
     accountNo:/^\d/
 };
 
@@ -58,6 +61,7 @@ inputChanges.forEach((inputChange) => {
         if (changes == 3) {
             isInputChanged = true;
         }else isInputChanged=false;
+        //console.log(changes);
         buttonDisabler(isInputChanged, isCheked, isValidSelected,addedInputData);
     });
 

@@ -205,3 +205,18 @@ function HandleBackendError(url, urlError) {
 
 let error = readError();
 HandleBackendError(error[0], error[1]);
+
+
+//upload image
+
+// $('#uploadImage').on('change',function(){
+//     //get the file name
+//     var fileName = $(this).val();
+//     //replace the "Choose a file" label
+//     $(this).next('.custom-file-label').html(fileName);
+// })
+
+$('input[type="file"]').change(function(e){
+    var fileName = e.target.files[0].name;
+    $('.custom-file-label').html(fileName);
+});

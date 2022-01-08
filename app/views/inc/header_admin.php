@@ -8,12 +8,12 @@
   <title><?php echo SITENAME; ?></title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
   <!-- FontAwesome pro -->
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
   <script src="<?php echo URLROOT; ?>/js/feather-icons.js"></script>
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
-</head>
+</head>  
 
 <body>
 <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap shadow">

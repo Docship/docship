@@ -65,6 +65,19 @@
                     </div>
 
                     <div class="form-row">
+                        <div class="col-lg-12 ">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="uploadImage">
+                                <label class="custom-file-label" for="uploadImage" data-browse="choose">Upload your image</label>
+                            </div>
+                            <div><?php 
+                                    echo getErrorMessage($data['telephone_err']);
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
                         <div class="col-lg-6 mt-1">
                             <input name="password" id="passwordInput" type="password" class="form-control shadow-none input-text"
                                 value = "<?php echo $data['password']; ?>"
@@ -119,7 +132,6 @@
         </div>
         <!--row-->
     </div>
-
 
 
 

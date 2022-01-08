@@ -7,10 +7,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/loginSignup.css">
+        <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
+  <!-- FontAwesome pro -->
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/form.css">
+    
 
     <title>DocShip | Register</title>
 </head>
@@ -18,10 +20,10 @@
 <body>
     <div class="container-fluid sign-up-form">
         <div class="row">
-            <div class="col-lg-3 image"></div>
-            <div class="col-lg-9 px-5 fill">
+            <div class="col-lg-12 px-5 my-5 fill">
                 <form action="<?php echo URLROOT; ?>/admin/doctor_register" method="POST" class="mx-sm-3 mx-md-2 mx-lg-3">
-                    <h1 class="text-center topic mb-2"><span class="brand-color1">Doc</span><span class="brand-color2">Ship</span> Doctor Registration</h1>
+                    <h1 class="text-center topic"><span class="brand-color1">Doc</span><span class="brand-color2">Ship</span> Doctor Registration</h1>
+                    <h5 class="text-center mt-3">Personal Information</h5>
                     <div class="form-row">
                         <div class="col-lg-5 my-1">
                             <input name="fname" type="text" class="form-control shadow-none doc-reg"
@@ -91,7 +93,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-lg-3 my-1">
+                        <div class="col-lg-4 my-1">
                             <input placeholder="Birthday" name="bday" class="form-control shadow-none input-change" type="text"
                                 value = "<?php echo $data['bday']; ?>"
                                 onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
@@ -109,16 +111,28 @@
                                     echo getErrorMessage($data['gender_err']);
                             ?></div>
                         </div>
-                        <div class="col-lg-6 my-1">
+                        <div class="col-lg-5 my-1">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="uploadImage">
+                                <label class="custom-file-label" for="uploadImage" data-browse="choose">Upload your image</label>
+                            </div>
+                            <div><?php 
+                                    echo getErrorMessage($data['telephone_err']);
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="text-center mt-3">Educational Qualification</h5>
+                    
+                    <div class="form-row">
+                        <div class="col-lg-8 my-1">
                             <input name="college" type="text" class="form-control shadow-none doc-reg" placeholder="College" value="<?php echo $data['college']; ?>"/>
                             <div><?php 
                                     echo getErrorMessage($data['college_err']);
                             ?></div>
                         </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-lg-3 my-1">
+                        <div class="col-lg-4 my-1">
                             <select id="category" name="category" class="form-control shadow-none">
                                 <option selected disabled>Specialization</option>
                                 <option <?php echo ((isset($data['category'])) && $data['category']=="Allergist") ? "selected":""; ?>>Allergist</option>
@@ -134,11 +148,15 @@
                                     echo getErrorMessage($data['category_err']);
                             ?></div>
                         </div>
+                    </div>
 
-                        <div class="col-lg-9 my-auto pl-lg-2">
+                    <h5 class="text-center mt-3">Work Information</h5>
+
+                    <div class="form-row">
+                        <div class="col-lg-12 my-auto pl-lg-2">
                             <div class="days my-0 d-flex justify-content-between align-items-baseline">
                                 <label class="checkbox-inline my-0">
-                                    Days:    
+                                    Days can Work:    
                                 </label>
                                 <label class="checkbox-inline my-0">
                                     <input class="doc-reg-check" name="sunday" type="checkbox" value="7"> Sun
@@ -170,7 +188,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-lg-2 my-1">
+                        <div class="col-lg-6 my-1">
                             <select id="working_from" name="working_from" class="form-control shadow-none">
                                 <option selected disabled>From</option>
                                 <option <?php echo ((isset($data['working_from'])) && $data['working_from']=="5.00 AM") ? "selected":""; ?>>5.00 AM</option>
@@ -195,7 +213,7 @@
                                     echo getErrorMessage($data['working_from_err']);
                             ?></div>
                         </div>
-                        <div class="col-lg-2 my-1">
+                        <div class="col-lg-6 my-1">
                         <select id="working_to" name="working_to" class="form-control shadow-none">
                                 <option selected disabled>From</option>
                                 <option <?php echo ((isset($data['working_to'])) && $data['working_to']=="5.00 AM") ? "selected":""; ?>>5.00 AM</option>
@@ -220,14 +238,56 @@
                                     echo getErrorMessage($data['working_to_err']);
                             ?></div>
                         </div>
-                        <div class="col-lg-4 my-1">
-                            <input name="charge" type="number" min="1" step="any" class="form-control shadow-none input-change"
-                                placeholder="Charge" value="<?php echo $data['charge_amount'];?>" />
+                    </div>
+
+                    <h5 class="text-center mt-3">Payment</h5>
+                    <div class="form-row">
+                    <div class="col-lg-7 my-1">
+                    <select id="bank" name="bank" class="form-control shadow-none">
+                                <option selected disabled>From</option>
+                                <option value="">Peoples Bank</option>
+                                <option value="">Bank Of Ceylon</option>
+                                <option value="">Commercial Bank</option>
+                                <option value="">Sampath Bank</option>
+                                <option value="">Selan Bank</option>
+                                <option value="">HNB Bank</option>
+                            </select>
+                            <div><?php 
+                                    echo getErrorMessage($data['working_to_err']);
+                            ?></div>
+                        </div>
+                        <div class="col-lg-5 my-1">
+                        <select id="branch" name="branch" class="form-control shadow-none">
+                                <option selected disabled>Colombo</option>
+                                <option value="">Gampaha</option>
+                                <option value="">Kegall</option>
+                                <option value="">Nigambo</option>
+                                <option value="">Gall</option>
+                                <option value="">Chilaw</option>
+                                <option value="">Matara</option>
+                            </select>
+                            <div><?php 
+                                    echo getErrorMessage($data['working_to_err']);
+                            ?></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                    <div class="col-lg-6 my-1">
+                            <input name="account_no" type="number" min="1" step="any" class="form-control shadow-none input-change"
+                                placeholder="Account No" value="<?php echo $data['charge_amount'];?>" />
                                 <div><?php 
                                     echo getErrorMessage($data['charge_amount_err']);
                                 ?></div>
                         </div>
-                        <div class="col-lg-4 my-1">
+                        <div class="col-lg-3 my-1">
+                            <input name="charge" type="number" min="1" step="any" class="form-control shadow-none input-change"
+                                placeholder="Charge " value="<?php echo $data['charge_amount'];?>" />
+                                <div><?php 
+                                    echo getErrorMessage($data['charge_amount_err']);
+                                ?></div>
+                        </div>
+                        <div class="col-lg-3 my-1">
                             <input name="discount" type="number" min="1" step="any" class="form-control shadow-none input-change"
                                 placeholder="Discount" value="<?php echo $data['discount'];?>"  />
                                 <div><?php 
@@ -241,7 +301,7 @@
                         Create Doctor Account
                     </button>
                     <p class="text-center">
-                        <a href="<?php echo URLROOT; ?>\admin\doctors" id="sign-up" class="sign-up">Back</a>
+                        <a href="<?php echo URLROOT; ?>\admin\doctors" id="sign-up" class="sign-up"> <i class="fas fa-arrow-left"></i>  Back</a>
                       </p>
                 </form>
             </div>
@@ -250,15 +310,8 @@
     </div>
 
 
-
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
-    </script>
-
+    <script src="<?php echo URLROOT; ?>/js/jquery.js"></script>
+    <script src="<?php echo URLROOT; ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo URLROOT; ?>/js/doctorReg.js"></script>
 
 </body>

@@ -63,7 +63,6 @@
             }
         }
 
-        
         public function findById($id){
             $sql = "SELECT * FROM `patient` WHERE id='$id'";
             $result = $this->DB->selectAll($sql);
@@ -98,7 +97,7 @@
 
             $sql = "INSERT INTO `patient` (firstname, lastname, email, pwd, bday, gender, telephone) VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' , '$telephone')";
 
-            $result = $this->DB->insert($sql);
+            $result = $this->DB->insert($sql , [] , 'patient');
 
             return $result;
 

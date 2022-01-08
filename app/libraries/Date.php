@@ -30,7 +30,7 @@
             $date1 = DateTime::createFromFormat(FORMAT_TIME, $time);
             $date2 = DateTime::createFromFormat(FORMAT_TIME, $from);
             $date3 = DateTime::createFromFormat(FORMAT_TIME, $to);
-            if ($date1 > $date2 && $date1 < $date3)
+            if ($date1 >= $date2 && $date1 <= $date3)
             {
                 return true;
             }return false;

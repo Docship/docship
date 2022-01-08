@@ -49,7 +49,7 @@
     <div class="row">
       <!-- Sidebar menu -->
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="sidebar-sticky pt-3">
+        <div class="sidebar-sticky pt-4">
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>\patient\index" id="index">
@@ -84,7 +84,7 @@
             <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>\patient\update" id="update">
                 <span data-feather="settings"></span>
-                Edit Account
+                Update
               </a>
             </li>
           </ul>          

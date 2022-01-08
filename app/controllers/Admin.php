@@ -132,7 +132,7 @@
                     'repassword'=>trim($_POST['repassword']),
                     'bday'=> trim($_POST['bday']),
                     'gender'=> trim($_POST['gender']),
-                    'charge_amount'=> trim($_POST['charge_amount']),
+                    'charge_amount'=> trim($_POST['charge']),
                     'category'=> trim($_POST['category']),
                     'college'=> trim($_POST['college']),
                     'working_from'=> trim($_POST['working_from']),
@@ -188,6 +188,8 @@
 
                     if($result==0){
 
+                        $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
+                        $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
                         $result = $doctorModel->insert($data);
 
                         if($result!=-1){
