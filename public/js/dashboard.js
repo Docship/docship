@@ -3,20 +3,16 @@
     feather.replace();
 })();
 
+var menuIcon = document.querySelector('#toggler-icon');
+    document.querySelector('.navbar-toggler').onclick = () => {
+    menuIcon.classList.toggle("fa-times");
+}
+
 /* changing colors of navbar */
 $(document).ready(function(){
     var path = window.location.pathname,
-        link = window.location.href;
-    console.log(path);
-    console.log(link);
-    var text = path.split('/').reverse()[0];
-    console.log(text);
-
+        text = path.split('/').reverse()[0];
     var target = document.getElementById(text);
     target.classList.add('active');
 
 });
-
-
-var today = new Date().toISOString().split('T')[0];
-document.getElementsByName("day")[0].setAttribute('min', today);

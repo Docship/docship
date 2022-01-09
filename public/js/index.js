@@ -1,9 +1,12 @@
-document.querySelector("login-btn").addEventListener("click", function () { 
-    document.querySelector(".popup-container").classList.add("active");
-  });
-  
-  document.querySelector(".popup-container .close-btn").addEventListener("click", function () { 
-    document.querySelector(".popup-container").classList.remove("active");
-  });
-  
+
+
+// var id = window.location.hash;
+// console.log(id);
+
+// var section = document.querySelector(id);
+// section.classList.add("active");
+
+
+
+
 

@@ -3,29 +3,36 @@
     class Patient extends Controller{
 
         public function index(){
-
             if($_SESSION['role'] != 'patient'){
-                redirect('pages/prohibit?user='.$_SESSION['role']);
+                redirect('pages/prohibite?user='.$_SESSION['role']);
             }
 
             $data = array();
-            $appointments_result1 = $this->model('Appointment')->getAll();
-            if($appointments_result1!=-1){
-                $data['appointments'] = array_slice($appointments_result1, 0, 3);
+            $appointments_result1 = $this->model('Appointment')->findByPatientId($_SESSION['user_id']);
+            if(isset($appointments_result1['value'])){
+                if(empty($appointments_result1['value'])){
+                    $data['appointments'] = [];
+                    $data['appointments_size'] = 0;
+                }else {
+                    $data['appointments'] = array_slice($appointments_result1['value'], 0, 3);
+                    $data['appointments_size'] = sizeof($appointments_result1['value']);
+                }
             }else {
                 $data['db_err_1'] = "appointments limited searching failed"; 
             }
-            if($appointments_result1!=-1){
-                $data['appointments_size'] = sizeof($appointments_result1);
-            }else {
-                $data['db_err_2'] = "appointments size finding failed"; 
-            }
 
-            $prescriptions_result1 = $this->model('Prescription')->getAll();
-            if($prescriptions_result1!=-1){
-                $data['prescriptions_size'] = sizeof($prescriptions_result1);
+            $prescriptions_result1 = $this->model('Prescription')->findByPatientId($_SESSION['user_id']);
+            if(isset($prescriptions_result1['value'])){
+                if(empty($prescriptions_result1['value'])){
+                    //$data['appointments'] = [];
+                    $data['prescriptions_size'] = 0;
+                }else {
+                    //$data['appointments'] = array_slice($prescriptions_result1['value'], 0, 3);
+                    $data['prescriptions_size'] = sizeof($prescriptions_result1['value']);
+                }
+        
             }else {
-                $data['db_err_3'] = "prescriptions size finding failed"; 
+                $data['db_err_2'] = "prescriptions limited searching failed"; 
             }
 
             $this->view('patient/index', $data);
@@ -208,9 +215,16 @@
 
             else {
 
-                $result = $this->model('Prescription');
+                $result = $this->model('Prescription')->findByPatientId($_SESSION['user_id']);
+                $data = array();
 
-                $this->view('patient/prescriptions') ;
+                if(isset($result['value'])){
+                    $data['prescriptions'] = $result['value'];
+                }
+
+
+
+                $this->view('patient/prescriptions' , $data);
             }
         }
 
@@ -355,5 +369,36 @@
             }
 
 
+        }
+
+
+        public function delete(){
+            if ($_SESSION['role'] != 'admin') {
+                redirect('pages/prohibite?user=' . $_SESSION['role']);
+            }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data = array();
+                $params = file_get_contents( "php://input" );
+                $params = json_decode( $params); 
+                $model = $this->model('patient');
+                if(!empty($params)){
+                    foreach($params as $id){
+                        $result = $model->delete($id);
+                        if($result!=0){
+                            $data['cancel_err_id'] = $id;
+                            echo json_encode(array('success' => 1)); // 1 means false
+                        }
+                    }
+                }else {
+                    //redirect('patient/index');
+                }
+    
+                echo json_encode(array('success' => 0)); // 0 -> true
+            }
+    
+            else {
+                
+    
+            }
+    
         }
     }

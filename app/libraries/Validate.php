@@ -418,6 +418,78 @@
             return $result;
         }
 
+        public static function checkDoctorEditData(&$data){
+
+            $result = true;
+
+            if(self::isEmptyString($data['fname']) || !self::isValidName($data['fname'])){
+                $result = false;
+                $data['fname_err'] = "Invalid Input format for First name";
+            }
+            if(self::isEmptyString($data['lname']) || !self::isValidName($data['lname']) ){
+                $result = false;
+                $data['lname_err'] = "Invalid Input format for Last name";
+            }
+            if(self::isEmptyString($data['email']) || !self::isValidEmail($data['email'])){
+                $result = false;
+                $data['email_err'] = "Invalid Email format";
+            }
+            if(self::isEmptyString($data['password']) ||!self::isValidPassward($data['password'])){
+                $result = false;
+                $data['passward_err'] = "Invalid Passward formt";
+            }
+            if(self::isEmptyString($data['repassword']) ||!self::isValidPassward($data['repassword'])){
+                $result = false;
+                $data['repassward_err'] = "Invalid Passward formt";
+            }
+            if(!self::isStringMatching($data['password'] , $data['repassword'])){
+                $result = false;
+                $data['passward_err'] = "Passward and Repassward are not matching each other.";
+            }
+            if(!self::isValidDate($data['bday'])){
+                $result = false;
+                $data['bday_err'] = "Invalid Birth date";
+            }
+            if(self::isEmptyString($data['gender']) || !self::isValidGender($data['gender'])){
+                $result = false;
+                $data['gender_err'] = "Invalid gender";
+            }
+            if($data['charge_amount']<0.0){
+                $result = false;
+                $data['charge_amount_err'] = "Charge amount cannot be lesser than 0.00";
+            }
+            if(self::isEmptyString($data['category']) || !self::isValidName($data['category']) ){
+                $result = false;
+                $data['category_err'] = "Invalid Input format for category";
+            }
+            if(self::isEmptyString($data['college']) || !self::isValidCollege($data['college']) ){
+                $result = false;
+                $data['college_err'] = "Invalid Input format for college";
+            }
+            if(!self::isValidTimeFormate($data['working_from'])){
+                $result = false;
+                $data['working_from_err'] = "Invalid Input format for college 'Working From' time";
+            }
+            if(!self::isValidTimeFormate($data['working_to'])){
+                $result = false;
+                $data['working_to_err'] = "Invalid Input format for college 'Working To' time";
+            }
+            if(self::isEmptyString($data['nic']) || !self::isValidNic($data['nic']) ){
+                $result = false;
+                $data['nic_err'] = "Invalid Input format for nic";
+            }
+            if($data['discount']<0.0){
+                $result = false;
+                $data['discount_err'] = "Discount cannot be lesser than 0.00";
+            }
+            if(self::isEmptyString($data['telephone']) || !self::isValidTelephone($data['telephone'])){
+                $result = false;
+                $data['telephone_err'] = "Invalid Phone Number format";
+            }
+
+            return $result;
+        }
+
 
         //admin registration validation
         public static function checkAdminRegistrationData(&$data){

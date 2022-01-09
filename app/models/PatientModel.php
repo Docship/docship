@@ -109,19 +109,37 @@
 
         public function insert($data){
 
-            $firstname = $data['fname'];
-            $lastname = $data['lname'];
-            $email = $data['email'];
-            $pwd = $data['hash_pwd'];
-            $bday = $data['bday'];
-            $gender = $data['gender'];
-            $telephone = $data['telephone'];
 
-            $sql = "INSERT INTO `patient` (firstname, lastname, email, pwd, bday, gender, telephone) VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' , '$telephone')";
+            $sql_user = "INSERT INTO `user`(`role`) VALUES ('patient')";
+            $result1 = $this->DB->insert($sql_user , [] , "user");
+            sleep(0.5);
+            if($result1==0){
+                $user_result = $this->DB->getLast("user");
 
-            $result = $this->DB->insert($sql , [] , 'patient');
+                if($user_result!=-1 && !empty($user_result)){
+                    $user = $user_result[0];
+                    $uid = $user['id'];
 
-            return $result;
+                    $firstname = ucwords($data['fname']);
+                    $lastname = ucwords($data['lname']);
+                    $email = $data['email'];
+                    $pwd = $data['hash_pwd'];
+                    $bday = $data['bday'];
+                    $gender = $data['gender'];
+                    $telephone = $data['telephone'];
+
+                    $sql = "INSERT INTO `patient` (user_id , firstname, lastname, email, pwd, bday, gender, telephone) VALUES ($uid , '$firstname' , '$lastname' , '$email' , '$pwd' , '$bday' , '$gender' , '$telephone')";
+
+                    $result = $this->DB->insert($sql , [] , 'patient');
+
+                    return $result;
+                }else {
+                    return -1;
+                }
+            }else {
+                return $result1;
+            }
+
 
         } 
 
@@ -149,6 +167,12 @@
         public function getAll(){
             $sql = "SELECT * FROM `patient` WHERE 1";
             $result = $this->DB->selectAll($sql);
+            return $result;
+        }
+
+        public function delete($id){
+            $sql = "DELETE FROM `patient` WHERE id='$id'";
+            $result = $this->DB->delete($sql);
             return $result;
         }
     }

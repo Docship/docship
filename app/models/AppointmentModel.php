@@ -110,7 +110,7 @@
         }
 
         public function findByPatientId($patientid){
-            $sql = "SELECT * FROM `appointment` WHERE patient_id='$patientid' AND is_exit = 0";
+            $sql = "SELECT * FROM `appointment` WHERE patient_id = $patientid AND is_exit = 0";
             $result = $this->DB->selectAll($sql);
 
             $output = array();
@@ -134,7 +134,7 @@
         }
 
         public function findByDoctorId($doctorid){
-            $sql = "SELECT * FROM `appointment` WHERE doctor_id='$doctorid'";
+            $sql = "SELECT * FROM `appointment` WHERE doctor_id = $doctorid AND is_exit = 0";
             $result = $this->DB->selectAll($sql);
 
             $output = array();

@@ -103,4 +103,49 @@ input.invalid+p{
     opacity:1;
     height: auto;
     /* margin-bottom: 20px; */
-} 
+}
+
+.card-body .mt-3{  
+    width: 100px; 
+    height: 100px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+  }
+  
+  .card-body .mt-3 img {
+    width: 100%; 
+    height: auto; 
+    object-fit: cover; 
+  }
+  
+  .progress{
+    height: 0.25rem;
+  }
+  
+  .card{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
+  }
+  
+  .card:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
+  
+  
+  .days .week div{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #0d6efc;
+    margin: 0 0.2rem 0 0.2rem;  
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .days .week div.active{
+    background-color: #0d6efc;
+    color: #fff;
+  }

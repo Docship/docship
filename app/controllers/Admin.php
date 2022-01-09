@@ -7,8 +7,41 @@
             if($_SESSION['role'] != 'admin'){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
             }
+            $data = array();
+            $appointments_result1 = $this->model('Appointment')->getAll();
+            if($appointments_result1!=-1){
+                if(empty($appointments_result1)){
+                    $data['appointments_size'] = 0;
+                }else {
+                    $data['appointments_size'] = sizeof($appointments_result1);
+                }
+            }else {
+                $data['db_err_3'] = "appointments searching failed"; 
+            }
 
-            $this->view('admin/index', []);
+            $patients_result1 = $this->model('Patient')->getAll();
+            if($patients_result1!=-1){
+                if(empty($patients_result1)){
+                    $data['patients_size'] = 0;
+                }else {
+                    $data['patients_size'] = sizeof($patients_result1);
+                }
+            }else {
+                $data['db_err_1'] = "patients searching failed"; 
+            }
+
+            $doctors_result1 = $this->model('Doctor')->getAll();
+            if($doctors_result1!=-1){
+                if(empty($doctors_result1)){
+                    $data['doctors_size'] = 0;
+                }else {
+                    $data['doctors_size'] = sizeof($doctors_result1);
+                }
+            }else {
+                $data['db_err_2'] = "doctors searching failed"; 
+            }
+
+            $this->view('admin/index', $data);
         }
 
         //extra - admin doesn't need to be registered explicitly
@@ -141,9 +174,9 @@
                     'nic'=> trim($_POST['nic']),
                     'discount'=> trim($_POST['discount']),
                     'telephone'=> trim($_POST['telephone']),
-                    'bank_name'=> "Dumy",
-                    'bank_branch'=> "Dumy",
-                    'bank_acc_no'=> "Dumy",
+                    'bank_name'=> trim($_POST['bank']),
+                    'bank_branch'=> trim($_POST['branch']),
+                    'bank_acc_no'=> trim($_POST['account_no']),
                     'total_income'=> 0.0,
                     'current_arrears'=> 0.0,
 
@@ -187,27 +220,38 @@
 
                     if($result==0){
 
-                        $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
-                        $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
-                        $result = $doctorModel->insert($data);
+                        
+                        $result_nic = $doctorModel->isExistByNIC($data['nic']);
+
+                        if($result_nic==0){
+                            $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
+                            $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
+                            $result = $doctorModel->insert($data);
 
                         
-                        if($result!=-1){
-                            redirect('admin/doctors');
-                            //or else redirect to user admin!?
+                            if($result!=-1){
+                                redirect('admin/doctors');
+                                //or else redirect to user admin!?
+                            }else {
+                                $data['db_err'] = 'Error Occured in System!';
+                                $data['result'] = $result;
+                                $this->view('admin/doctor_register', $data);
+                            }
+                        }else if($result_nic==1) {
+                            $data['nic_err'] = "NIC exist";
+                            $this->view('admin/doctor_register', $data);
                         }else {
-                            $data['db_err'] = 'Error Occured in System!';
-                            $data['result'] = $result;
+                            $data['db_err'] = 'Error Occured in System! doctor existance checking fail by nic';
                             $this->view('admin/doctor_register', $data);
                         }
-                        
 
                     }if($result==1) {
                         $data['isExist'] = true;
+                        $data['email_err'] = "email exist";
                         //$this->view('doctor/dumy', $data);
                         $this->view('admin/doctor_register', $data);
                     } else {
-                        $data['db_err'] = 'Error Occured in System! doctor existance checking fail';
+                        $data['db_err'] = 'Error Occured in System! doctor existance checking fail by email';
                         //$this->view('doctor/dumy', $data);
                         $this->view('admin/doctor_register', $data);
                     }

@@ -18,7 +18,7 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
         <h2 class="subtitle">Doctor List</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
-        <script src="<?php echo URLROOT; ?>/js/doctor_delete.js"></script>
+        <script src="<?php echo URLROOT; ?>/js/delete.js"></script>
           <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="doc_delete();">
             <span data-feather="trash-2" class="mr-2"></span>
             Delete
@@ -43,7 +43,8 @@
                 echo "</thead>";
                 echo "<tbody>";
                 foreach($data['doctors'] as $doctor){
-                  $r1 = "<td><input class='doctorCheckbox' id='doctor-id' type='checkbox' value='".$doctor['id']."' >". $doctor['id'] . "</td>";
+                  //$r1 = "<td><a href='\docship\doctor\detail\\"."".$doctor['id']."'>". $doctor['id'] . "</a></td>";
+                  $r1 = "<td><input class='doctorCheckbox' id='doctor-id' type='checkbox' value='".$doctor['id']."' >". "<a href='\docship\doctor\detail\\"."".$doctor['id']."'>". $doctor['id'] . "</a>" . "</td>";
                   $r2 = "<td>" . $doctor['firstname'] . " " . $doctor['lastname'] . "</td>";
                   $r3 = "<td>" . $doctor['gender'] . "</td>";
                   $r4 = "<td>" . $doctor['category'] . "</td>";

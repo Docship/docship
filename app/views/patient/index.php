@@ -29,10 +29,10 @@
                     <h5 class="card-title">Appointments Count</h5>
                     <p class="card-text">
                     <?php
-                        if(isset($data['appointments_size']) && !empty($data['appointments_size'])){
+                        if(isset($data['appointments_size'])){
                           echo $data['appointments_size'];
-                        }elseif(isset($data['db_err_2']) && !empty($data['db_err_2'])){
-                          echo $data['db_err_2'];
+                        }elseif(isset($data['db_err_1']) && !empty($data['db_err_1'])){
+                          echo $data['db_err_1'];
                         }else {
                           echo "System Error";
                         }
@@ -49,10 +49,10 @@
                     <h5 class="card-title">Prescriptions Count</h5>
                     <p class="card-text">
                       <?php
-                        if(isset($data['prescriptions_size']) && !empty($data['prescriptions_size'])){
+                        if(isset($data['prescriptions_size'])){
                           echo $data['prescriptions_size'];
-                        }elseif(isset($data['db_err_3']) && !empty($data['db_err_3'])){
-                          echo $data['db_err_3'];
+                        }elseif(isset($data['db_err_2']) && !empty($data['db_err_2'])){
+                          echo $data['db_err_2'];
                         }else {
                           echo "System Error";
                         }
@@ -82,7 +82,7 @@
         <?php 
           if(isset($data['appointments'])){
             if(!empty($data['appointments'])){
-              echo "<table class='table table-striped table-sm' >";
+              echo "<table class='table table-striped table-hover table-sm' >";
               echo "<thead>";
               echo "<tr>";
                 echo "<th>ID</th>";
