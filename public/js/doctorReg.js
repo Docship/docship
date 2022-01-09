@@ -17,10 +17,11 @@ function setTime(time) {
     console.log(time);
     //console.log("Enter set time");
     var docStartTime = time.split('.');
-    console.log(docStartTime[1][2]);
+    // console.log(docStartTime);
+    // console.log(docStartTime[1][3]);
     // var to = end.split(":");
     docStartTime[0] = parseInt(docStartTime[0]);
-    if (docStartTime[1][2]=="P") {
+    if (docStartTime[1][3]=="P") {
         docStartTime[0] = docStartTime[0]+12;
     }
 
@@ -83,6 +84,7 @@ document.addEventListener('readystatechange', event => {
 
 
 function checkWhenLoad() {
+    to.disabled=true;
     /////////////////////////////////////////////////////
     inputs.forEach(input => {
         validInputs(input);
@@ -102,7 +104,7 @@ function checkWhenLoad() {
     selects.forEach(e => {
         validateSelects(e);
     });
-    to.disabled=true;
+    
 }
 
 function validate(field, regex) {
@@ -170,7 +172,7 @@ function validateInputChanges(field) {
             changes++;
         }
     });
-    if (changes == 3) {
+    if (changes == 4) {
         isInputChanged = true;
     } else isInputChanged = false;
     //console.log(changes);
@@ -192,7 +194,7 @@ function validCheckBoxes() {
 
 
 function validateSelects(field) {
-    const val = ["Gender", "Specialization", "From", "To"];
+    const val = ["Gender", "Specialization", "From", "To","Bank","Branch"];
     
     if (val.indexOf(field.value) == -1) {
         field.classList.add('valid');
@@ -207,7 +209,7 @@ function validateSelects(field) {
             validSelects++;
         }
     });
-    if (validSelects == 4) {
+    if (validSelects == 6) {
         isValidSelected = true;
     }
     buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
