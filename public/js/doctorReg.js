@@ -7,6 +7,46 @@ const inputChanges = document.querySelectorAll('.input-change'); //birthday char
 const daysDiv = document.querySelector('.days');
 const dayOut = document.getElementById("daysSelected");
 const days = document.getElementById('daysSelected');
+const from = document.getElementById('working_from');
+const to=document.getElementById('working_to');
+
+// from.addEventListener('change',e=>{
+
+// })
+function setTime(time) {
+    console.log(time);
+    //console.log("Enter set time");
+    var docStartTime = time.split('.');
+    console.log(docStartTime[1][2]);
+    // var to = end.split(":");
+    docStartTime[0] = parseInt(docStartTime[0]);
+    if (docStartTime[1][2]=="P") {
+        docStartTime[0] = docStartTime[0]+12;
+    }
+
+    var docStartTime1 = new Date();
+    docStartTime1.setHours(parseInt(docStartTime[0]), 0, 0);
+    //console.log(docStartTime1.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
+
+    var startTimeObject = new Date();
+    startTimeObject.setHours(5, 0, 0);
+    //console.log(startTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
+
+    var endTimeObject = new Date();
+    endTimeObject.setHours(21, 0, 0);
+    //console.log(endTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
+
+    //const timeSlot = document.getElementById('time-slices');
+    to.innerHTML = "<option selected disabled>To</option>";
+
+    while (docStartTime1 < endTimeObject) {
+        docStartTime1.setHours(docStartTime1.getHours() + 1);
+        var dd = docStartTime1.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+        //console.log(docStartTime1.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
+        to.innerHTML += "<option>" + dd + "</option>";
+    }
+}
+
 
 //regex for validation
 const patterns = {
@@ -62,6 +102,7 @@ function checkWhenLoad() {
     selects.forEach(e => {
         validateSelects(e);
     });
+    to.disabled=true;
 }
 
 function validate(field, regex) {
@@ -98,7 +139,6 @@ checkBoxes.forEach((box) => {
         var boxselect = 0;
         days2 = "";
         checkBoxes.forEach((box1) => {
-
             if (box1.checked) {
                 boxselect++;
                 days2 += box1.value;
@@ -152,8 +192,14 @@ function validCheckBoxes() {
 
 
 function validateSelects(field) {
-    if (field.value != "") {
+    const val = ["Gender", "Specialization", "From", "To"];
+    
+    if (val.indexOf(field.value) == -1) {
         field.classList.add('valid');
+        if (field.name=="working_from") {
+            to.disabled=false;
+            setTime(field.value);
+        }
     }
     var validSelects = 0;
     selects.forEach((select1) => {
@@ -180,7 +226,10 @@ function validInputs(field) {
             field.classList.remove('valid');
         }
     } else {
-        validate(field, patterns[field.name]);
+        if (field.value == "") {
+            console.log("nothing in inputs");
+        } else
+            validate(field, patterns[field.name]);
     }
 
     // check are there any warnings. if have submit button will disable 

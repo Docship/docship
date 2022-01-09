@@ -196,7 +196,7 @@
                             ?></div>
                         </div>
                         <div class="col-lg-2 my-1">
-                        <select id="working_from" name="working_to" class="form-control shadow-none">
+                        <select id="working_to" name="working_to" class="form-control shadow-none">
                                 <option selected disabled>From</option>
                                 <option <?php echo ((isset($data['working_to'])) && $data['working_to']=="5.00Am") ? "selected":""; ?>>5.00Am</option>
                                 <option <?php echo ((isset($data['working_to'])) && $data['working_to']=="6.00Am") ? "selected":""; ?>>6.00Am</option>

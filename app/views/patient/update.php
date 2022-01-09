@@ -148,10 +148,10 @@
     }
   }
 
-  genderSelect.addEventListener('onchange',e=>{
+  genderSelect.addEventListener('change',e=>{
     genderValidate();
   });
-  bday.addEventListener('onchange', e => {
+  bday.addEventListener('change', e => {
     bdayValidate();
   });
   for (let i = 0; i < inputs.length; i++) {

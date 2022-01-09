@@ -147,10 +147,11 @@
     }
   }
 
-  genderSelect.addEventListener('onchange',e=>{
+  genderSelect.addEventListener('change',e=>{
+    console.log("Gnder select is working 1")
     genderValidate();
   });
-  bday.addEventListener('onchange', e => {
+  bday.addEventListener('change', e => {
     bdayValidate();
   });
   for (let i = 0; i < inputs.length; i++) {
@@ -161,7 +162,8 @@
   }
 
   function genderValidate() {
-    if (genderSelect.value != "") {
+    
+    if (genderSelect.value != "error") {
       genderSelect.classList.add('valid');
       isChooseGender = true;
     } else bday.classList.add('invalid');

@@ -6,7 +6,7 @@ const signIn = document.querySelectorAll(".sign-in"),
     lostPasswordForm = document.querySelector(".lost-password-form");
 const inputs = document.querySelectorAll('.input-text');
 const smalls = document.querySelectorAll('small');
-const submitReg = document.getElementById('submit-reg-patient');
+const submitReg = document.getElementById('submit-reg-patient-change');
 const select = document.getElementById('inputGender');
 const bday = document.getElementById('bday');
 // const loginInputs=document.getElementsByClassName('input-text-login');
@@ -28,7 +28,7 @@ const patterns = {
 //validation function
 var genderSelect = false;
 var addedInputData = false;
-var isBdaySelect=false;
+var isBdaySelect = false;
 
 function validate(field, regex) {
     if (regex.test(field.value)) {
@@ -40,92 +40,86 @@ function validate(field, regex) {
     }
 }
 
-
-// var isLoginInputsCorrect=false;
-// var isLoginRoleSelect=false;
-
-// loginInputs.forEach(input => {
-//     input.addEventListener('keyup',(e)=>{
-//         validate(e.target, patterns[e.target.attributes.name.value]);
-//         var valids=0;
-//         loginInputs.forEach(element => {
-//             if (element.classList.contains('valid')) {
-//                 valids++;
-//             }
-//         });
-//         if (valids==2) {
-//             isLoginInputsCorrect=true;
-//             buttonDisablerLogin(isLoginInputsCorrect,isLoginRoleSelect);
-//         }else isLoginInputsCorrect=false;
-//     })
-// });
-
-
-// function buttonDisablerLogin(isLoginInputsCorrect,isLoginRoleSelect) {
-//     if (isLoginInputsCorrect && isLoginRoleSelect) loginSubmit.disabled = false;
-//     else loginSubmit.disabled = true;
-// }
-
-// loginRole.addEventListener('change', (e) => {
-//     e.target.classList.add('valid')
-//     isLoginRoleSelect = true;
-//     buttonDisablerLogin(isLoginInputsCorrect,isLoginRoleSelect);
-// });
-
-bday.addEventListener('change', (e) => {
-    if (e.target.value != '') {
-        e.target.classList.add('valid');
-        isBdaySelect=true;
-    }else isBdaySelect=false;
-
-    buttonDisabler(addedInputData,genderSelect,isBdaySelect);
+document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === "complete") {
+        console.log("onload happening");
+        buttonDisabler(addedInputData, genderSelect, isBdaySelect);
+        checkWhenLoad();
+    }
 });
 
+function checkWhenLoad() {
+    inputs.forEach(element => {
+        validInputs(element);
+    });
+    validateSelects(select);
+}
+
+bday.addEventListener('change', (e) => {
+    var field=e.target;
+    validBday(field);
+});
+
+function validBday(field) {
+    if (field.value != '') {
+        field.classList.add('valid');
+        isBdaySelect = true;
+    } else isBdaySelect = false;
+    buttonDisabler(addedInputData, genderSelect, isBdaySelect);
+}
 
 
 select.addEventListener('change', (e) => {
-    e.target.classList.add('valid')
-    genderSelect = true;
-    //console.log(addedInputData,genderSelect,isBdaySelect);
-    buttonDisabler(addedInputData,genderSelect,isBdaySelect);
+    var field = e.target;
+    validateSelects(field);
 });
 
+function validateSelects(field) {
+    if (field.value != "error") {
+        field.classList.add('valid')
+        genderSelect = true;
+        buttonDisabler(addedInputData, genderSelect, isBdaySelect);
+    }
+}
 inputs.forEach((input) => {
     input.addEventListener('keyup', (e) => {
-
-        //console.log(e.target.value);
-        //console.log(e.target);
-        //console.log(document.getElementById('passwordInput').value);
-        if (e.target.attributes.name.value == 'repassword') {
-            if (e.target.value == document.getElementById('passwordInput').value) {
-                e.target.classList.add('valid');
-                e.target.classList.remove('invalid');
-            } else {
-                e.target.classList.add('invalid');
-                e.target.classList.remove('valid');
-            }
-        }
-        
-         else {
-            validate(e.target, patterns[e.target.attributes.name.value])
-        }
-
-        // check are there any warnings. if have submit button will disable 
-        var valids = 0;
-        inputs.forEach((input1) => {
-            if (input1.classList.contains('valid')) {
-                valids++;
-            }
-        });
-        //console.log(valids);
-        if ((valids == 6)) addedInputData=true;
-        else addedInputData=false;
-        //console.log(addedInputData);
-        buttonDisabler(addedInputData,genderSelect,isBdaySelect);
+        var field = e.target;
+        validInputs(field);
     });
 });
 
-function buttonDisabler(inputData,genderSelect,isBdaySelect) {
+function validInputs(field) {
+    if (field.name == 'repassword') {
+        if (field.value == "") {
+            console.log("nothing in inputs");
+        } else if (field.value == document.getElementById('passwordInput').value) {
+            field.classList.add('valid');
+            field.classList.remove('invalid');
+        } else {
+            field.classList.add('invalid');
+            field.classList.remove('valid');
+        }
+    } else {
+        if (field.value == "") {
+            //console.log("nothing in inputs");
+        } else
+            validate(field, patterns[field.name]);
+    }
+
+    // check are there any warnings. if have submit button will disable 
+    var valids = 0;
+    inputs.forEach((input1) => {
+        if (input1.classList.contains('valid')) {
+            valids++;
+        }
+    });
+    //console.log(valids);
+    if ((valids == 6)) addedInputData = true;
+    else addedInputData = false;
+    buttonDisabler(addedInputData, genderSelect, isBdaySelect);
+}
+
+function buttonDisabler(inputData, genderSelect, isBdaySelect) {
     //console.log(inputData,genderSelect,isBdaySelect);
     if (inputData && genderSelect && isBdaySelect) submitReg.disabled = false;
     else submitReg.disabled = true;
