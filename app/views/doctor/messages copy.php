@@ -1,13 +1,12 @@
 
-<?php require_once APPROOT."/views/inc/header_patient.php"; ?>
+<?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
 <script type="text/javascript">
     $(document).ready(function(){
-        console.log("ready function");
         var messages = <?php echo json_encode($data['messages']); ?>;
         document.querySelector('.chat-box').innerHTML = messages;
     });
   </script>
-  
+  <script src="<?php echo URLROOT; ?>/js/chat-sent-doctor.js"></script>
       <!-- Messages -->
       <!-- <main role="main" class="messages col-md-9 ml-sm-auto col-lg-10 px-md-4" id="D">
         <div
@@ -53,10 +52,8 @@
                         <input type="text" class="form-control input-field" name="message" placeholder="Typing a message here....">  
                     </div>
                     <div class="col-2 col-md-1">
-                        <button class="btn btn-primary p-0 border-circle d-flex align-items-center justify-content-center sent-btn"><i class="fas fa-arrow-up" onclick="send()"></i></button>
+                        <button class="btn btn-primary p-0 border-circle d-flex align-items-center justify-content-center sent-btn"><i class="fas fa-arrow-up"></i></button>
                     </div>
-            </form>
-            <script src="<?php echo URLROOT; ?>/js/chat-sent-patient.js"></script>        
             </div>            
         </div>
     </div>

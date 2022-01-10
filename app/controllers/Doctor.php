@@ -260,7 +260,10 @@
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
             else {
-                $this->view('doctor/messages');
+                $messages = $this->createChatMessages();
+                $data = array();
+                $data['messages'] = $messages;
+                $this->view('doctor/messages' , $data);
             }
 
         }
@@ -458,11 +461,11 @@
                     }else {
                         $data['db_err'] = 'Error Occured in System! doctor existance checking fail by email';
                         //$this->view('doctor/dumy', $data);
-                        $this->view('admin/doctor_register', $data);
+                        $this->view('doctor/update', $data);
                     }
                 }else {
                     //invalid input data
-                    $this->view('admin/doctor_register', $data);
+                    $this->view('doctor/update', $data);
                 }
             }
 
@@ -472,7 +475,29 @@
                 $data = array();
 
                 if($result!=-1 && !empty($result['value'])){
-                    $data['doctor'] = $result['value'];
+                    $doctor = $result['value'];
+                    $data =[
+                        'role'=> 'doctor',
+                        'fname'=> trim($doctor['firstname']),
+                        'lname'=> trim($doctor['lastname']),
+                        'email' => trim($doctor['email']),
+                        'password'=>trim($doctor['password']),
+                        'repassword'=>trim($doctor['repassword']),
+                        'bday'=> trim($doctor['bday']),
+                        'gender'=> trim($doctor['gender']),
+                        'charge_amount'=> trim($doctor['charge']),
+                        'category'=> trim($doctor['category']),
+                        'college'=> trim($doctor['college']),
+                        'working_from'=> trim($doctor['working_from']),
+                        'working_to'=> trim($doctor['working_to']),
+                        'working_days'=> trim($doctor['days']),
+                        'nic'=> trim($doctor['nic']),
+                        'discount'=> trim($doctor['discount']),
+                        'telephone'=> trim($doctor['telephone']),
+                        'bank_name'=> trim($doctor['bank']),
+                        'bank_branch'=> trim($doctor['branch']),
+                        'bank_acc_no'=> trim($doctor['account_no'])
+                      ];
                     $this->view('doctor/update', $data);
                 }
                 //$this->view('doctor/update') ;
@@ -534,5 +559,40 @@
             }
 
 
+        }
+
+        private function createChatMessages(){
+
+            $model = $this->model("message");
+
+            $chat_botID = $model->getChatBotId();
+
+            // get current user uid
+            $user_result = $this->model($_SESSION['role'])->getUID($_SESSION['user_id']);
+    
+            if(isset($user_result['value']) && !empty($user_result['value'])){
+    
+                $uid = $user_result['value']['user_id'];
+    
+                $msg_result = $model->getBySenderAndReceiver($uid , $chat_botID);
+    
+                if(isset($msg_result['value']) && !empty($msg_result['value'])){
+                    $output = "";
+                    $messages = $msg_result['value'];
+                    foreach($messages as $message){
+                        if($message['sender']==$uid){
+                            $output .= '<p class="from-me">'. $message['text'] .'</p>';
+                        }else {
+                            $output .= '<p class="from-them">'. $message['text'] .'</p>';
+                        }
+                    }
+                    return $output;
+                }else {
+                    return "";
+                }
+    
+            }
+    
+            return "";
         }
     }

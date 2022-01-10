@@ -238,7 +238,10 @@
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
             else {
-                $this->view('patient/messages');
+                $messages = $this->createChatMessages();
+                $data = array();
+                $data['messages'] = $messages;
+                $this->view('patient/messages' , $data);
             }
 
         }
@@ -282,41 +285,56 @@
 
                     $patientModel = $this->model('Patient');
 
-                    $result1 = $patientModel->findByemail($data['email']);
-                    $result2 = $patientModel->findById($_SESSION('user_id'));
+                    $result = $patientModel->findByEmailAll($data['email']);
 
-                    if(isset($result['value']) && isset($result2['value'])){
+                    if(isset($result['value']) && !empty($result['value'])){
+                        $result_email = $result['value'];
+                        if(empty($result_email)){
+                            $result = $patientModel->insert($data);
 
-                        if(isset($result2['error'])){
-                            $data['session_err'] = 'Error Occured in User Session!';
-                            $this->view('patient/update' , $data) ;
-                        }
+                            if($result!=-1){
+                                redirect('patient/update');
+                                //or else redirect to user admin!?
+                            }else {
+                                $data['db_err'] = 'Error Occured in System!';
+                                $data['result'] = $result;
+                                $this->view('patient/update', $data);
+                            }
+     
+                        }else if(sizeof($result_email)==1){
+                            if($result_email[0]['id']==$_SESSION['user_id']){
+                                $result = $patientModel->insert($data);
 
-                        if(!isset($result1['error']) && $result1['value']['id']!=$result2['value']['id']){
-                            $data['email_err'] = 'email already exist!';
-                            $this->view('patient/update' , $data) ;
-                        }
+                                if($result!=-1){
+                                    redirect('patient/update');
+                                    //or else redirect to user admin!?
+                                }else {
+                                    $data['db_err'] = 'Error Occured in System!';
+                                    $data['result'] = $result;
+                                    $this->view('patient/update', $data);
+                                }
 
-                        $data['id'] = $result2['value']['id'];
-                        $result = $patientModel->update($data);
-
-                        if($result==0){
-                            redirect('patient/update');
+                            }else {
+                                $data['email_err'] = "email exist";
+                                $this->view('patient/update', $data);
+                            }
+                        }else if(sizeof($result_email)>1){
+                            $data['email_err'] = "email exist";
+                            $this->view('patient/update', $data);
                         }else {
-                            $data['db_err'] = 'System failure';
-                            $this->view('patient/update' , $data) ;
+                            $data['db_err'] = 'Error Occured in System!';
+                            //$data['result'] = $result;
+                            $this->view('patient/update', $data);
                         }
 
-
-                    }
-                    else {
-                        $data['db_err'] = 'Error Occured in System! current patient existance checking fail';
-                        //$this->view('patient/dumy', $data);
-                        $this->view('patient/update' , $data) ;
+                    }else {
+                        $data['db_err'] = 'Error Occured in System! patient existance checking fail by email';
+                        //$this->view('doctor/dumy', $data);
+                        $this->view('patient/update', $data);
                     }
                 }else {
                     //invalid input data
-                    $this->view('patient/update' , $data) ;
+                    $this->view('patient/update', $data);
                 }
 
             } else {
@@ -326,8 +344,19 @@
                     if (isset($result['error'])){
                         $data['isExist'] = false;
                     }else{
-                        $data['patient'] = $result['value'];
-                        $data['isExist'] = true;
+                        $patient = $result['value'];
+                        $data =[
+                            'role'=> 'patient',
+                            'fname'=> ucwords(trim($patient['firstname'])),
+                            'lname'=> ucwords(trim($patient['lastname'])),
+                            'email' => trim($patient['email']),
+                            'bday'=> trim($patient['bday']),
+                            'telephone'=> trim($patient['telephone']),
+                            'gender'=> trim($patient['gender']),
+                            'password'=>"",
+                            'repassword'=>"",
+                            'isExist' => false
+                          ];
                     }
                 }else{
                     $data['db_err'] = "System Error";
@@ -401,4 +430,41 @@
             }
     
         }
+
+        private function createChatMessages(){
+
+            $model = $this->model("message");
+
+            $chat_botID = $model->getChatBotId()['value'];
+
+            // get current user uid
+            $user_result = $this->model($_SESSION['role'])->findById($_SESSION['user_id']);
+    
+            if(isset($user_result['value']) && !empty($user_result['value'])){
+    
+                $uid = $user_result['value']['user_id'];
+    
+                $msg_result = $model->getBySenderAndReceiver($uid , $chat_botID);
+    
+                if(isset($msg_result['value']) && !empty($msg_result['value'])){
+                    $output = "";
+                    $messages = $msg_result['value'];
+                    foreach($messages as $message){
+                        if($message['sender']==$uid){
+                            $output .= '<p class="from-me">'. $message['text'] .'</p>';
+                        }else {
+                            $output .= '<p class="from-them">'. $message['text'] .'</p>';
+                        }
+                    }
+                    return $output;
+                }else {
+                    return "";
+                }
+    
+            }
+    
+            return "";
+        }
+
+
     }

@@ -177,7 +177,10 @@
 
         public function insert($data){
 
-            $sql_user = "INSERT INTO `user`(`role`) VALUES ('doctor')";
+            $firstname = ucwords($data['fname']);
+            $lastname = ucwords($data['lname']);
+
+            $sql_user = "INSERT INTO `user`(`role`, `firstname`, `lastname`) VALUES ('patient' , '$firstname' , '$lastname')";
             $result1 = $this->DB->insert($sql_user , [] , "user");
             sleep(0.5);
             if($result1==0){
@@ -187,9 +190,6 @@
                     $user = $user_result[0];
                     $uid = $user['id'];
 
-                    
-                    $firstname = ucwords($data['fname']);
-                    $lastname = ucwords($data['lname']);
                     $email = $data['email'];
                     $pwd = $data['hash_pwd'];
                     $bday = $data['bday'];

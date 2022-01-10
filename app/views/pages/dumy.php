@@ -14,8 +14,9 @@ echo $doctor[0]; echo "<br>";
 
 
 
-echo sizeof($result); echo "<br>";
-echo $sql;
+//echo $data['messages'];
+echo "Dumy </br>";
+echo $sql; echo "<br>";
 
 /*
 $bytes = random_bytes(5);

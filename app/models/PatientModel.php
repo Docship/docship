@@ -109,8 +109,11 @@
 
         public function insert($data){
 
+            $firstname = ucwords($data['fname']);
+            $lastname = ucwords($data['lname']);
 
-            $sql_user = "INSERT INTO `user`(`role`) VALUES ('patient')";
+
+            $sql_user = "INSERT INTO `user`(`role`, `firstname`, `lastname`) VALUES ('patient' , '$firstname' , '$lastname')";
             $result1 = $this->DB->insert($sql_user , [] , "user");
             sleep(0.5);
             if($result1==0){
@@ -120,8 +123,7 @@
                     $user = $user_result[0];
                     $uid = $user['id'];
 
-                    $firstname = ucwords($data['fname']);
-                    $lastname = ucwords($data['lname']);
+                    
                     $email = $data['email'];
                     $pwd = $data['hash_pwd'];
                     $bday = $data['bday'];
@@ -175,4 +177,31 @@
             $result = $this->DB->delete($sql);
             return $result;
         }
+
+        public function getUID($id){
+            $sql = "SELECT * FROM `patient` WHERE id='$id'";
+
+            $result = $this->DB->selectAll($sql);
+            $output = [];
+            
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "invalid_email";
+                    $output['value'] = [];
+                    // email not exist
+                    return $output;
+                }
+                $patient = $result[0];
+                $output['value'] = $patient;
+                return $output;
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+
+
+        }
+
+        
     }

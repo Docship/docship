@@ -60,7 +60,7 @@
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$appointment['id']."' >". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . $appointment['time'] . "</td>";
+                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
                 $r4 = "<td>" . $appointment['doctor_id'] . "</td>";
                 $color = getStatusColor($appointment['status']);
                 $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
