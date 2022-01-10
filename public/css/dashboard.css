@@ -184,11 +184,11 @@ tr td:last-child{
   background-color: orangered;
 }
 
-.subheader{
-  /* display: flex;
+/* .subheader{
+  display: flex;
   align-items: center;
-  justify-content: center; */
-}
+  justify-content: center;
+} */
 
 
 .popup-container{
@@ -249,4 +249,16 @@ tr td:last-child{
   border: 1px solid #C82333;
   padding: 0.2rem 1rem 0.2rem 1rem;
   border-radius: 0.2rem;
+}
+
+
+/* for search */
+.filter-charge{
+  display: none;
+}
+.doc-specializion{
+  display: none;
+}
+.filter-time{
+  display: none;
 }

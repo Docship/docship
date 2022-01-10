@@ -42,7 +42,7 @@ function setTime(time) {
 
     while (docStartTime1 < endTimeObject) {
         docStartTime1.setHours(docStartTime1.getHours() + 1);
-        var dd = docStartTime1.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+        var dd = docStartTime1.toLocaleTimeString().replace(/([\d]+.[\d]{2})(.[\d]{2})(.*)/, "$1$3");
         //console.log(docStartTime1.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
         to.innerHTML += "<option>" + dd + "</option>";
     }
@@ -163,7 +163,12 @@ inputs.forEach((input) => {
 
 //////////VALIDATE FUNCTIONS/////////////////////////
 function validateInputChanges(field) {
-    if (field.value != "") {
+    if (field.name=="discount") {
+        if (field.value<100) {
+            field.classList.add('valid');
+        }else field.classList.add('invalid');
+    }
+    else if (field.value != "") {
         field.classList.add('valid');
     }
     var changes = 0;
