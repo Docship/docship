@@ -265,3 +265,9 @@ tr td:last-child{
 .filter-day{
   display: none;
 }
+
+/* validation */
+select.valid,
+input.valid {
+    border-color: green !important;
+}

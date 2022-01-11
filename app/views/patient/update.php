@@ -38,13 +38,13 @@
           <form id="myform" method="get" action="https://www.google.com/">
             <div class="row">
               <div class="col-lg-6 mt-2">
-                <input name="fname" type="text" class="form-control update-inputs update-patient" placeholder="First name"
-                  value=<?php echo $data['patient']['firstname'] ?>>
+                <input name="fname" type="text" class="form-control update-inputs update-patient"
+                  placeholder="First name" value=<?php echo $data['patient']['firstname'] ?>>
                 <div><?php ?></div>
               </div>
               <div class="col-lg-6 mt-2">
-                <input name="lname" type="text" class="form-control update-inputs update-patient" placeholder="Last name"
-                  value=<?php echo $data['patient']['lastname'] ?>>
+                <input name="lname" type="text" class="form-control update-inputs update-patient"
+                  placeholder="Last name" value=<?php echo $data['patient']['lastname'] ?>>
                 <div></div>
               </div>
             </div>
@@ -55,15 +55,15 @@
                 <div></div>
               </div>
               <div class="col-lg-6 mt-2">
-                <input name="telephone" type="tel" class="form-control update-inputs update-patient" placeholder="Phone number"
-                  value=<?php echo $data['patient']['telephone'] ?>>
+                <input name="telephone" type="tel" class="form-control update-inputs update-patient"
+                  placeholder="Phone number" value=<?php echo $data['patient']['telephone'] ?>>
                 <div></div>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 mt-2">
-                <input name="password" id="passwordInput" type="password" class="form-control update-inputs update-patient" placeholder="New Password"
-                  value="abX45@j4">
+                <input name="password" id="passwordInput" type="password"
+                  class="form-control update-inputs update-patient" placeholder="New Password" value="abX45@j4">
                 <div></div>
               </div>
               <div class="col-lg-6 mt-2">
@@ -74,9 +74,10 @@
             </div>
             <div class="row">
               <div class="col-lg-6 mt-2">
-                <input name="bday" placeholder="Birthday" name="bday" class="form-control shadow-none update-inputs update-patient" id="bday"
-                  type="text" value=<?php echo $data['patient']['bday'] ?> onfocus="(this.type='date')"
-                  onblur="(this.type='text')" id="date" />
+                <input name="bday" placeholder="Birthday" name="bday"
+                  class="form-control shadow-none update-patient" id="bday" type="text"
+                  value=<?php echo $data['patient']['bday'] ?> onfocus="(this.type='date')" onblur="(this.type='text')"
+                  id="date" />
                 <div></div>
               </div>
               <div class="col-lg-6 mt-2">
@@ -116,8 +117,8 @@
   const save = document.getElementById('save-changes');
   const edit = document.getElementById('edit-account');
   const bday = document.getElementById('bday');
-  const allInputs=document.getElementsByClassName('update-patient');
-  
+  const allInputs = document.getElementsByClassName('update-patient');
+
   var addedInputData = false;
   var isChooseGender = false;
   var selectBday = false;
@@ -127,9 +128,9 @@
       for (var i = 0; i < inputs.length; i++) {
         inputs[i].readOnly = true;
       }
-      bday.readOnly=true;
+      bday.readOnly = true;
       genderSelect.disabled = true;
-      save.disabled=true;
+      save.disabled = true;
     }
     for (let i = 0; i < inputs.length; i++) {
       validateInputs(inputs[i]);
@@ -148,7 +149,7 @@
     }
   }
 
-  genderSelect.addEventListener('change',e=>{
+  genderSelect.addEventListener('change', e => {
     genderValidate();
   });
   bday.addEventListener('change', e => {
@@ -156,63 +157,68 @@
   });
   for (let i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener('keyup', (e) => {
-      var field=e.target;
+      var field = e.target;
       validateInputs(field);
     });
   }
 
   function genderValidate() {
-    if (genderSelect.value != "") {
+    if (genderSelect.value != "error") {
       genderSelect.classList.add('valid');
       isChooseGender = true;
     } else bday.classList.add('invalid');
-    buttonDisabler(isChooseGender,selectBday,addedInputData);
+    buttonDisabler(isChooseGender, selectBday, addedInputData);
   }
 
   function bdayValidate() {
     if (bday.value != "") {
       bday.classList.add('valid');
+      bday.classList.remove('invalid');
       selectBday = true;
-    } else bday.classList.add('invalid');
-    buttonDisabler(isChooseGender,selectBday,addedInputData);
+    } else {
+      bday.classList.add('invalid');
+      bday.classList.remove('valid');
+    }
+    buttonDisabler(isChooseGender, selectBday, addedInputData);
   }
 
   function validateInputs(field) {
     if (field.name == 'repassword') {
       //console.log('repassword is here bro')
-        if (field.value == document.getElementById('passwordInput').value) {
-          field.classList.add('valid');
-          field.classList.remove('invalid');
-        } else {
-          field.classList.add('invalid');
-          field.classList.remove('valid');
-        }
+      if (field.value == document.getElementById('passwordInput').value) {
+        field.classList.add('valid');
+        field.classList.remove('invalid');
       } else {
-        validate(field, patterns[field.name]);
+        field.classList.add('invalid');
+        field.classList.remove('valid');
       }
-
-      // check are there any warnings. if have submit button will disable 
-      var valids = 0;
-      for (let j = 0; j < inputs.length; j++) {
-        if (inputs[j].classList.contains('valid')) {
-          valids++;
-        }
-      }
-      if ((valids == 6)) addedInputData = true;
-      else addedInputData = false;
-      buttonDisabler(isChooseGender,selectBday,addedInputData);
-  }
-  function buttonDisabler(isChooseGender,selectBday,addedInputData) {
-    if (isChooseGender&&selectBday&&addedInputData) {
-      save.disabled=false;
+    } else {
+      validate(field, patterns[field.name]);
     }
+
+    // check are there any warnings. if have submit button will disable 
+    var valids = 0;
+    for (let j = 0; j < inputs.length; j++) {
+      if (inputs[j].classList.contains('valid')) {
+        valids++;
+      }
+    }
+    if ((valids == 6)) addedInputData = true;
+    else addedInputData = false;
+    buttonDisabler(isChooseGender, selectBday, addedInputData);
+  }
+
+  function buttonDisabler(isChooseGender, selectBday, addedInputData) {
+    if (isChooseGender && selectBday && addedInputData) {
+      save.disabled = false;
+    }else save.disabled = true;
   }
   edit.addEventListener('click', (e) => {
     for (var i = 0; i < inputs.length; i++) {
       inputs[i].readOnly = false;
     }
     genderSelect.disabled = false;
-    bday.readOnly=false;
+    bday.readOnly = false;
   });
 </script>
 <?php require_once APPROOT."/views/inc/footer.php"; ?>
