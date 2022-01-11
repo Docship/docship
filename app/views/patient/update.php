@@ -74,7 +74,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6 mt-2">
-                <input name="bday" placeholder="Birthday" name="bday" class="form-control shadow-none update-patient" id="bday"
+                <input name="bday" placeholder="Birthday" name="bday" class="form-control shadow-none update-inputs update-patient" id="bday"
                   type="text" value=<?php echo $data['patient']['bday'] ?> onfocus="(this.type='date')"
                   onblur="(this.type='text')" id="date" />
                 <div></div>
@@ -90,7 +90,6 @@
                 <div></div>
               </div>
             </div>
-
           </form>
 
         </div>
@@ -128,6 +127,7 @@
       for (var i = 0; i < inputs.length; i++) {
         inputs[i].readOnly = true;
       }
+      bday.readOnly=true;
       genderSelect.disabled = true;
       save.disabled=true;
     }
@@ -212,6 +212,7 @@
       inputs[i].readOnly = false;
     }
     genderSelect.disabled = false;
+    bday.readOnly=false;
   });
 </script>
 <?php require_once APPROOT."/views/inc/footer.php"; ?>

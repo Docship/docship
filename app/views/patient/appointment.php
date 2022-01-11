@@ -44,6 +44,7 @@
                 doc_lst.forEach(doctor => {
                   if (doctor['id'] == doctor_id) {
                     document.getElementById("charge").value = doctor['charge_amount'];
+                    setTime(doctor['working_from'],doctor['working_to']);
                   }
                 });
               }

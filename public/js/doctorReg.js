@@ -184,8 +184,6 @@ function validateInputChanges(field) {
     buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
 }
 
-
-
 function validCheckBoxes() {
     if (dayOut.value != "") {
         daysDiv.classList.remove('invalid');

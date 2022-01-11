@@ -256,9 +256,12 @@ tr td:last-child{
 .filter-charge{
   display: none;
 }
-.doc-specializion{
+.filter-specialization{
   display: none;
 }
 .filter-time{
+  display: none;
+}
+.filter-day{
   display: none;
 }
