@@ -54,17 +54,21 @@
                 echo "<th>Time</th>";
                 echo "<th>Doctor ID</th>";
                 echo "<th>Status</th>";
+                echo "<th>Rating</th>";
+                echo "<th>Action</th>";
               echo "</tr>";
               echo "</thead>";
               echo "<tbody>";
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$appointment['id']."' >". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
+                $r3 = "<td>" . $appointment['time'] . "</td>";
                 $r4 = "<td>" . $appointment['doctor_id'] . "</td>";
                 $color = getStatusColor($appointment['status']);
                 $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . "</tr>";
+                $r6 = "<td><button type='submit' id='".$appointment['id']."1'>Button</button></td>";
+                $r7 = "<td><button type='submit' id='".$appointment['id']."'>Button</button></td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 .$r6 .$r7 . "</tr>";
 
                 echo $row;
               }

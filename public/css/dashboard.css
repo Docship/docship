@@ -392,9 +392,18 @@ p.from-them::after {
 .filter-charge{
   display: none;
 }
-.doc-specializion{
+.filter-specialization{
   display: none;
 }
 .filter-time{
   display: none;
+}
+.filter-day{
+  display: none;
+}
+
+/* validation */
+select.valid,
+input.valid {
+    border-color: green !important;
 }
