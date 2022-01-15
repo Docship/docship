@@ -5,7 +5,7 @@
   <script src="<?php echo URLROOT; ?>/js/bootstrap.min.js"></script>
   <script src="<?php echo URLROOT; ?>/js/popper.min.js"></script>
   <script src="<?php echo URLROOT; ?>/js/dashboard.js"></script>
-  <script src="<?php echo URLROOT; ?>/js/doctorReg.js"></script>
+  <script src="<?php echo URLROOT; ?>/js/doctorUpdate.js"></script>
 </body>
 
 </html>
