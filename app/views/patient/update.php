@@ -74,10 +74,9 @@
             </div>
             <div class="row">
               <div class="col-lg-6 mt-2">
-                <input name="bday" placeholder="Birthday" name="bday"
-                  class="form-control shadow-none update-patient" id="bday" type="text"
-                  value=<?php echo $data['patient']['bday'] ?> onfocus="(this.type='date')" onblur="(this.type='text')"
-                  id="date" />
+                <input name="bday" placeholder="Birthday" name="bday" class="form-control shadow-none update-patient"
+                  id="bday" type="text" value=<?php echo $data['patient']['bday'] ?> onfocus="(this.type='date')"
+                  onblur="(this.type='text')" id="date" />
                 <div></div>
               </div>
               <div class="col-lg-6 mt-2">
@@ -183,7 +182,11 @@
   }
 
   function validateInputs(field) {
-    if (field.name == 'repassword') {
+    if (field.name == 'password' && field.value == "") {
+      field.classList.add('valid');
+      field.classList.remove('invalid');
+    }
+    else if (field.name == 'repassword') {
       //console.log('repassword is here bro')
       if (field.value == document.getElementById('passwordInput').value) {
         field.classList.add('valid');
@@ -211,7 +214,7 @@
   function buttonDisabler(isChooseGender, selectBday, addedInputData) {
     if (isChooseGender && selectBday && addedInputData) {
       save.disabled = false;
-    }else save.disabled = true;
+    } else save.disabled = true;
   }
   edit.addEventListener('click', (e) => {
     for (var i = 0; i < inputs.length; i++) {

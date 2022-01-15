@@ -8,21 +8,21 @@ const daysDiv = document.querySelector('.days');
 const dayOut = document.getElementById("daysSelected");
 const days = document.getElementById('daysSelected');
 const from = document.getElementById('working_from');
-const to=document.getElementById('working_to');
+const to = document.getElementById('working_to');
 
 // from.addEventListener('change',e=>{
 
 // })
 function setTime(time) {
-    console.log(time);
+    
     //console.log("Enter set time");
     var docStartTime = time.split('.');
     // console.log(docStartTime);
     // console.log(docStartTime[1][3]);
     // var to = end.split(":");
     docStartTime[0] = parseInt(docStartTime[0]);
-    if (docStartTime[1][3]=="P") {
-        docStartTime[0] = docStartTime[0]+12;
+    if (docStartTime[1][3] == "P") {
+        docStartTime[0] = docStartTime[0] + 12;
     }
 
     var docStartTime1 = new Date();
@@ -84,7 +84,7 @@ document.addEventListener('readystatechange', event => {
 
 
 function checkWhenLoad() {
-    to.disabled=true;
+    to.disabled = true;
     /////////////////////////////////////////////////////
     inputs.forEach(input => {
         validInputs(input);
@@ -93,18 +93,21 @@ function checkWhenLoad() {
         validateInputChanges(inputChange1);
     });
     ///////////////////////////////////////////////////////
-    var daysArray = days.value.split("");
-    checkBoxes.forEach(e => {
-        if (daysArray.indexOf(e.value) !== -1) {
-            e.checked = true;
-        }
-    });
-    validCheckBoxes();
+    if (!days.value == "") {
+        var daysArray = days.value.split("");
+        checkBoxes.forEach(e => {
+            if (daysArray.indexOf(e.value) !== -1) {
+                e.checked = true;
+            }
+        });
+        validCheckBoxes();
+    }
+
     /////////////////////////////////////////////////////
     selects.forEach(e => {
         validateSelects(e);
     });
-    
+
 }
 
 function validate(field, regex) {
@@ -163,12 +166,7 @@ inputs.forEach((input) => {
 
 //////////VALIDATE FUNCTIONS/////////////////////////
 function validateInputChanges(field) {
-    if (field.name=="discount") {
-        if (field.value<100) {
-            field.classList.add('valid');
-        }else field.classList.add('invalid');
-    }
-    else if (field.value != "") {
+    if (field.value != "") {
         field.classList.add('valid');
     }
     var changes = 0;
@@ -177,6 +175,7 @@ function validateInputChanges(field) {
             changes++;
         }
     });
+    console.log(changes);
     if (changes == 4) {
         isInputChanged = true;
     } else isInputChanged = false;
@@ -197,12 +196,12 @@ function validCheckBoxes() {
 
 
 function validateSelects(field) {
-    const val = ["Gender", "Specialization", "From", "To","Bank","Branch"];
-    
+    const val = ["Gender", "Specialization", "From", "To", "Bank", "Branch"];
+
     if (val.indexOf(field.value) == -1) {
         field.classList.add('valid');
-        if (field.name=="working_from") {
-            to.disabled=false;
+        if (field.name == "working_from") {
+            to.disabled = false;
             setTime(field.value);
         }
     }
@@ -232,7 +231,7 @@ function validInputs(field) {
         }
     } else {
         if (field.value == "") {
-            console.log("nothing in inputs");
+            //console.log("nothing in inputs");
         } else
             validate(field, patterns[field.name]);
     }

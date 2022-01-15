@@ -1,3 +1,4 @@
+<?php require_once APPROOT."/views/inc/error_input.php";?>
 <!doctype html>
 <html lang="en">
 
