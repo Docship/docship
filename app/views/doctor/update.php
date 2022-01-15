@@ -381,12 +381,8 @@
 
                     <button type="submit" class="btn btn-n btn-primary w-100 shadow-none my-1" name="submit"
                         id="submit-reg" disabled=true>
-                        Create Doctor Account
+                        Update Doctor Account
                     </button>
-                    <p class="text-center">
-                        <a href="<?php echo URLROOT; ?>\admin\doctors" id="sign-up" class="sign-up"> <i
-                                class="fas fa-arrow-left"></i> Back</a>
-                    </p>
                 </form>
             </div>
         </div>

@@ -243,7 +243,7 @@ function validInputs(field) {
             valids++;
         }
     });
-    //console.log(valids);
+    console.log(valids);
     if ((valids == 8)) addedInputData = true;
     else addedInputData = false;
     buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
