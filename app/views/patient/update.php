@@ -11,27 +11,25 @@
       <div class="col-lg-4 border-right">
         <div class="d-flex flex-column align-items-center text-center py-5">
           <img class="rounded-circle" src="<?php echo URLROOT; ?>/img/user.png" width="90">
-          <span class="font-weight-bold"><?php echo $data['firstname'] ?></span>
+          <span class="font-weight-bold"><?php echo $data['fname'] ?></span>
           <span class="text-black-50"><?php echo $data['email'] ?></span>
           <span><?php echo $data['gender'] ?></span></div>
-        <div class="row">
-          <div class="col-lg-6 mt-2 d-flex justify-content-center">
-            <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center align-content-center"
-              id="edit-account">
-              <span data-feather="edit" class="mr-2"></span> Edit Account
-            </button>
+        <form id="myform" method="post" action="<?php echo URLROOT; ?>/patient/update">
+          <div class="row">
+            <div class="col-lg-6 mt-2 d-flex justify-content-center">
+              <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center align-content-center"
+                id="edit-account">
+                <span data-feather="edit" class="mr-2"></span> Edit Account
+              </button>
+            </div>
+            <div class="col-lg-6 mt-2 d-flex justify-content-center">
+              <button type="submit" form="myform"
+                class="btn btn-sm btn-success d-flex justify-content-center align-content-center" id="save-changes">
+                <span data-feather="save" class="mr-2"></span> Save Changes
+              </button>
+            </div>
           </div>
-          <div class="col-lg-6 mt-2 d-flex justify-content-center">
-            <button type="button" form="myform"
-              class="btn btn-sm btn-success d-flex justify-content-center align-content-center" id="save-changes">
-              <span data-feather="save" class="mr-2"></span> Save Changes
-            </button>
-          </div>
-        </div>
       </div>
-
-
-
 
       <div class="col-lg-8">
         <div class="p-3 py-1">
@@ -60,23 +58,26 @@
                 <div></div>
               </div>
             </div>
-            <div class="row">
+            <div class="row d-flex justify-content-start" style="margin:10px 10px 0 0;">
+              <button class="btn btn-primary" onclick="passwordChange()" type="button">change password</button>
+            </div>
+            <div class="row" id="passwordSector" style="display: none;">
               <div class="col-lg-6 mt-2">
                 <input name="password" id="passwordInput" type="password"
                   class="form-control update-inputs update-patient" placeholder="New Password" value="">
                 <div></div>
               </div>
               <div class="col-lg-6 mt-2">
-                <input name="repassword" type="password" class="form-control update-inputs update-patient"
+                <input name="repassword" id="rePasswordInput" type="password" class="form-control update-inputs update-patient"
                   placeholder="Re Type your password" value="">
                 <div></div>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 mt-2">
-                <input name="bday" placeholder="Birthday"
-                  class="form-control shadow-none update-patient" id="bday" type="text"
-                  value=<?php echo $data['bday']?> onfocus="(this.type='date')" onblur="(this.type='text')" />
+                <input name="bday" placeholder="Birthday" name="bday" class="form-control shadow-none update-patient"
+                  id="bday" type="text" value="<?php echo $data['bday']?>" onfocus="(this.type='date')"
+                  onblur="(this.type='text')" id="date" />
                 <div></div>
               </div>
               <div class="col-lg-6 mt-2">
@@ -117,10 +118,24 @@
   const edit = document.getElementById('edit-account');
   const bday = document.getElementById('bday');
   const allInputs = document.getElementsByClassName('update-patient');
+  const passwordSector = document.getElementById('passwordSector');
 
+  var changingPassword = false;
   var addedInputData = false;
   var isChooseGender = false;
   var selectBday = false;
+
+  function passwordChange() {
+    if (changingPassword == false) {
+      passwordSector.style.display = 'flex';
+      changingPassword = true;
+    } else {
+      passwordSector.style.display = 'none';
+      changingPassword = false;
+    }
+    validateInputs(document.getElementById('passwordInput'));
+    validateInputs(document.getElementById('rePasswordInput'));
+  }
 
   document.addEventListener('readystatechange', event => {
     if (event.target.readyState === "complete") {
@@ -182,7 +197,14 @@
   }
 
   function validateInputs(field) {
-    if (field.name == 'repassword') {
+    if ((field.name == 'password' || field.name == 'repassword') && !changingPassword) {
+      document.getElementById('passwordInput').classList.remove('valid');
+      document.getElementById('rePasswordInput').classList.remove('valid');
+    }
+    else if (field.name == 'password' && field.value == "") {
+      field.classList.add('valid');
+      field.classList.remove('invalid');
+    } else if (field.name == 'repassword') {
       //console.log('repassword is here bro')
       if (field.value == document.getElementById('passwordInput').value) {
         field.classList.add('valid');
@@ -202,7 +224,10 @@
         valids++;
       }
     }
-    if ((valids == 6)) addedInputData = true;
+    if ((!changingPassword) && (valids == 4)) {
+      addedInputData = true;
+    }
+    else if (changingPassword && (valids == 6)) addedInputData = true;
     else addedInputData = false;
     buttonDisabler(isChooseGender, selectBday, addedInputData);
   }
@@ -210,7 +235,7 @@
   function buttonDisabler(isChooseGender, selectBday, addedInputData) {
     if (isChooseGender && selectBday && addedInputData) {
       save.disabled = false;
-    }else save.disabled = true;
+    } else save.disabled = true;
   }
   edit.addEventListener('click', (e) => {
     for (var i = 0; i < inputs.length; i++) {

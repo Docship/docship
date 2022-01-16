@@ -217,12 +217,24 @@
 
                 $result = $this->model('Prescription')->findByPatientId($_SESSION['user_id']);
                 $data = array();
+                $prescriptions = array();
 
                 if(isset($result['value'])){
-                    $data['prescriptions'] = $result['value'];
+                    $prescriptions_init = $result['value'];
+                    $resultDoc = $this->model('Doctor')->getAll();
+                    foreach($prescriptions_init as $prescription){
+                        $resultDoc = $this->model('Doctor')->findById($prescription['doctor_id']);
+                        $doc = $resultDoc['value'];
+                        $prescription['doctor'] = $doc;
+                        $prescription += array('doctor' => $doc);
+                        array_push($prescriptions,$prescription);
+                    }
+
                 }
 
+                $data['prescriptions'] = $prescriptions;
 
+                //$this->view('pages/dumy' , $data);
 
                 $this->view('patient/prescriptions' , $data);
             }
@@ -253,7 +265,9 @@
             }
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
+
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
 
                 $data =[
                     'role'=> 'patient',
@@ -277,6 +291,9 @@
                     'isExist' => false
                   ];
 
+                include_once '../app/views/' . "pages/dumy" . '.php';
+                die();
+
                 //$validate = $this->getValidation();
                 $result = Validate::checkPatientUpdateData($data);
 
@@ -285,12 +302,14 @@
 
                     $patientModel = $this->model('Patient');
 
+                    $data['id'] = $_SESSION['user_id'];
+
                     $result = $patientModel->findByEmailAll($data['email']);
 
                     if(isset($result['value']) && !empty($result['value'])){
                         $result_email = $result['value'];
                         if(empty($result_email)){
-                            $result = $patientModel->insert($data);
+                            $result = $patientModel->update($data);
 
                             if($result!=-1){
                                 redirect('patient/update');
@@ -429,6 +448,32 @@
     
             }
     
+        }
+
+        public function appointments_confirmed(){
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->getConfirmedByPatient($_SESSION['user_id']);
+
+                if(isset($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+
+                $this->view('patient/appointments_confirmed' , $data) ;
+
+
+            }
         }
 
         private function createChatMessages(){

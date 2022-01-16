@@ -16,7 +16,12 @@ echo $doctor[0]; echo "<br>";
 
 //echo $data['messages'];
 echo "Dumy </br>";
-echo $sql; echo "<br>";
+
+foreach($data as $x => $x_value) {
+    echo "Key=" . $x . ", Value=" . $x_value;
+    echo "<br>";
+  }
+
 
 /*
 $bytes = random_bytes(5);

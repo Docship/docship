@@ -227,7 +227,7 @@
             }else {
                 return $result1;
             }
-
+            /*
             $firstname = $data['fname'];
             $lastname = $data['lname'];
             $email = $data['email'];
@@ -262,11 +262,48 @@
             $data1['sql'] = $sql;
             include_once '../app/views/' . "admin/dumy" . '.php';
             return;
-            */
+            
             $result = $this->DB->insert($sql , [] , 'doctor');
 
             return $result;
+            */
 
+        }
+
+        public function update($data){
+            
+            $id = $data['id'];
+            $firstname = $data['fname'];
+            $lastname = $data['lname'];
+            $email = $data['email'];
+            $pwd = $data['hash_pwd'];
+            $bday = $data['bday'];
+            $gender = $data['gender'];
+            $charge_amount = $data['charge_amount'];
+            $category = $data['category'];
+            $college = $data['college'];
+            $working_from = $data['working_from_24hrs'];
+            $working_to = $data['working_to_24hrs'];
+            $working_days = $data['working_days'];
+            $nic = $data['nic'];
+            //$gov_registration_no = $data['gov_registration_no'];
+            $discount = $data['discount'];
+            $telephone = $data['telephone'];
+            $bank_name = $data['bank_name'];
+            $bank_branch = $data['bank_branch'];
+            $bank_acc_no = $data['bank_acc_no'];
+            $total_income = $data['total_income'];
+            $current_arrears = $data['current_arrears'];
+
+            if($data['password'] ==""){
+                $sql = "UPDATE `doctor` SET `firstname`='$firstname',`lastname`=$lastname,`email`='$email',`bday`='$bday',`gender`='$gender',`charge_amount`=$charge_amount,`category`='$category',`college`='$college',`working_from`='$working_from',`working_to`='$working_to',`working_days`='$working_days',`nic`='$nic',`discount`=$discount,`telephone`='$telephone',`bank_name`='$bank_name',`bank_branch`='$bank_branch',`bank_acc_no`='$bank_acc_no' WHERE id=$id";
+            }else {
+                $sql = "UPDATE `doctor` SET `firstname`='$firstname',`lastname`=$lastname,`email`='$email', `pwd`= '$pwd' ,`bday`='$bday',`gender`='$gender',`charge_amount`=$charge_amount,`category`='$category',`college`='$college',`working_from`='$working_from',`working_to`='$working_to',`working_days`='$working_days',`nic`='$nic',`discount`=$discount,`telephone`='$telephone',`bank_name`='$bank_name',`bank_branch`='$bank_branch',`bank_acc_no`='$bank_acc_no' WHERE id=$id";
+            }
+
+            $result = $this->DB->update($sql , [] , 'doctor');
+
+            return $result;
         }
 
         public function isDoctorWroking($id , $date , $time=null){

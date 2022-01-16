@@ -355,7 +355,7 @@
                                 <option value="Colombo" <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Colombo") ? "selected":""; ?>>Colombo</option>
                                 <option value="Gampaha"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Gampaha") ? "selected":""; ?>>Gampaha</option>
                                 <option value="Kegalle"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Kegalle") ? "selected":""; ?>>Kegalle</option>
-                                <option value="Nigambo"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Negambo") ? "selected":""; ?>>Negambo</option>
+                                <option value="Negombo"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Negombo") ? "selected":""; ?>>Negombo</option>
                                 <option value="Galle"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Galle") ? "selected":""; ?>>Galle</option>
                                 <option value="Chilaw"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Chilaw") ? "selected":""; ?>>Chilaw</option>
                                 <option value="Matara"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Matara") ? "selected":""; ?>>Matara</option>

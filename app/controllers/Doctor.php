@@ -335,6 +335,8 @@
 
                     $doctorModel = $this->model('Doctor');
 
+                    $data['id'] = $_SESSION['user_id'];
+
                     $result = $doctorModel->findByEmailAll($data['email']);
 
                     if(isset($result['value']) && !empty($result['value'])){
@@ -346,7 +348,7 @@
                                 if(empty($result_doc_nic)){
                                     $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
                                     $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
-                                    $result = $doctorModel->insert($data);
+                                    $result = $doctorModel->update($data);
 
                                 
                                     if($result!=-1){
@@ -362,7 +364,7 @@
                                     if($d1['nic'] == $data['nic'] && $d1['id'] == $_SESSION['user_id']){
                                         $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
                                         $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
-                                        $result = $doctorModel->insert($data);
+                                        $result = $doctorModel->update($data);
 
                                     
                                         if($result!=-1){
@@ -398,7 +400,7 @@
                                     if(empty($result_doc_nic)){
                                         $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
                                         $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
-                                        $result = $doctorModel->insert($data);
+                                        $result = $doctorModel->update($data);
 
                                     
                                         if($result!=-1){
@@ -414,7 +416,7 @@
                                         if($d1['nic'] == $data['nic'] && $d1['id'] == $_SESSION['user_id']){
                                             $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
                                             $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
-                                            $result = $doctorModel->insert($data);
+                                            $result = $doctorModel->update($data);
 
                                         
                                             if($result!=-1){
@@ -476,31 +478,31 @@
 
                 if($result!=-1 && !empty($result['value'])){
                     $doctor = $result['value'];
+                    $date_to = new DateTime($doctor["working_to"]);
+                    $date_from = new DateTime($doctor["working_from"]);
                     $data =[
                         'role'=> 'doctor',
                         'fname'=> trim($doctor['firstname']),
                         'lname'=> trim($doctor['lastname']),
                         'email' => trim($doctor['email']),
-                        'password'=>trim($doctor['password']),
-                        'repassword'=>trim($doctor['repassword']),
                         'bday'=> trim($doctor['bday']),
                         'gender'=> trim($doctor['gender']),
-                        'charge_amount'=> trim($doctor['charge']),
+                        'charge_amount'=> trim($doctor['charge_amount']),
                         'category'=> trim($doctor['category']),
                         'college'=> trim($doctor['college']),
-                        'working_from'=> trim($doctor['working_from']),
-                        'working_to'=> trim($doctor['working_to']),
-                        'working_days'=> trim($doctor['days']),
+                        'working_from'=> $date_from->format('h.i A'),
+                        'working_to'=> $date_to->format('h.i A'),
+                        'working_days'=> trim($doctor['working_days']),
                         'nic'=> trim($doctor['nic']),
                         'discount'=> trim($doctor['discount']),
                         'telephone'=> trim($doctor['telephone']),
-                        'bank_name'=> trim($doctor['bank']),
-                        'bank_branch'=> trim($doctor['branch']),
-                        'bank_acc_no'=> trim($doctor['account_no'])
+                        'bank_name'=> trim($doctor['bank_name']),
+                        'bank_branch'=> trim($doctor['bank_branch']),
+                        'bank_acc_no'=> trim($doctor['bank_acc_no'])
                       ];
-                    $this->view('doctor/update', $data);
+                    //$this->view('pages/dumy', $data);
                 }
-                //$this->view('doctor/update') ;
+                $this->view('doctor/update' , $data) ;
 
 
             }

@@ -29,7 +29,7 @@
         }
 
         public function findById($id){
-            $sql = "SELECT * FROM `appointment` WHERE id='$id'";
+            $sql = "SELECT * FROM `appointment` WHERE id='$id' ORDER BY `date` DESC";
             $result = $this->DB->selectAll($sql);
 
             $output = array();
@@ -110,7 +110,7 @@
         }
 
         public function findByPatientId($patientid){
-            $sql = "SELECT * FROM `appointment` WHERE patient_id = $patientid AND is_exit = 0";
+            $sql = "SELECT * FROM `appointment` WHERE patient_id = $patientid AND is_exit = 0 AND status = 'PENDING' ORDER BY `date` DESC";
             $result = $this->DB->selectAll($sql);
 
             $output = array();
@@ -134,7 +134,7 @@
         }
 
         public function findByDoctorId($doctorid){
-            $sql = "SELECT * FROM `appointment` WHERE doctor_id = $doctorid AND is_exit = 0";
+            $sql = "SELECT * FROM `appointment` WHERE doctor_id = $doctorid AND is_exit = 0 AND status = 'PENDING' ORDER BY `date` DESC";
             $result = $this->DB->selectAll($sql);
 
             $output = array();
@@ -158,14 +158,14 @@
         }
 
         public function getAll(){
-            $sql = "SELECT * FROM `appointment` WHERE is_exit= 0";
+            $sql = "SELECT * FROM `appointment` WHERE is_exit= 0 ORDER BY `date` DESC";
             $result = $this->DB->selectAll($sql);
             return $result;
         }
 
         public function getLimited($limit){
             $status = false;
-            $sql = "SELECT * FROM `appointment` WHERE `is_exit`='$status'";
+            $sql = "SELECT * FROM `appointment` WHERE `is_exit`='$status' ORDER BY `date` DESC";
             $result = $this->DB->selectAll($sql);
             return $result;
         }
@@ -174,5 +174,29 @@
             $sql = "UPDATE `appointment` SET `is_exit` = 1 WHERE id = $id;";
             $result = $this->DB->update($sql);
             return $result;
+        }
+
+        public function getConfirmedByPatient($patient_id){
+            $sql = "SELECT * FROM `appointment` WHERE patient_id = $patient_id AND is_exit = 0 AND status = 'CONFIRMED' ORDER BY `date` DESC";
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
         }
     }

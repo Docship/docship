@@ -156,15 +156,17 @@
             $gender = $data['gender'];
             $telephone = $data['telephone'];
 
-            $sql = "UPDATE `patient` SET `firstname`=$firstname,`lastname`=$lastname,`email`=$email,`pwd`=$pwd,`bday`=$bday,`gender`=$gender,`telephone`=$telephone WHERE id=$id";
+            if($data['password'] == ''){
+                $sql = "UPDATE `patient` SET `firstname`=$firstname,`lastname`=$lastname,`email`=$email,`bday`=$bday,`gender`=$gender,`telephone`=$telephone WHERE id=$id";
+            }else {
+                $sql = "UPDATE `patient` SET `firstname`=$firstname,`lastname`=$lastname,`email`=$email,`pwd`=$pwd,`bday`=$bday,`gender`=$gender,`telephone`=$telephone WHERE id=$id";
+            }
 
             $result = $this->DB->update($sql , [] , 'patient');
 
             return $result;
 
         }
-
-
 
         public function getAll(){
             $sql = "SELECT * FROM `patient` WHERE 1";
