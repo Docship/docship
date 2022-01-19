@@ -15,12 +15,15 @@
         $data = [
           'subject' => trim($_POST['subject']),
           'desc' => trim($_POST['desc']),
-          'patient_id' => trim($_POST['patient']),
           'subject_err' => '',
           'desc_err' => ''
         ];
 
-        $result_pat = $this->model('patient')->findById($id);
+        $result_app = $this->model('appointment')->findById($id);
+
+        $appointment = $result_app['value'];
+
+        $result_pat = $this->model('patient')->findById($appointment['patient_id']);
 
         if(isset($result_pat['value']) && !empty($result_pat['value'])){
           $patient = $result_pat['value'];
@@ -34,7 +37,14 @@
 
           $model = $this->model('prescription');
 
-          $result = $model->insert($data);
+          $result = 0;
+
+          if($appointment['prescription_id']!=0){
+            $data['id'] = $appointment['prescription_id'];
+            $result = $model->update($data);
+          }else {
+            $result = $model->insert($data);
+          }
 
           if($result==0){
             redirect('doctor/appointments');
@@ -60,7 +70,21 @@
             $appointment = $result_app['value'];
             $data['appointment'] = $appointment;
 
-            $result_pat = $this->model('patient')->findById($_SESSION['user_id']);
+            $result_pat = $this->model('patient')->findById($appointment['patient_id']);
+
+            $data['patient'] = $result_pat['value'];
+
+            if($appointment['prescription_id']!=0){
+              $result_pres = $this->model('prescription')->findByIdForDoctor($appointment['prescription_id']);
+              if(isset($result_pres['value']) && !empty($result_pres['value'])){
+                $prescription = $result_pres['value'];
+                $data['subject'] = $prescription['subject'];
+                $data['desc'] = $prescription['description'];
+              
+              }else {
+                // error
+              }
+            }
 
             $this->view('doctor/prescription', $data);
           }else {
@@ -79,8 +103,24 @@
 
     }
 
-    public function show(){
+    public function show($id){
+      if ($_SESSION['role'] != 'patient') {
+        redirect('pages/prohibite?user=' . $_SESSION['role']);
+      }elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+      }else {
+
+        if($id>0){
+          $result = $this->model('prescription')->findByIdForPatient($id);
+          $data = array();
+
+          if(isset($result['value']) && !empty($result['value'])){
+            $data['prescription'] = $result['value'];
+
+            $this->view('patient/prescription', $data);
+          }
+        }
+      }
     }
 
     

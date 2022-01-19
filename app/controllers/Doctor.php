@@ -510,6 +510,31 @@
 
         }
 
+        public function appointments_confirmed(){
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'doctor'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->getConfirmedByDoctor($_SESSION['user_id']);
+
+                if(isset($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+                $this->view('doctor/appointments_confirmed' , $data) ;
+
+
+            }
+        }
+
         public function delete(){
             if ($_SESSION['role'] != 'admin') {
                 redirect('pages/prohibite?user=' . $_SESSION['role']);

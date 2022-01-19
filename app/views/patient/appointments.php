@@ -53,9 +53,8 @@
                 echo "<th>ID</th>";
                 echo "<th>Date</th>";
                 echo "<th>Time</th>";
-                echo "<th>Doctor ID</th>";
+                echo "<th>Doctor Name</th>";
                 echo "<th>Status</th>";
-                echo "<th>Rating</th>";
                 //echo "<th>Action</th>";
               echo "</tr>";
               echo "</thead>";
@@ -64,7 +63,7 @@
                 $r1 = "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$appointment['id']."' >". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
                 $r3 = "<td>" . $appointment['time'] . "</td>";
-                $r4 = "<td><a href='".URLROOT."/doctor/detail/".$appointment['doctor_id']."'>" . $appointment['doctor_id'] . "</a></td>";
+                $r4 = "<td><a href='".URLROOT."/doctor/detail/".$appointment['doctor_id']."'>Dr. " . $appointment['firstname'] . "</a></td>";
                 $color = getStatusColor($appointment['status']);
                 $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
                 

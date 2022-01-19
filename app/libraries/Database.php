@@ -254,6 +254,19 @@ final class Database {
         }
     }
 
+    public function execute($sql , $params = []){
+        try{
+            if ($this->mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
+            }
+            return $this->mysqli->query($sql);
+            
+        }catch(Exception $e){
+            return -1;
+        }
+    }
+
     public function update($sql , $params = []){
         try{
             if ($this->mysqli -> connect_errno) {

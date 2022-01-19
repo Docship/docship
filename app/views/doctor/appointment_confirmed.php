@@ -24,14 +24,9 @@
           </div>
         </div>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-        <h2 class="subtitle">Upcoming Appointments</h2>
+        <h2 class="subtitle">Confirmed Appointments</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <script src="<?php echo URLROOT; ?>/js/appointment_confirm.js"></script>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
-            <span data-feather="x-circle" class="mr-2"></span>
-            Confirm
-          </button>
-
+          
         </div>
       </div>
 
@@ -48,18 +43,21 @@
                 echo "<th>Patient Name</th>";
                 echo "<th>Patient Tel.</th>";
                 echo "<th>Status</th>";
+                echo "<th>Prescription</th>";
               echo "</tr>";
               echo "</thead>";
               echo "<tbody>";
               foreach($data['appointments'] as $appointment){
-                $r1 = "<td><input type='checkbox' >". $appointment['id'] . "</td>";
+                $r1 = "<td>". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
                 $r3 = "<td>" . $appointment['time'] . "</td>";
                 $r4 = "<td>" . $appointment['firstname'] . "</td>";
                 $r5 = "<td>" . $appointment['telephone'] . "</td>";
                 $color = getStatusColor($appointment['status']);
                 $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . "</tr>";
+                $href= URLROOT."/prescription/add/".$appointment['id'];
+                $r7 = "<td>"."<a".$href."><button>Note</button></a>"."</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 .  "</tr>";
 
                 echo $row;
               }

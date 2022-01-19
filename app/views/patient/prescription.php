@@ -18,28 +18,27 @@
           <form class="col-sm-12 col-md-9 col-lg-7 px-5 py-5 ">
             <h2 class="text-center"> <b>Prescription</b> </h2>
             <div class="form-group">
-              <label for="patient_name">Name</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name of the patient" disabled value="Name fo the patient">
+              <label for="doctor_name">Doctor Name</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name of the patient" disabled value="Dr. <?php echo $data['prescription']['firstname']?>" readonly>
             </div>
             <div class="form-group">
               <label for="text">Date</label>
-              <input type="text" class="form-control" id="date" disabled>
+              <input type="text" class="form-control" id="date" value="<?php echo $data['prescription']['issue_date'] ?>"readonly>
             </div>
             <div class="form-group">
-              <label for="text">Phone No</label>
-              <input type="tel" class="form-control" id="date" value="0776048702" disabled>
+              <label for="text">Doctor Phone No</label>
+              <input type="tel" class="form-control" id="date" value="<?php echo $data['prescription']['telephone']?>" readonly>
             </div>
             <div class="form-group">
               <label for="subject">Subject</label>
-              <input type="text" class="form-control" id="description" placeholder="subject">
+              <input type="text" class="form-control" id="description" placeholder="subject" value="<?php echo $data['prescription']['subject']?>" readonly>
             </div>
     
             <div class="form-group">
               <label for="Description">Description</label>
-              <textarea class="form-control" id="description" rows="4"></textarea>
+              <textarea class="form-control" id="description" rows="4" value="<?php echo $data['prescription']['description']?> "readonly></textarea>
             </div>
     
-            <button class="btn btn-primary w-100 mt-2" type="submit">Add Prescription</button>
           </form>
         </div>
       </div>
