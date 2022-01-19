@@ -188,6 +188,18 @@
             return $result;
         }
 
+        public function marksPaid($id){
+            $sql = "UPDATE `appointment` SET `is_paid` = 1 WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
+        public function marksUnPaid($id){
+            $sql = "UPDATE `appointment` SET `is_paid` = 0 WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
         public function getConfirmedByPatient($patient_id){
             $sql = "SELECT * FROM `appointment` WHERE patient_id = $patient_id AND is_exit = 0 AND status = 'CONFIRMED' ORDER BY `date` DESC";
 
@@ -242,6 +254,59 @@
         }
 
         public function rate($id){
+
+        }
+
+        public function findConfirmedForAdmin(){
+
+            $sql = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , doctor.firstname AS doctor_firstname , patient.firstname AS patient_firstname , patient.gender AS patient_gender FROM appointment INNER JOIN doctor ON doctor.id=appointment.doctor_id INNER JOIn patient ON patient.id=appointment.patient_id WHERE appointment.is_exit = 0 AND appointment.status = 'CONFIRMED'";
+
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+
+        }
+
+        public function findPendingForAdmin(){
+            $sql = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , doctor.firstname AS doctor_firstname , patient.firstname AS patient_firstname , patient.gender AS patient_gender FROM appointment INNER JOIN doctor ON doctor.id=appointment.doctor_id INNER JOIn patient ON patient.id=appointment.patient_id WHERE appointment.is_exit = 0 AND appointment.status = 'PENDING'";
+
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
 
         }
     }

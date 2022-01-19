@@ -535,6 +535,61 @@
             }
         }
 
+        public function payment($id){
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data =[
+                    'role'=> 'doctor',
+                    'value'=> trim($_POST['payment']),
+                    'value_err' => ""
+                ];
+
+                $result = Validate::validatePayment($data);
+
+                if($result){
+                    $result = $this->model('doctor')->findById($id);
+
+                    $doctor = $result['value'];
+
+                    $payment_old = $doctor['total_income'];
+
+                    $total_payment = $data['value'] + $payment_old;
+
+                    $total_payment = number_format((float)$total_payment, 2, '.', ''); // round the payment to two decimal
+
+                    $result_doc_pay = $this->model('doctor')->addPayment($id , $total_payment);
+
+                    if($result_doc_pay==0){
+
+                    }else {
+                        // update fail
+                    }
+                }else {
+                    $this->view('doctor/payment' , $data) ;
+                }
+            }
+
+            else {
+
+                $result = $this->model('doctor')->findById($id);
+
+                $data = array();
+
+                if(isset($result['value']) && !empty($result['value'])){
+                    $data['doctor'] = $result['value'];
+                }
+
+                $this->view('doctor/payment' , $data) ;
+
+
+            }
+        }
+
         public function delete(){
             if ($_SESSION['role'] != 'admin') {
                 redirect('pages/prohibite?user=' . $_SESSION['role']);
@@ -545,17 +600,21 @@
                 $model = $this->model('doctor');
                 if(!empty($params)){
                     foreach($params as $id){
+                        $condition = $this->isAppointmentAvailable($id);
+                        if($condition){
+                            echo json_encode(array('success' => 1 , 'msg'=>"Doctor Id : " . $id ." has upcoming appointments"));
+                        }
                         $result = $model->delete($id);
                         if($result!=0){
                             $data['cancel_err_id'] = $id;
-                            echo json_encode(array('success' => 1)); // 1 means false
+                            echo json_encode(array('success' => 1 , 'msg'=> "Id ".$id ." is invalid")); // 1 means false
                         }
                     }
                 }else {
                     //redirect('patient/index');
                 }
     
-                echo json_encode(array('success' => 0)); // 0 -> true
+                echo json_encode(array('success' => 0 , 'msg'=>"success")); // 0 -> true
             }
     
             else {
@@ -621,5 +680,14 @@
             }
     
             return "";
+        }
+
+        private function isAppointmentAvailable($id){
+            $result = $this->model('appointment')->findByDoctorId($id);
+
+            if(isset($result['value']) && !empty($result['value'])){
+                return true;
+            }
+            return false;
         }
     }

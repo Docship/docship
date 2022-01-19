@@ -613,5 +613,18 @@
             }
         }
 
+        public static function validatePayment(&$data){
+
+            $value = $data['value'];
+
+            $result = true;
+
+            if(!is_numeric($value)){
+                $result = false;
+                $data['value_err'] = "Payment must be a number";
+                return $result;
+            }
+        }
+
         
     }

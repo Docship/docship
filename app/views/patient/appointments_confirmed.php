@@ -52,7 +52,7 @@
                 echo "<th>ID</th>";
                 echo "<th>Date</th>";
                 echo "<th>Time</th>";
-                echo "<th>Doctor Name</th>";
+                echo "<th>Doctor</th>";
                 echo "<th>Status</th>";
                 echo "<th>Rating</th>";
                 //echo "<th>Action</th>";

@@ -40,7 +40,7 @@
                 echo "<th>ID</th>";
                 echo "<th>Date</th>";
                 echo "<th>Time</th>";
-                echo "<th>Patient Name</th>";
+                echo "<th>Patient</th>";
                 echo "<th>Patient Tel.</th>";
                 echo "<th>Status</th>";
                 echo "<th>Prescription</th>";

@@ -333,7 +333,34 @@
 
             else {
 
-                $appointments_result = $this->model('Appointment')->getAll();
+                $appointments_result = $this->model('Appointment')->findPendingForAdmin();
+
+                if(isset($appointments_result['value']) && !empty($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+
+                $this->view('admin/appointments' , $data) ;
+                
+            }
+
+        }
+
+        public function appointments_confirmed(){
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->findConfirmedForAdmin();
 
                 if($appointments_result!=-1){
                     $data['appointments'] = $appointments_result;
@@ -342,7 +369,7 @@
                 }
 
 
-                $this->view('admin/appointments' , $data) ;
+                $this->view('admin/appointments_confirmed' , $data) ;
             }
 
         }

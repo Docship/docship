@@ -358,5 +358,11 @@
             return $result;
         }
 
+        public function addPayment($id , $payment){
+            $sql = "UPDATE `doctor` SET `total_income`=$payment WHERE id='$id'";
+            $result = $this->DB->delete($sql);
+            return $result;
+        }
+
 
     }
