@@ -30,11 +30,11 @@
 
         public function findById($id){
             $sql = "SELECT * FROM `receipt` WHERE id='$id'";
-            $result = $this->DB->selectOne($sql);
+            $result = $this->DB->selectAll($sql);
 
             $output = array();
             
-            if(!is_null($result)){
+            if($result!=-1){
                 if(empty($result)){
                     $output['error'] = "invalid_id";
                     $output['value'] = [];
@@ -42,7 +42,7 @@
                     return $output;
                 }else{
                     // receipt exist
-                    $output['value'] = $result;
+                    $output['value'] = $result[0];
                     return $output;
                 }
             }else {

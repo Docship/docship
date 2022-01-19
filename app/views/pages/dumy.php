@@ -17,14 +17,20 @@ echo $doctor[0]; echo "<br>";
 //echo $data['messages'];
 echo "Dumy </br>";
 
-foreach($data['appointments'] as $x => $x_value) {
+/*
+foreach($data as $x => $x_value) {
+
+  echo "Key=" . $x . ", Value=" . $x_value;
     
     foreach($x_value as $y => $y_value){
       echo "Key=" . $y . ", Value=" . $y_value;
     }
+    
     echo "<br>";
   }
+*/
 
+echo $sql;
 
 /*
 $bytes = random_bytes(5);

@@ -99,14 +99,16 @@
 
         public function update($data){
 
-            $patient_id  = $data['patient_id '];
-            $description = $data['description'];
+            $patient_id  = $data['patient_id'];
+            $description = $data['desc'];
             $issue_date = $data['issue_date'];
             $subject = $data['subject'];
             $doctor_id = $data['doctor_id'];
             $id = $data['id'];
 
             $sql = "UPDATE `prescription` SET `doctor_id`=$doctor_id,`patient_id`=$patient_id,`subject`='$subject',`description`='$description',`issue_date`='$issue_date' WHERE id=$id";
+
+            
 
             $result = $this->DB->update($sql , [] , 'prescription');
 

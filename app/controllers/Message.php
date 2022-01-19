@@ -88,7 +88,12 @@
                     $result = $this->createChatMessages($chat_botID);
 
                     if($result!=""){
-                        echo json_encode(array('status' => "success" , 'messages' => $result));
+                        if($result=="None"){
+                            echo json_encode(array('status' => "success" , 'messages' => ""));
+                        }else {
+                            echo json_encode(array('status' => "success" , 'messages' => $result));
+                        }
+                        //echo json_encode(array('status' => "success" , 'messages' => $result));
                     }else {
                         echo json_encode(array('status' => "fail" , 'messages' => ""));
                     }
@@ -124,7 +129,7 @@
                 }
                 return $output;
             }else {
-                return "";
+                return "None";
             }
 
         }

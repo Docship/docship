@@ -27,7 +27,7 @@
         <h2 class="subtitle">Upcoming Appointments</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
           <script src="<?php echo URLROOT; ?>/js/appointment_confirm.js"></script>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form">
+          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="confirm();">
             <span data-feather="x-circle" class="mr-2"></span>
             Confirm
           </button>
@@ -52,7 +52,7 @@
               echo "</thead>";
               echo "<tbody>";
               foreach($data['appointments'] as $appointment){
-                $r1 = "<td><input type='checkbox' >". $appointment['id'] . "</td>";
+                $r1 = "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$appointment['id']."' >". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
                 $r3 = "<td>" . $appointment['time'] . "</td>";
                 $r4 = "<td>" . $appointment['firstname'] . "</td>";

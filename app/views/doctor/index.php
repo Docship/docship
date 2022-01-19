@@ -88,7 +88,8 @@
                 echo "<th>ID</th>";
                 echo "<th>Date</th>";
                 echo "<th>Time</th>";
-                echo "<th>Patient ID</th>";
+                echo "<th>Patient Name</th>";
+                echo "<th>Patient Tel.</th>";
                 echo "<th>Status</th>";
               echo "</tr>";
               echo "</thead>";
@@ -97,10 +98,11 @@
                 $r1 = "<td>". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
                 $r3 = "<td>" . $appointment['time'] . "</td>";
-                $r4 = "<td>" . $appointment['patient_id'] . "</td>";
+                $r4 = "<td>" . $appointment['firstname'] . "</td>";
+                $r5 = "<td>" . $appointment['telephone'] . "</td>";
                 $color = getStatusColor($appointment['status']);
-                $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . "</tr>";
+                $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . "</tr>";
 
                 echo $row;
               }

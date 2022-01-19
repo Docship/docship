@@ -8,35 +8,66 @@ const form = document.querySelector('.typing-area'),
         e.preventDefault();
     }
 
-sendBtn.onclick = ()=>{
+function send(){
+        console.log('Sent 1');
         // Ajax
-        var url = window.location.href+ '/../../message/send/doctor';
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.onload = ()=>{
-            if(xhr.readyState === XMLHttpRequest.DONE){
-                if (xhr.status === 200) {
-                    inputField.value = "";
-                }
-            }
-        }    
-        let formData = new FormData(form); // creating new formData object    
-        xhr.send(formData);
+        var url = "http://localhost/docship/message/send/doctor";
+        console.log(url);
+        var method = "POST";
+        var data = document.getElementsByClassName('input-field')[0].value;
+        if(data!=""){
+            $.ajax({
+                type: method,
+                url: url,
+                data: JSON.stringify(data),
+                success: function(response)
+                {
+                    console.log(response);
+                    var jsonData = JSON.parse(response);
+        
+                    //console.log(jsonData);
+        
+                    if (jsonData.status === 'success')
+                    {
+                        console.log(jsonData.status);
+                        document.getElementsByClassName('input-field')[0].value = "";
+                    }
+                    else
+                    {
+                        alert("message loading failed");
+                    }
+               }
+           });
+        }
+        
 }
+
+
 
 setInterval(() => {
     // Ajax
-    var url = window.location.href+ '/../../message/load/doctor';
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url , true);
-    xhr.onload = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                let data = xhr.response;
-                chatBox.innerHTML = data;
+    var url = "http://localhost/docship/message/load/doctor";
+    //console.log(url);
+    var method = "POST";
+   
+    $.ajax({
+        type: method,
+        url: url,
+        success: function(response)
+        {
+            //console.log(response);
+            var jsonData = JSON.parse(response);
+
+            //console.log(jsonData);
+
+            if (jsonData.status === 'success')
+            {
+                chatBox.innerHTML = jsonData.messages;
             }
-        }
-    }
-    let formData = new FormData(form); // creating new formData object    
-    xhr.send(formData);
-}, 500); // This function will run frequently after 0.5s
+            else
+            {
+                alert("message loading failed");
+            }
+       }
+   });
+}, 500);

@@ -54,6 +54,7 @@
                 echo "<th>Date</th>";
                 echo "<th>Time</th>";
                 echo "<th>Doctor Name</th>";
+                echo "<th>Receipt ID</th>";
                 echo "<th>Status</th>";
                 //echo "<th>Action</th>";
               echo "</tr>";
@@ -64,10 +65,11 @@
                 $r2 = "<td>" . $appointment['date'] . "</td>";
                 $r3 = "<td>" . $appointment['time'] . "</td>";
                 $r4 = "<td><a href='".URLROOT."/doctor/detail/".$appointment['doctor_id']."'>Dr. " . $appointment['firstname'] . "</a></td>";
+                $r5 = "<td><a href='".URLROOT."/receipt/show/".$appointment['receipt_id']."'>" . $appointment['receipt_id'] . "</a></td>";
                 $color = getStatusColor($appointment['status']);
-                $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
+                $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
                 
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . "</tr>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . "</tr>";
 
                 echo $row;
               }

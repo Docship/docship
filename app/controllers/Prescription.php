@@ -1,4 +1,4 @@
-//Prescription controller
+
 <?php
   class Prescription extends Controller {
 
@@ -6,7 +6,7 @@
      
     }
 
-    public function add($id = 0){
+    public function add($id){
       if ($_SESSION['role'] != 'doctor') {
         redirect('pages/prohibite?user=' . $_SESSION['role']);
       } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -14,7 +14,8 @@
 
         $data = [
           'subject' => trim($_POST['subject']),
-          'desc' => trim($_POST['desc']),
+          'desc' => ($_POST['desc']),
+          'issue_date'=> trim($_POST['issue_date']),
           'subject_err' => '',
           'desc_err' => ''
         ];
@@ -27,12 +28,7 @@
 
         if(isset($result_pat['value']) && !empty($result_pat['value'])){
           $patient = $result_pat['value'];
-          $data['patient'] = $patient;
-        }else if(isset($result_pat['error'])) {
-          $data['db_err'] = "patient not found";
-          $this->view('doctor/prescription', $data);
-        }else {
-          $data['issue_date'] = Date::getTodayDate();
+          $data['patient_id'] = $patient['id'];
           $data['doctor_id'] = $_SESSION['user_id'];
 
           $model = $this->model('prescription');
@@ -47,10 +43,15 @@
           }
 
           if($result==0){
-            redirect('doctor/appointments');
+            redirect('doctor/appointments_confirmed');
           }else {
             $this->view('doctor/prescription', $data);
           }
+        }else if(isset($result_pat['error'])) {
+          $data['db_err'] = "patient not found";
+          $this->view('doctor/prescription', $data);
+        }else {
+          
         }
 
 
@@ -58,7 +59,7 @@
         $data = [
           'subject' => "",
           'desc' => "",
-
+          'issue_date' =>"",
           'subject_err' => '',
           'desc_err' => ''
         ];
@@ -68,11 +69,14 @@
 
           if(isset($result_app['value']) && !empty($result_app['value'])){
             $appointment = $result_app['value'];
-            $data['appointment'] = $appointment;
+            $data['appointment_id'] = $appointment['id'];
 
             $result_pat = $this->model('patient')->findById($appointment['patient_id']);
 
             $data['patient'] = $result_pat['value'];
+
+           
+            
 
             if($appointment['prescription_id']!=0){
               $result_pres = $this->model('prescription')->findByIdForDoctor($appointment['prescription_id']);
@@ -80,6 +84,7 @@
                 $prescription = $result_pres['value'];
                 $data['subject'] = $prescription['subject'];
                 $data['desc'] = $prescription['description'];
+                $data['issue_date'] = $prescription['issue_date'];
               
               }else {
                 // error
@@ -87,14 +92,15 @@
             }
 
             $this->view('doctor/prescription', $data);
+            //$this->view('pages/dumy', $data);
           }else {
             //$data['sys_error'] = "Patient not found";
-            redirect('doctor/appointments?err=Patient not found');
+            redirect('doctor/appointments_confirmed?err=Patient not found');
             //$this->view('doctor/appointments', $data);
           }
         }else {
           //$data['sys_error'] = "Request Failed";
-          redirect('doctor/appointments?err=Request Failed');
+          redirect('doctor/appointments_confirmed?err=Request Failed');
         }
 
         
@@ -103,7 +109,8 @@
 
     }
 
-    public function show($id){
+    public function show($params){
+      $id = $params[0];
       if ($_SESSION['role'] != 'patient') {
         redirect('pages/prohibite?user=' . $_SESSION['role']);
       }elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {

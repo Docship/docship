@@ -9,6 +9,8 @@ function confirm(){
         }
     }
 
+    console.log(arr);
+
     if(arr.length > 0){
         var method = "POST";
         var url = window.location.href+ '/../../appointment/confirm';

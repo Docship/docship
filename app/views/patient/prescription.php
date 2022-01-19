@@ -22,7 +22,7 @@
               <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name of the patient" disabled value="Dr. <?php echo $data['prescription']['firstname']?>" readonly>
             </div>
             <div class="form-group">
-              <label for="text">Date</label>
+              <label for="text">Issue Date</label>
               <input type="text" class="form-control" id="date" value="<?php echo $data['prescription']['issue_date'] ?>"readonly>
             </div>
             <div class="form-group">
@@ -36,7 +36,7 @@
     
             <div class="form-group">
               <label for="Description">Description</label>
-              <textarea class="form-control" id="description" rows="4" value="<?php echo $data['prescription']['description']?> "readonly></textarea>
+              <textarea class="form-control" id="description" rows="4" readonly><?php echo $data['prescription']['description']?></textarea>
             </div>
     
           </form>

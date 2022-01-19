@@ -592,10 +592,10 @@
 
             $model = $this->model("message");
 
-            $chat_botID = $model->getChatBotId();
+            $chat_botID = $model->getChatBotId()['value'];
 
             // get current user uid
-            $user_result = $this->model($_SESSION['role'])->getUID($_SESSION['user_id']);
+            $user_result = $this->model($_SESSION['role'])->findById($_SESSION['user_id']);
     
             if(isset($user_result['value']) && !empty($user_result['value'])){
     
