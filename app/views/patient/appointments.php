@@ -48,6 +48,7 @@
     </div>
   </form>
 
+
   <div class="table-responsive">
         <?php 
           if(isset($data['appointments'])){
