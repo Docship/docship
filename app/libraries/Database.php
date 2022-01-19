@@ -49,9 +49,13 @@ final class Database {
                 return -1;
               }
 
-            $this->mysqli -> query($sql);
-            sleep(1);
-            
+            if($this->mysqli->query($sql)){
+                sleep(0.5);
+                return 0;
+            }
+            if($this->mysqli→errno){
+                return 1;
+            }
             /*
             if (!$this->mysqli -> query($sql)) {
                 return -1;
@@ -91,9 +95,18 @@ final class Database {
                 return -1;
             }
             $result = $this->mysqli->query($sql);
+
+            if($result->num_rows > 0){
+                return $result->fetch_all(MYSQLI_ASSOC);
+            }else {
+                return [];
+            }
             //$this->mysqli -> close();
+
+            $result_arr = $result->fetch_all(MYSQLI_ASSOC);
+            mysqli_free_result($result);
             
-            return $result->fetch_all(MYSQLI_ASSOC);
+            return $result_arr;
         }catch(Exception $e){
             //$this->mysqli -> close();
             return -1;
@@ -257,6 +270,23 @@ final class Database {
         }catch(Exception $e){
             return -1;
         }
+    }
+
+    public function getLast($table){
+        $sql = "SELECT * FROM `$table` ORDER BY ID DESC LIMIT 1";
+
+        try{
+            if ($this->mysqli -> connect_errno) {
+                return -1;
+            }
+            $result = $this->mysqli->query($sql);
+            
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }catch(Exception $e){
+            //$this->mysqli -> close();
+            return -1;
+        }
+
     }
 
 

@@ -387,3 +387,23 @@ p.from-them::after {
   background-color: #0d6efc;
   color: #fff;
 }
+
+/* for search */
+.filter-charge{
+  display: none;
+}
+.filter-specialization{
+  display: none;
+}
+.filter-time{
+  display: none;
+}
+.filter-day{
+  display: none;
+}
+
+/* validation */
+select.valid,
+input.valid {
+    border-color: green !important;
+}

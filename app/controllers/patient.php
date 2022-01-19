@@ -3,29 +3,36 @@
     class Patient extends Controller{
 
         public function index(){
-
             if($_SESSION['role'] != 'patient'){
-                redirect('pages/prohibit?user='.$_SESSION['role']);
+                redirect('pages/prohibite?user='.$_SESSION['role']);
             }
 
             $data = array();
-            $appointments_result1 = $this->model('Appointment')->getAll();
-            if($appointments_result1!=-1){
-                $data['appointments'] = array_slice($appointments_result1, 0, 3);
+            $appointments_result1 = $this->model('Appointment')->findByPatientId($_SESSION['user_id']);
+            if(isset($appointments_result1['value'])){
+                if(empty($appointments_result1['value'])){
+                    $data['appointments'] = [];
+                    $data['appointments_size'] = 0;
+                }else {
+                    $data['appointments'] = array_slice($appointments_result1['value'], 0, 3);
+                    $data['appointments_size'] = sizeof($appointments_result1['value']);
+                }
             }else {
                 $data['db_err_1'] = "appointments limited searching failed"; 
             }
-            if($appointments_result1!=-1){
-                $data['appointments_size'] = sizeof($appointments_result1);
-            }else {
-                $data['db_err_2'] = "appointments size finding failed"; 
-            }
 
-            $prescriptions_result1 = $this->model('Prescription')->getAll();
-            if($prescriptions_result1!=-1){
-                $data['prescriptions_size'] = sizeof($prescriptions_result1);
+            $prescriptions_result1 = $this->model('Prescription')->findByPatientId($_SESSION['user_id']);
+            if(isset($prescriptions_result1['value'])){
+                if(empty($prescriptions_result1['value'])){
+                    //$data['appointments'] = [];
+                    $data['prescriptions_size'] = 0;
+                }else {
+                    //$data['appointments'] = array_slice($prescriptions_result1['value'], 0, 3);
+                    $data['prescriptions_size'] = sizeof($prescriptions_result1['value']);
+                }
+        
             }else {
-                $data['db_err_3'] = "prescriptions size finding failed"; 
+                $data['db_err_2'] = "prescriptions limited searching failed"; 
             }
 
             $this->view('patient/index', $data);
@@ -208,9 +215,28 @@
 
             else {
 
-                $result = $this->model('Prescription');
+                $result = $this->model('Prescription')->findByPatientId($_SESSION['user_id']);
+                $data = array();
+                $prescriptions = array();
 
-                $this->view('patient/prescriptions') ;
+                if(isset($result['value'])){
+                    $prescriptions_init = $result['value'];
+                    $resultDoc = $this->model('Doctor')->getAll();
+                    foreach($prescriptions_init as $prescription){
+                        $resultDoc = $this->model('Doctor')->findById($prescription['doctor_id']);
+                        $doc = $resultDoc['value'];
+                        $prescription['doctor'] = $doc;
+                        $prescription += array('doctor' => $doc);
+                        array_push($prescriptions,$prescription);
+                    }
+
+                }
+
+                $data['prescriptions'] = $prescriptions;
+
+                //$this->view('pages/dumy' , $data);
+
+                $this->view('patient/prescriptions' , $data);
             }
         }
 
@@ -224,7 +250,10 @@
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
             else {
-                $this->view('patient/messages');
+                $messages = $this->createChatMessages();
+                $data = array();
+                $data['messages'] = $messages;
+                $this->view('patient/messages' , $data);
             }
 
         }
@@ -234,18 +263,119 @@
             if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
-
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            }else {
+
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+                $data =[
+                    'role'=> 'patient',
+                    'fname'=> ucwords(trim($_POST['fname'])),
+                    'lname'=> ucwords(trim($_POST['lname'])),
+                    'email' => trim($_POST['email']),
+                    'bday'=> trim($_POST['bday']),
+                    'telephone'=> trim($_POST['telephone']),
+                    'gender'=> trim($_POST['gender']),
+                    'password'=>trim($_POST['password']),
+                    'repassword'=>trim($_POST['repassword']),
+                    'password_err' => '',
+                    'repassword_err' => '',
+                    'role_err'=>'',
+                    'fname_err'=>'',
+                    'lname_err'=>'',
+                    'email_err'=>'',
+                    'telephone_err' => '',
+                    'bday_err'=>'',
+                    'gender_err'=>'',
+                    'isExist' => false
+                  ];
+
+                include_once '../app/views/' . "pages/dumy" . '.php';
+                die();
+
+                //$validate = $this->getValidation();
+                $result = Validate::checkPatientUpdateData($data);
+
+                if($result==true){
+                    $data['hash_pwd']=password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+
+                    $patientModel = $this->model('Patient');
+
+                    $data['id'] = $_SESSION['user_id'];
+
+                    $result = $patientModel->findByEmailAll($data['email']);
+
+                    if(isset($result['value']) && !empty($result['value'])){
+                        $result_email = $result['value'];
+                        if(empty($result_email)){
+                            $result = $patientModel->update($data);
+
+                            if($result!=-1){
+                                redirect('patient/update');
+                                //or else redirect to user admin!?
+                            }else {
+                                $data['db_err'] = 'Error Occured in System!';
+                                $data['result'] = $result;
+                                $this->view('patient/update', $data);
+                            }
+     
+                        }else if(sizeof($result_email)==1){
+                            if($result_email[0]['id']==$_SESSION['user_id']){
+                                $result = $patientModel->insert($data);
+
+                                if($result!=-1){
+                                    redirect('patient/update');
+                                    //or else redirect to user admin!?
+                                }else {
+                                    $data['db_err'] = 'Error Occured in System!';
+                                    $data['result'] = $result;
+                                    $this->view('patient/update', $data);
+                                }
+
+                            }else {
+                                $data['email_err'] = "email exist";
+                                $this->view('patient/update', $data);
+                            }
+                        }else if(sizeof($result_email)>1){
+                            $data['email_err'] = "email exist";
+                            $this->view('patient/update', $data);
+                        }else {
+                            $data['db_err'] = 'Error Occured in System!';
+                            //$data['result'] = $result;
+                            $this->view('patient/update', $data);
+                        }
+
+                    }else {
+                        $data['db_err'] = 'Error Occured in System! patient existance checking fail by email';
+                        //$this->view('doctor/dumy', $data);
+                        $this->view('patient/update', $data);
+                    }
+                }else {
+                    //invalid input data
+                    $this->view('patient/update', $data);
+                }
+
+            } else {
                 $data = array();
                 $result = $this->model('Patient')->findById($_SESSION['user_id']);
                 if (isset($result['value'])) {
                     if (isset($result['error'])){
                         $data['isExist'] = false;
                     }else{
-                        $data['patient'] = $result['value'];
-                        $data['isExist'] = true;
+                        $patient = $result['value'];
+                        $data =[
+                            'role'=> 'patient',
+                            'fname'=> ucwords(trim($patient['firstname'])),
+                            'lname'=> ucwords(trim($patient['lastname'])),
+                            'email' => trim($patient['email']),
+                            'bday'=> trim($patient['bday']),
+                            'telephone'=> trim($patient['telephone']),
+                            'gender'=> trim($patient['gender']),
+                            'password'=>"",
+                            'repassword'=>"",
+                            'isExist' => false
+                          ];
                     }
                 }else{
                     $data['db_err'] = "System Error";
@@ -288,4 +418,98 @@
 
 
         }
+
+
+        public function delete(){
+            if ($_SESSION['role'] != 'admin') {
+                redirect('pages/prohibite?user=' . $_SESSION['role']);
+            }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data = array();
+                $params = file_get_contents( "php://input" );
+                $params = json_decode( $params); 
+                $model = $this->model('patient');
+                if(!empty($params)){
+                    foreach($params as $id){
+                        $result = $model->delete($id);
+                        if($result!=0){
+                            $data['cancel_err_id'] = $id;
+                            echo json_encode(array('success' => 1)); // 1 means false
+                        }
+                    }
+                }else {
+                    //redirect('patient/index');
+                }
+    
+                echo json_encode(array('success' => 0)); // 0 -> true
+            }
+    
+            else {
+                
+    
+            }
+    
+        }
+
+        public function appointments_confirmed(){
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->getConfirmedByPatient($_SESSION['user_id']);
+
+                if(isset($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+
+                $this->view('patient/appointments_confirmed' , $data) ;
+
+
+            }
+        }
+
+        private function createChatMessages(){
+
+            $model = $this->model("message");
+
+            $chat_botID = $model->getChatBotId()['value'];
+
+            // get current user uid
+            $user_result = $this->model($_SESSION['role'])->findById($_SESSION['user_id']);
+    
+            if(isset($user_result['value']) && !empty($user_result['value'])){
+    
+                $uid = $user_result['value']['user_id'];
+    
+                $msg_result = $model->getBySenderAndReceiver($uid , $chat_botID);
+    
+                if(isset($msg_result['value']) && !empty($msg_result['value'])){
+                    $output = "";
+                    $messages = $msg_result['value'];
+                    foreach($messages as $message){
+                        if($message['sender']==$uid){
+                            $output .= '<p class="from-me">'. $message['text'] .'</p>';
+                        }else {
+                            $output .= '<p class="from-them">'. $message['text'] .'</p>';
+                        }
+                    }
+                    return $output;
+                }else {
+                    return "";
+                }
+    
+            }
+    
+            return "";
+        }
+
+
     }

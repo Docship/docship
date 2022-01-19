@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
   <script src="<?php echo URLROOT; ?>/js/feather-icons.js"></script>
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
 </head>
 
@@ -58,9 +61,15 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\appointment" id="appointment">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\appointments" id="appointment">
                 <span data-feather="calendar"></span>
                 Appointments
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\appointments_confirmed" id="appointment_confirmed">
+                <span data-feather="calendar"></span>
+                Appointments Confirmed
               </a>
             </li>
             <li class="nav-item">

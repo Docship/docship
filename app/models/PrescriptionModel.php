@@ -67,6 +67,59 @@
 
         }
 
+        public function findByPatientId($patientid){
+            $sql = "SELECT * FROM `prescription` WHERE patient_id=$patientid";
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+            /*
+            include_once '../app/views/' . "pages/dumy" . '.php';
+            die();
+            */
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    // prescriptions not exist
+                    return $output;
+                }else{
+                    // prescriptions exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+                
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output; 
+            }
+        }
+
+        public function findByDoctorId($doctorid){
+            $sql = "SELECT * FROM `prescription` WHERE doctor_id=$doctorid";
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    // prescriptions not exist
+                    return $output;
+                }else{
+                    // prescriptions exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+        }
+
         public function getAll(){
             $status = false;
             $sql = "SELECT * FROM `prescription`";

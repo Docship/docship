@@ -49,9 +49,6 @@ function setTime(time) {
 }
 
 
-// including feather icons
-feather.replace();
-
 //regex for validation
 const patterns = {
     telephone: /^\d{10}$/,
@@ -81,6 +78,7 @@ var addedInputData = false;
 document.addEventListener('readystatechange', event => {
     if (event.target.readyState === "complete") {
         checkWhenLoad();
+        lockInpututsSelects(true);
     }
 });
 //window.addEventListener('load', checkWhenLoad);
@@ -111,6 +109,20 @@ function checkWhenLoad() {
         validateSelects(e);
     });
 
+}
+function lockInpututsSelects(action) {
+    inputs.forEach(e=>{
+        e.readOnly = action;
+    });
+    selects.forEach(e=>{
+        e.disabled=action;
+    });
+    checkBoxes.forEach(e=>{
+        e.disabled=action;
+    });
+    inputChanges.forEach(e=>{
+        e.readOnly=action;
+    });
 }
 
 function validate(field, regex) {

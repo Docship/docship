@@ -1,20 +1,31 @@
 <?php require_once APPROOT."/views/inc/header_patient.php"; ?>
-      <!-- Prescriptions -->
-      <main role="main" class="prescriptions col-md-9 ml-sm-auto col-lg-10 px-md-4" id="E">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="title">Prescriptions</h2>
 
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <button type="button" class="btn btn-sm btn-outline-secondary">
-              <span data-feather="calendar"></span>
-              New Appointment
-            </button>
-          </div>
 
-        </div>
-        <h2 class="subtitle">Prescriptions</h2>
-        <p>prescriptions are here</p>
-      </main>
+  <div class="card-columns m-3">
 
-      <?php require_once APPROOT."/views/inc/footer.php"; ?>
+  <?php
+  if(isset($data['prescriptions']) && !empty($data['prescriptions'])){
+    foreach ($data['prescriptions'] as $prescription){
+      $card = '<div class="card">
+      <div class="card-body text-center">
+        <h4 class="mt-2 mx-2"><b>'.$prescription['subject'].'</b></h4>
+        <h5 class="m-0">by Dr. '.$prescription['doctor']['firstname'].'</h5>
+        <p class="text-muted">'.$prescription['issue_date'].'</p>
+
+        <p class="mx-2 font-weight-light">
+        '.$prescription['description'].'
+        </p>        
+      </div>
+    </div>';
+      
+    echo $card;
+    } 
+  }else {
+    echo '<p> No any prescription available.</p>';
+  }
+    
+  ?>
+
+  </div>
+
+<?php require_once APPROOT."/views/inc/footer.php"; ?>
