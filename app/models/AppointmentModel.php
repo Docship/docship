@@ -59,11 +59,11 @@
             $time = $data['time_24hrs'];
             $date = $data['date'];
             $receipt_id = $data['receipt_id'];
-            $prescription_id  = 1;
             $is_paid  = '0';
             $status  = $data['status'];
             $description = "Automatically added.";
-            $exit = 0; 
+            $exit = 0;
+            $prescription_id = 0; 
 
 
             $sql = "INSERT INTO `appointment` (patient_id, doctor_id, time, date,
@@ -111,7 +111,10 @@
 
         public function findByPatientId($patientid){
             $sql = "SELECT * FROM `appointment` WHERE patient_id = $patientid AND is_exit = 0 AND status = 'PENDING' ORDER BY `date` DESC";
-            $result = $this->DB->selectAll($sql);
+
+            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , doctor.firstname FROM appointment INNER JOIN doctor ON appointment.doctor_id=doctor.id WHERE appointment.patient_id = $patientid AND appointment.is_exit = 0 AND appointment.status = 'PENDING' ORDER BY appointment.date DESC";
+
+            $result = $this->DB->selectAll($sql1);
 
             $output = array();
 
@@ -135,7 +138,10 @@
 
         public function findByDoctorId($doctorid){
             $sql = "SELECT * FROM `appointment` WHERE doctor_id = $doctorid AND is_exit = 0 AND status = 'PENDING' ORDER BY `date` DESC";
-            $result = $this->DB->selectAll($sql);
+
+            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , patient.firstname , patient.telephone FROM appointment INNER JOIN patient ON appointment.patient_id=patient.id WHERE appointment.doctor_id = $doctorid AND appointment.is_exit = 0 AND appointment.status = 'PENDING' ORDER BY appointment.date DESC";
+
+            $result = $this->DB->selectAll($sql1);
 
             $output = array();
 
@@ -176,9 +182,17 @@
             return $result;
         }
 
+        public function confirm($id){
+            $sql = "UPDATE `appointment` SET `status` = 'CONFIRMED' WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
         public function getConfirmedByPatient($patient_id){
             $sql = "SELECT * FROM `appointment` WHERE patient_id = $patient_id AND is_exit = 0 AND status = 'CONFIRMED' ORDER BY `date` DESC";
-            $result = $this->DB->selectAll($sql);
+
+            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , doctor.firstname FROM appointment INNER JOIN doctor ON appointment.doctor_id=doctor.id WHERE appointment.patient_id = $patient_id AND appointment.is_exit = 0 AND appointment.status = 'CONFIRMED' ORDER BY appointment.date DESC";
+            $result = $this->DB->selectAll($sql1);
 
             $output = array();
 
@@ -198,5 +212,36 @@
                 $output['error'] = "system_error";
                 return $output;
             }
+        }
+
+        public function getConfirmedByDoctor($doctor_id){
+            $sql = "SELECT * FROM `appointment` WHERE doctor_id = $doctor_id AND is_exit = 0 AND status = 'CONFIRMED' ORDER BY `date` DESC";
+
+            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , patient.firstname , patient.telephone FROM appointment INNER JOIN patient ON appointment.patient_id=patient.id WHERE appointment.doctor_id = $doctor_id AND appointment.is_exit = 0 AND appointment.status = 'CONFIRMED' ORDER BY appointment.date DESC";
+
+            $result = $this->DB->selectAll($sql1);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+        }
+
+        public function rate($id){
+
         }
     }

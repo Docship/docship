@@ -510,6 +510,31 @@
 
         }
 
+        public function appointments_confirmed(){
+            if(isset($_SESSION['role']) && $_SESSION['role'] != 'doctor'){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->getConfirmedByDoctor($_SESSION['user_id']);
+
+                if(isset($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+                $this->view('doctor/appointments_confirmed' , $data) ;
+
+
+            }
+        }
+
         public function delete(){
             if ($_SESSION['role'] != 'admin') {
                 redirect('pages/prohibite?user=' . $_SESSION['role']);
@@ -567,10 +592,10 @@
 
             $model = $this->model("message");
 
-            $chat_botID = $model->getChatBotId();
+            $chat_botID = $model->getChatBotId()['value'];
 
             // get current user uid
-            $user_result = $this->model($_SESSION['role'])->getUID($_SESSION['user_id']);
+            $user_result = $this->model($_SESSION['role'])->findById($_SESSION['user_id']);
     
             if(isset($user_result['value']) && !empty($user_result['value'])){
     

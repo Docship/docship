@@ -15,6 +15,31 @@ function send(){
         console.log(url);
         var method = "POST";
         var data = document.getElementsByClassName('input-field')[0].value;
+
+        if(data!=""){
+            $.ajax({
+                type: method,
+                url: url,
+                data: JSON.stringify(data),
+                success: function(response)
+                {
+                    console.log(response);
+                    var jsonData = JSON.parse(response);
+        
+                    //console.log(jsonData);
+        
+                    if (jsonData.status === 'success')
+                    {
+                        console.log(jsonData.status);
+                        document.getElementsByClassName('input-field')[0].value = "";
+                    }
+                    else
+                    {
+                        alert("message loading failed");
+                    }
+               }
+           });
+        }
         /*
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost/docship/message/send/patient", true);
@@ -32,28 +57,8 @@ function send(){
         let formData = new FormData(form); // creating new formData object    
         xhr.send(formData);
         */
-        $.ajax({
-            type: method,
-            url: url,
-            data: JSON.stringify(data),
-            success: function(response)
-            {
-                console.log(response);
-                var jsonData = JSON.parse(response);
-    
-                //console.log(jsonData);
-    
-                if (jsonData.status === 'success')
-                {
-                    console.log(jsonData.status);
-                    document.getElementsByClassName('input-field')[0].value = "";
-                }
-                else
-                {
-                    alert("message loading failed");
-                }
-           }
-       });
+
+        
 }
 
 

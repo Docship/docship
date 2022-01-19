@@ -216,6 +216,37 @@ class Appointment extends Controller
 
     }
 
+    public function confirm($param = []){
+
+        if ($_SESSION['role'] != 'doctor') {
+            echo json_encode(array('success' => 1));
+        }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = array();
+            $params = file_get_contents( "php://input" );
+            $params = json_decode( $params); 
+            $model = $this->model('appointment');
+            if(!empty($params)){
+                foreach($params as $id){
+                    $result = $model->confirm($id);
+                    if($result!=0){
+                        $data['confirm_err_id'] = $id;
+                        echo json_encode(array('success' => 1)); // 1 means false
+                    }
+                }
+            }else {
+                //redirect('patient/index');
+            }
+
+            echo json_encode(array('success' => 0)); // 0 -> true
+        }
+
+        else {
+            
+
+        }
+
+    }
+
     private function viewAppointments(&$data){
         $appointments_result = $this->model('Appointment')->findByPatientId($_SESSION['user_id']);
 

@@ -9,7 +9,7 @@
       $card = '<div class="card">
       <div class="card-body text-center">
         <h4 class="mt-2 mx-2"><b>'.$prescription['subject'].'</b></h4>
-        <h5 class="m-0">by Dr. '.$prescription['doctor']['firstname'].'</h5>
+        <h5 class="m-0">By Dr. '.$prescription['doctor']['firstname'].'</h5>
         <p class="text-muted">'.$prescription['issue_date'].'</p>
 
         <p class="mx-2 font-weight-light">

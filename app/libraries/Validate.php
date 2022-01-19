@@ -595,5 +595,23 @@
             return $result;
         }
 
+        public static function validateRating(&$data){
+
+            $value = $data['value'];
+
+            $result = true;
+
+            if(!is_numeric($value)){
+                $result = false;
+                $data['value_err'] = "Rating must be a number";
+                return $result;
+            }
+            if($value>0 && $value<=5){
+                $result = false;
+                $data['value_err'] = "Invalid number for rating";
+                return $result;
+            }
+        }
+
         
     }

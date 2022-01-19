@@ -28,7 +28,6 @@
               <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
             </div>
             <button class="btn btn-primary btn-sm mb-3">Subscribe</button>
-            <button class="btn btn-primary btn-sm mb-3">Rate</button>
 
             <div class="my-1 days">
               <div class="week d-flex justify-content-center">
