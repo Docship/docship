@@ -200,6 +200,12 @@
             return $result;
         }
 
+        public function rate($id){
+            $sql = "UPDATE `appointment` SET `is_rated` = 1 WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
         public function getConfirmedByPatient($patient_id){
             $sql = "SELECT * FROM `appointment` WHERE patient_id = $patient_id AND is_exit = 0 AND status = 'CONFIRMED' ORDER BY `date` DESC";
 
@@ -253,9 +259,6 @@
             }
         }
 
-        public function rate($id){
-
-        }
 
         public function findConfirmedForAdmin(){
 

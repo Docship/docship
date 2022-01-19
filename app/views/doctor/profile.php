@@ -27,8 +27,12 @@
             <div class="progress mx-4 my-3">
               <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
             </div>
-            <button class="btn btn-primary btn-sm mb-3">Subscribe</button>
-
+            <?php 
+              if($_SESSION['user_role'] == 'patient'){
+                echo '<button class="btn btn-primary btn-sm mb-3" onclick="subcribe('.$data['doctor']['id'].');">Subscribe</button>';
+              } 
+            ?>
+            
             <div class="my-1 days">
               <div class="week d-flex justify-content-center">
                 <?php

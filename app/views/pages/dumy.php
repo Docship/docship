@@ -17,7 +17,7 @@ echo $doctor[0]; echo "<br>";
 //echo $data['messages'];
 echo "Dumy </br>";
 
-
+/*
 foreach($result as $x => $x_value) {
 
   echo "Key=" . $x . ", Value=" . $x_value;
@@ -28,7 +28,9 @@ foreach($result as $x => $x_value) {
     
     echo "<br>";
   }
+*/
 
+echo $sql;
 
 
 

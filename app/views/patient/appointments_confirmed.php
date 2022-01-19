@@ -12,12 +12,12 @@
   }
 
   function getRateButton($rate , $id , $confirm){
-    $href= URLROOT."/appointment/rate/".$id;
+    $href= URLROOT."/rate/add/".$id;
     if($rate == '1'){
       $b = "<a><button disabled>Rate</button></a>";
       return $b;
     }else if($confirm == "CONFIRMED") {
-      $b = "<a".$href."><button>Rate</button></a>";
+      $b = "<a href='".$href."'><button>Rate</button></a>";
       return $b;
     }else {
       $b = "<a><button disabled>Rate</button></a>";

@@ -1,4 +1,4 @@
-//Receipt controller
+
 <?php
   class Rate extends Controller {
 
@@ -15,19 +15,28 @@
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data =['value'=> trim($_POST['value'])];
+            $data =['value'=> trim($_POST['rating'])];
 
-            $data['doctor_id'] = $id;
+            $data['appointment_id'] = $id;
 
-            $data['patient_id'] = $_SESSION['user_id'];
+            $result_app = $this->model('appointment')->findById($id);
+
+            if(isset($result_app['value']) && !empty($result_app['value'])){
+                $result_doc = $this->model('doctor')->findById($result_app['value']['doctor_id']);
+                $data['doctor'] = $result_doc['value'];
+                $data['doctor_id'] = $data['doctor']['user_id'];
+            }
+
+            $data['patient_id'] = $_SESSION['user_uid'];
 
             $value = $data['value'];
 
-            $result = Validate::validateRating($data);
+            $result = true;
 
             if($result){
                 $result_rate = $this->model("rate")->insert($data);
                 if($result_rate==0){
+                    $this->model('appointment')->rate($id);
                     redirect('patient/appointments_confirmed');
                 }else {
                     // insertion failed
@@ -39,10 +48,12 @@
 
         else {
             $data = array();
-            $result = $this->model('doctor')->findById($id);
+            $data['appointment_id'] = $id;
+            $result = $this->model('appointment')->findById($id);
 
             if(isset($result['value']) && !empty($result['value'])){
-                $data['doctor'] = $result['value'];
+                $result_doc = $this->model('doctor')->findById($result['value']['doctor_id']);
+                $data['doctor'] = $result_doc['value'];
             }
             $this->view('doctor/rate' , $data) ;
         }
