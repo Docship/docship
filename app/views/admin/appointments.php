@@ -47,14 +47,14 @@
         <h2 class="subtitle">Upcoming Appointments</h2>
         <script src="<?php echo URLROOT; ?>/js/appointment_paid.js"></script>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="paid();">
-            <span data-feather="x-circle" class="mr-2"></span>
+          <div class="mx-2">
+          <button type="button" class="btn btn-sm btn-success d-flex justify-content-center" id="appointment-form" onclick="paid();">
+            <span data-feather="check-circle" class="mr-2"></span>
             Marks Paid
           </button>
           </div>
           <div>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="unpaid();">
+          <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center" id="appointment-form" onclick="unpaid();">
             <span data-feather="x-circle" class="mr-2"></span>
             Marks UnPaid
           </button>

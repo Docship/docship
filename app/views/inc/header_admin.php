@@ -57,7 +57,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="b">
-                <span data-feather="calendar"></span>
+                <span data-feather="user-plus"></span>
                 Doctors
               </a>
             </li>

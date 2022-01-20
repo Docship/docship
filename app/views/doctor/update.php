@@ -24,13 +24,13 @@
 ?>
 <?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
 <!-- Settings -->
-<main role="main" class="settings col-md-9 ml-sm-auto col-lg-10 px-md-4" id="F">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="text-center topic mb-2">Profile Details</h1>
+<main role="main" class="settings col-md-9 ml-sm-auto col-lg-10 px-md-4 my-3" id="F">
+  <div class="pb-2 mb-3 border-bottom">
+    <h1 class="title text-center mb-1">Profile Details</h1>
   </div>
   <div class="d-flex justify-content-center sign-up-form">
         <div class="row">
-            <div class="col-lg-12 px-5 my-5 fill">
+            <div class="col-lg-12 px-5 my-1 fill">
                 <form action="<?php echo URLROOT; ?>/doctor/update" method="POST"
                     class="mx-sm-3 mx-md-2 mx-lg-3">
                     
@@ -402,12 +402,12 @@
                         </div>
                     </div>
 
-                    <div class="row d-flex justify-content-around">
-                    <button type="submit" class="btn btn-n btn-primary w-25 shadow-none my-1" name="submit"
+                    <div class="row d-flex justify-content-between px-5 my-2">
+                    <button type="submit" class="btn btn-n btn-danger w-50 shadow-none" name="submit"
                         id="submit-reg" disabled=true>
                         Update Doctor Account
                     </button>
-                    <button type="button" onclick="lockInpututsSelects(false)" class="btn btn-n btn-primary w-25 shadow-none my-1" id="edit">Edit Details</button>
+                    <button type="button" onclick="lockInpututsSelects(false)" class="btn btn-n btn-primary w-25 shadow-none" id="edit">Edit Details</button>
                     </div>
                 </form>
             </div>

@@ -7,10 +7,10 @@
           <h1 class="title">Patients</h2>
         </div>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-        <h2 class="subtitle">Doctor List</h2>
+        <h2 class="subtitle">Patient List</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
         <script src="<?php echo URLROOT; ?>/js/delete.js"></script>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="pat_delete();">
+          <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center" id="appointment-form" onclick="pat_delete();">
             <span data-feather="trash-2" class="mr-2"></span>
             Delete
           </button>
@@ -54,4 +54,5 @@
           ?>
         </div>
       </main>
+      
 <?php require_once APPROOT."/views/inc/footer.php"; ?>

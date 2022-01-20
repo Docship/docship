@@ -27,8 +27,8 @@
         <h2 class="subtitle">Upcoming Appointments</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
           <script src="<?php echo URLROOT; ?>/js/appointment_confirm.js"></script>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="confirm();">
-            <span data-feather="x-circle" class="mr-2"></span>
+          <button type="button" class="btn btn-sm btn-success d-flex justify-content-center" id="appointment-form" onclick="confirm();">
+            <span data-feather="check-circle" class="mr-2"></span>
             Confirm
           </button>
 

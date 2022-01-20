@@ -16,7 +16,7 @@
 
 
 <!-- Appointments -->
-<main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="b">
+<main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
     <h2 class="title">Appointments</h2>
 
@@ -25,28 +25,42 @@
           <span data-feather="calendar"></span>
           New Appointment
         </a>
-      </div>
-  </div>
 
-  <form class="my-1 border-bottom d-flex justify-content-end">
-  <script src="<?php echo URLROOT; ?>/js/appointment_cancel.js"></script>
-    <div class="row">
-      <div class="col">
-        <select id="status" class="custom-select form-select ">
-          <option selected>Status</option>
-          <option value="confirmed">Confirmed</option>
-          <option value="pending">Upcoming</option>
-        </select>
-      </div>
-
-      <div class="col pr-0">
-      <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center" id="appointment-cancel" onclick="cancel();">
+        <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center ml-2" id="appointment-cancel" onclick="cancel();">
         <span data-feather="x-circle" class="mr-2"></span>
         Cancel
       </button>
       </div>
+  </div>
+
+  <form class="my-1 d-flex justify-content-center border-bottom">
+    <div class="form-row mx-2">
+      <div class="col-12 col-md-auto">
+        <input id="filter-name" type="text" class="form-control" placeholder="Search">
+      </div>
+
+      <div class="col-auto">
+        <select id="search" class="custom-select">
+          <option value = "id" >Search by Id</option>
+          <option value="name" selected>Search by Name</option>
+          <option value="date">Search by Date</option>
+          <option value="receipt">Search by Receipt</option>
+        </select>
+      </div>
+
+      
+
+      <div class="col-auto">
+        <select id="status" class="custom-select">
+          <option value="upcoming" selected>Upcoming</option>
+          <option value="confirmed">Confirmed</option>
+        </select>
+      </div>
+
     </div>
   </form>
+
+
 
 
   <div class="table-responsive">

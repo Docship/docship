@@ -263,6 +263,7 @@ final class Database {
             $result =  mysqli_query($this->mysqli , $sql);
             $row = mysqli_fetch_object($result);
             $value = $row->value;
+            if($value==null) $value = 0;
             return $value;
             
         }catch(Exception $e){

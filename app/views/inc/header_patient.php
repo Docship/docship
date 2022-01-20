@@ -14,8 +14,6 @@
   <script src="<?php echo URLROOT; ?>/js/feather-icons.js"></script>
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
 </head>
 

@@ -9,7 +9,7 @@
               <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
               <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
             </div> -->
-            <a href="<?php echo URLROOT; ?>\admin\doctor_register" type="button" class="btn btn-sm btn-outline-primary" id="appointment-form">
+            <a href="<?php echo URLROOT; ?>\admin\doctor_register" type="button" class="btn btn-sm btn-primary" id="appointment-form">
               <span data-feather="user-plus"></span>
               Register New
             </a>
@@ -19,7 +19,7 @@
         <h2 class="subtitle">Doctor List</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
         <script src="<?php echo URLROOT; ?>/js/delete.js"></script>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="doc_delete();">
+          <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center" id="appointment-form" onclick="doc_delete();">
             <span data-feather="trash-2" class="mr-2"></span>
             Delete
           </button>
@@ -53,7 +53,7 @@
                   $r5 = "<td>" . $doctor['category'] . "</td>";
                   $r6 = "<td> Rs. ".$doctor['charge_amount'] . "</td>";
                   $href= URLROOT."/doctor/payment/".$doctor['id'];
-                  $r7 = "<td>"."<a href='".$href."'><button>Payment</button></a>"."</td>";
+                  $r7 = "<td>"."<a href='".$href."'><button class='btn btn-success btn-sm'>Payment</button></a>"."</td>";
                   $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 . "</tr>";
 
                   echo $row;

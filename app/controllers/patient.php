@@ -420,7 +420,7 @@
                         $result_avg = $this->model('rate')->getTotalRatingByDoctor($doctor['user_id']);
                         $doc = $doctor;
                         $doc['is_sub'] = $result_sub['value']; // 0 is true, 1 is false
-                        $doc['rating'] = round($result_avg);
+                        $doc['rating'] = round($result_avg['value']);
                         $doctor = $doctor + array('is_sub' => $result_sub['value']);
                         array_push($doctors,$doc);
                         
