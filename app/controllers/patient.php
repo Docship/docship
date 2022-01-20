@@ -394,7 +394,7 @@
 
         }
 
-        public function doctors(){
+        public function doctors($type){
 
             if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
@@ -406,32 +406,61 @@
 
             else {
 
-                $result = $this->model('Doctor')->getAll();
-                $data = array();
-                if($result==-1){
-                    //$data['db_err'] = "system failure";
-                    //$this->view('patient/messages' , $data);
+                if($type=='subcribe'){
+                    $result = $this->model('subcribe')->getSubcribedDoctorsByPatient($_SESSION['user_id']);
+                    $data = array();
+                    if($result==-1){
+                        //$data['db_err'] = "system failure";
+                        //$this->view('patient/messages' , $data);
+                    }else {
+                        $doctors = array();
+                        $model = $this->model('subcribe');
+                    
+                        foreach($result['value'] as $doctor){
+                            
+                            $result_avg = $this->model('rate')->getTotalRatingByDoctor($doctor['user_id']);
+                            $doc = $doctor;
+                            $doc['is_sub'] = 0; // 0 is true, 1 is false
+                            $doc['rating'] = round($result_avg);
+                            array_push($doctors,$doc);
+                            
+                        }
+                        $data['doctors'] = $doctors;
+                        //$this->view('patient/messages' , $data);
+                }
+
+                    $this->view('patient/doctors_sub' , $data) ;
+                    //$this->view('pages/dumy' , $data) ;
                 }else {
-                    $doctors = array();
-                    $model = $this->model('subcribe');
-                   
-                    foreach($result as $doctor){
-                        $result_sub = $model->isDoctorSubcribed($doctor['id'] , $_SESSION['user_id']);
-                        $result_avg = $this->model('rate')->getTotalRatingByDoctor($doctor['user_id']);
-                        $doc = $doctor;
-                        $doc['is_sub'] = $result_sub['value']; // 0 is true, 1 is false
-                        $doc['rating'] = round($result_avg);
-                        $doctor = $doctor + array('is_sub' => $result_sub['value']);
-                        array_push($doctors,$doc);
-                        
+                    $result = $this->model('Doctor')->getAll();
+                    $data = array();
+                    if($result==-1){
+                        //$data['db_err'] = "system failure";
+                        //$this->view('patient/messages' , $data);
+                    }else {
+                        $doctors = array();
+                        $model = $this->model('subcribe');
+                    
+                        foreach($result as $doctor){
+                            $result_sub = $model->isDoctorSubcribed($doctor['id'] , $_SESSION['user_id']);
+                            $result_avg = $this->model('rate')->getTotalRatingByDoctor($doctor['user_id']);
+                            $doc = $doctor;
+                            $doc['is_sub'] = $result_sub['value']; // 0 is true, 1 is false
+                            $doc['rating'] = round($result_avg);
+                            $doctor = $doctor + array('is_sub' => $result_sub['value']);
+                            array_push($doctors,$doc);
+                            
+                        }
+                        $data['doctors'] = $doctors;
+                        //$this->view('patient/messages' , $data);
                     }
-                    $data['doctors'] = $doctors;
-                    //$this->view('patient/messages' , $data);
+
+                    
+
+                    $this->view('patient/doctors' , $data) ;
                 }
 
                 
-
-                $this->view('patient/doctors' , $data) ;
 
 
             }

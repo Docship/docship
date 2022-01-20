@@ -58,6 +58,34 @@
             return $result;
         }
 
+        public function getSubcribedDoctorsByPatient($patient_id){
+            $sql = "SELECT subcriber.id AS sub_id  , doctor.* FROM subcriber INNER JOIN doctor ON subcriber.doctor_id=doctor.id WHERE `patient_id`=$patient_id ";
+
+            $result = $this->DB->selectAll($sql);
+
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = 1; 
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+
+            return $output;
+        }
+
         
 
     }

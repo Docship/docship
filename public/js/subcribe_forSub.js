@@ -50,7 +50,7 @@ function unsubcribe(id){
 
                 if (jsonData.success == "0")
                 {
-                    location.href = "http://localhost/docship/patient/doctors/all";
+                    location.href = "http://localhost/docship/patient/doctors/subcribe";
                 }
                 else
                 {

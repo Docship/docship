@@ -70,7 +70,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\doctors" id="doctors">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\doctors\all" id="doctors">
                 <span data-feather="users"></span>
                 Doctors
               </a>
