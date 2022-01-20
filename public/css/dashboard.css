@@ -194,7 +194,6 @@ tr td:last-child{
 .content .user{
   border-top-left-radius: inherit; 
   border-top-right-radius: inherit; 
-  background-color: var(--color-unimportant-text);
 }
 
 .content .user .col-2 button{
@@ -230,13 +229,6 @@ tr td:last-child{
 img {
   object-fit: cover;
 }
-
-.status {
-  background-color: var(--green);
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 
 .imessage {
   border-radius: 0.25rem;
@@ -328,7 +320,10 @@ p.from-them::after {
   width: 10px;
 }
 
-
+/* *user list in messages*/
+.wrapper .content .user-list a{
+  cursor : pointer;
+}
 
 
 
