@@ -30,6 +30,16 @@
       default: return 'Mr';       
     }
   }
+
+  function getZoomButton($status , $id){
+    switch($status){
+      case '0':
+        return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';
+      case '1':
+        return '<a href="'.URLROOT.'/appointment/zoom/'.$id.'"><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2">Zoom</button></a>';
+      default: return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';       
+    }
+  }
 ?>
 <?php require_once APPROOT."/views/inc/header_admin.php"; ?>
 <main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="B">
@@ -102,6 +112,7 @@
                 echo "<th>Doctor</th>";
                 echo "<th>Status</th>";
                 echo "<th>Payment</th>";
+                echo "<th>Zoom</th>";
               echo "</tr>";
               echo "</thead>";
               echo "<tbody>";
@@ -114,7 +125,8 @@
                 $color = getStatusColor($appointment['status']);
                 $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
                 $r7 = "<td>". getPaymentStatus($appointment['is_paid']). "</td>";
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 . "</tr>";
+                $r8 = "<td>". getZoomButton($appointment['is_paid'] , $appointment['id']). "</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 . $r8 . "</tr>";
 
                 echo $row;
               }

@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/form.css">
 
-  <title>DocShip | LogIn</title>
+  <title>Appointment</title>
 </head>
 
 <body>

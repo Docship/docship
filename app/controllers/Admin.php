@@ -376,7 +376,7 @@
 
         public function doctors(){
 
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 

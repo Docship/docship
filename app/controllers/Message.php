@@ -206,6 +206,28 @@
         }
     }
 
+    public function admin_panel(){
+        $chat_botID = $this->model('message')->getChatBotId()['value'];
+        if(isset($_SESSION['role']) && !($_SESSION['role'] == 'chat_admin') && $_SESSION['user_id'] != $chat_botID){
+            echo json_encode(array('status' => "fail" , 'messages' => '<p>System failure</p>'));
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $result = $this->model('message')->getSendersForChatBot();
+            $data = array();
+            if(isset($result['value'])){
+                $data['users'] = $result['value'];
+                $output = $this->createChatPanelForAdmin($data['users']);
+                echo json_encode(array('status' => "success" , 'messages' => $output));
+            }else {
+                echo json_encode(array('status' => "success" , 'messages' => '<p>System failure</p>'));
+            }
+        }else {
+            
+
+        }
+    }
+
     private function createChatMessages($chat_botID){
 
         // get current user uid
@@ -258,6 +280,27 @@
         }else {
             return "";
         }
+    }
+
+    private function createChatPanelForAdmin($users){
+        $output = "";
+        foreach($users as $user){
+                $output.= '<a class="row align-items-center py-2 border-bottom mx-0 text-decoration-none" href="'.URLROOT.'/message/chat/'.$user['id'].'">
+                <div class="col-2 p-0 d-flex justify-content-center">
+                    <img src="'.URLROOT.'/img/user.png" alt="" width="45px" height="45px" class="rounded-circle" />
+                </div>
+                <div class="col-9 px-4">
+                    <p class="my-0 lh-1 font-weight-bold text-dark">'.$user['firstname'].' '.$user['lastname'].'</p>
+                    <p class="my-0 lh-1 fw-light text-dark">'.$user['role'].'</p>
+                </div>
+            </a> ';
+        }
+
+        if(empty($output)){
+            $output = '<p>No any message available in the System.</p>';
+        }
+
+        return $output;
     }
 
   }

@@ -1,0 +1,26 @@
+.card{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+h4{
+  font-weight: 700;
+}
+
+h5{
+  font-weight: 600;
+}
+
+.card-body .mt-3{  
+  width: 100px; 
+  height: 100px; 
+  overflow: hidden; 
+  border-radius: 50%; 
+}
+
+.card-body .mt-3 img {
+  width: 100%; 
+  height: auto; 
+  object-fit: cover; 
+}
+
+

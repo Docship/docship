@@ -542,12 +542,20 @@
             }
         }
 
-        public function payment($id){
+        public function payment($id=0){
             if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $result = $this->model('doctor')->findById($id);
+
+                $data = array();
+
+                if(isset($result['value']) && !empty($result['value'])){
+                    $data['doctor'] = $result['value'];
+                }
+                
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $data =[
@@ -556,9 +564,9 @@
                     'value_err' => ""
                 ];
 
-                $result = Validate::validatePayment($data);
+                //$result = Validate::validatePayment($data);
 
-                if($result){
+                if(true){
                     $result = $this->model('doctor')->findById($id);
 
                     $doctor = $result['value'];
@@ -572,7 +580,7 @@
                     $result_doc_pay = $this->model('doctor')->addPayment($id , $total_payment);
 
                     if($result_doc_pay==0){
-
+                        redirect('admin/doctors');
                     }else {
                         // update fail
                     }

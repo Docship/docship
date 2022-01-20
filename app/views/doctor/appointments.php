@@ -20,6 +20,17 @@
       default: return "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$id."' disabled>". $id . "</td>";       
     }
   }
+
+  function getZoomLink($link , $status){
+    switch($status){
+      case '0':
+        return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';
+      case '1':
+        return '<a href="'.$link.'"><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2">Zoom</button></a>';
+      default: return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';       
+    }
+    
+  }
 ?>
 <?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
 <main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="B">
@@ -77,6 +88,7 @@
                 echo "<th>Patient</th>";
                 echo "<th>Patient Tel.</th>";
                 echo "<th>Status</th>";
+                echo "<th>Zoom</th>";
               echo "</tr>";
               echo "</thead>";
               echo "<tbody>";
@@ -88,7 +100,8 @@
                 $r5 = "<td>" . $appointment['telephone'] . "</td>";
                 $color = getStatusColor($appointment['status']);
                 $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . "</tr>";
+                $r7 = "<td>". getZoomLink($appointment['zoom_link'] , $appointment['is_paid']). "</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 . "</tr>";
 
                 echo $row;
               }

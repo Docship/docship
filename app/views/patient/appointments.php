@@ -11,6 +11,17 @@
     }
   }
 
+  function getZoomLink($link , $status){
+    switch($status){
+      case '0':
+        return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';
+      case '1':
+        return '<a href="'.$link.'"><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2">Zoom</button></a>';
+      default: return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';       
+    }
+    
+  }
+
 ?>
 <?php require_once APPROOT . "/views/inc/header_patient.php"; ?>
 
@@ -78,7 +89,7 @@
                 echo "<th>Doctor</th>";
                 echo "<th>Receipt ID</th>";
                 echo "<th>Status</th>";
-                //echo "<th>Action</th>";
+                echo "<th>Zoom</th>";
               echo "</tr>";
               echo "</thead>";
               echo "<tbody>";
@@ -90,8 +101,9 @@
                 $r5 = "<td><a href='".URLROOT."/receipt/show/".$appointment['receipt_id']."'>" . $appointment['receipt_id'] . "</a></td>";
                 $color = getStatusColor($appointment['status']);
                 $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
+                $r7 = "<td>". getZoomLink($appointment['zoom_link'] , $appointment['is_paid']). "</td>";
                 
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . "</tr>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 . "</tr>";
 
                 echo $row;
               }

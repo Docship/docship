@@ -76,7 +76,7 @@
                 $color = getStatusColor($appointment['status']);
                 $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
                 $href= URLROOT."/prescription/add/".$appointment['id'];
-                $r7 = "<td>"."<a href='".$href."'><button>Note</button></a>"."</td>";
+                $r7 = "<td>"."<a href='".$href."'><button class='btn btn-sm btn-primary d-flex justify-content-center ml-2'>Note</button></a>"."</td>";
                 $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 .  "</tr>";
 
                 echo $row;

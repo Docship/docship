@@ -3,7 +3,7 @@
   <main role="main" class="messages col-md-9 ml-sm-auto col-lg-10 px-md-4" id="E">
   <div class="wrapper">
         <div class="content container border px-0 vh-80">
-            <div class="user-list overflow-scroll px-4">
+            <div class="user-list overflow-scroll px-4 panel">
                 <?php 
                     if(isset($data['users'])){
                         if(!empty($data['users'])){
@@ -33,4 +33,5 @@
     
 
   </main>
+  <script src="<?php echo URLROOT; ?>/js/chat-admin-panel.js"></script> 
 <?php require_once APPROOT."/views/inc/footer.php"; ?>

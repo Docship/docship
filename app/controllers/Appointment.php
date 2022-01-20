@@ -323,6 +323,58 @@ class Appointment extends Controller
 
     }
 
+    public function zoom($id=0){
+        if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
+            redirect('pages/prohibit?user='.$_SESSION['role']);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $result = $this->model('appointment')->findById($id);
+
+            $data = array();
+
+            if(isset($result['value']) && !empty($result['value'])){
+                $data['appointment'] = $result['value'];
+            }
+            
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data =[
+                'zoom_link'=> trim($_POST['zoom-link']),
+                'zoom_err' => ""
+            ];
+
+            if(true){
+                $result_update = $this->model('appointment')->addZoomLink($id , $data['zoom_link']);
+
+                if($result_update==0){
+                    redirect('admin/appointments');
+                }else {
+                    // update fail
+                }
+            }else {
+                $this->view('pages/zoom' , $data) ;
+            }
+        }
+
+        else {
+
+            $result = $this->model('appointment')->findById($id);
+
+            $data = array();
+
+            if(isset($result['value']) && !empty($result['value'])){
+                $data['appointment'] = $result['value'];
+            }
+
+            $this->view('pages/zoom' , $data) ;
+
+
+        }
+    }
+
+
+
     private function viewAppointments(&$data){
         $appointments_result = $this->model('Appointment')->findByPatientId($_SESSION['user_id']);
 

@@ -29,7 +29,7 @@
         }
 
         public function findById($id){
-            $sql = "SELECT * FROM `appointment` WHERE id='$id' ORDER BY `date` DESC";
+            $sql = "SELECT appointment.* , doctor.firstname AS doctor_firstname, patient.firstname AS patient_firstname FROM appointment INNER JOIN doctor ON appointment.doctor_id = doctor.id INNER JOIN patient ON appointment.patient_id = patient.id WHERE appointment.id='$id' ORDER BY `date` DESC";
             $result = $this->DB->selectAll($sql);
 
             $output = array();
@@ -112,7 +112,7 @@
         public function findByPatientId($patientid){
             $sql = "SELECT * FROM `appointment` WHERE patient_id = $patientid AND is_exit = 0 AND status = 'PENDING' ORDER BY `date` DESC";
 
-            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , doctor.firstname FROM appointment INNER JOIN doctor ON appointment.doctor_id=doctor.id WHERE appointment.patient_id = $patientid AND appointment.is_exit = 0 AND appointment.status = 'PENDING' ORDER BY appointment.date DESC";
+            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , appointment.zoom_link , doctor.firstname FROM appointment INNER JOIN doctor ON appointment.doctor_id=doctor.id WHERE appointment.patient_id = $patientid AND appointment.is_exit = 0 AND appointment.status = 'PENDING' ORDER BY appointment.date DESC";
 
             $result = $this->DB->selectAll($sql1);
 
@@ -139,7 +139,7 @@
         public function findByDoctorId($doctorid){
             $sql = "SELECT * FROM `appointment` WHERE doctor_id = $doctorid AND is_exit = 0 AND status = 'PENDING' ORDER BY `date` DESC";
 
-            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , patient.firstname , patient.telephone FROM appointment INNER JOIN patient ON appointment.patient_id=patient.id WHERE appointment.doctor_id = $doctorid AND appointment.is_exit = 0 AND appointment.status = 'PENDING' ORDER BY appointment.date DESC";
+            $sql1 = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , appointment.zoom_link , patient.firstname , patient.telephone FROM appointment INNER JOIN patient ON appointment.patient_id=patient.id WHERE appointment.doctor_id = $doctorid AND appointment.is_exit = 0 AND appointment.status = 'PENDING' ORDER BY appointment.date DESC";
 
             $result = $this->DB->selectAll($sql1);
 
@@ -184,6 +184,12 @@
 
         public function confirm($id){
             $sql = "UPDATE `appointment` SET `status` = 'CONFIRMED' WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
+        public function addZoomLink($id , $link){
+            $sql = "UPDATE `appointment` SET `zoom_link` = '$link' WHERE id = $id;";
             $result = $this->DB->update($sql);
             return $result;
         }

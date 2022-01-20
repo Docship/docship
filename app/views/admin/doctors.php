@@ -53,7 +53,7 @@
                   $r5 = "<td>" . $doctor['category'] . "</td>";
                   $r6 = "<td> Rs. ".$doctor['charge_amount'] . "</td>";
                   $href= URLROOT."/doctor/payment/".$doctor['id'];
-                  $r7 = "<td>"."<a href='".$href."'><button>Payment</button></a>"."</td>";
+                  $r7 = "<td>"."<a href='".$href."'><button class='btn btn-sm btn-success d-flex justify-content-center ml-2'>Payment</button></a>"."</td>";
                   $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 . "</tr>";
 
                   echo $row;

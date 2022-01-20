@@ -130,17 +130,7 @@
                                     echo getErrorMessage($data['gender_err']);
                             ?></div>
                         </div>
-                        <div class="col-lg-5 my-1">
-                            <div class="custom-file">
-                                <!-- <input type="file" class="custom-file-input" id="uploadImage"> -->
-                                <label class="custom-file-label" for="uploadImage" data-browse="choose">Upload your
-                                    image</label>
-                            </div>
-                            <div><?php 
-                                    echo getErrorMessage($data['telephone_err']);
-                                ?>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <h5 class="text-center mt-3">Educational Qualification</h5>
