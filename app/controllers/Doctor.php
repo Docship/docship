@@ -608,13 +608,15 @@
                 if(!empty($params)){
                     foreach($params as $id){
                         $condition = $this->isAppointmentAvailable($id);
-                        if($condition){
+                        if($condition==0){
                             echo json_encode(array('success' => 1 , 'msg'=>"Doctor Id : " . $id ." has upcoming appointments"));
+                            return;
                         }
                         $result = $model->delete($id);
                         if($result!=0){
                             $data['cancel_err_id'] = $id;
                             echo json_encode(array('success' => 1 , 'msg'=> "Id ".$id ." is invalid")); // 1 means false
+                            return;
                         }
                     }
                 }else {
@@ -712,7 +714,7 @@
                 if($result!=-1 && !empty($result['value'])){
                     $data['doctor'] = $result['value'];
                     $result_avg = $this->model('rate')->getTotalRatingByDoctor($data['doctor']['user_id']);
-                    $data['doctor']['rating'] = round($result_avg);
+                    $data['doctor']['rating'] = round($result_avg['value']);
                     if($_SESSION['role'] == 'patient'){
                         $result_sub = $this->model('subcribe')->isDoctorSubcribed($data['doctor']['id'] , $_SESSION['user_id']);
                         $data['doctor']['is_sub'] = $result['value'];
@@ -763,8 +765,8 @@
             $result = $this->model('appointment')->findByDoctorId($id);
 
             if(isset($result['value']) && !empty($result['value'])){
-                return true;
+                return 0;
             }
-            return false;
+            return 1;
         }
     }

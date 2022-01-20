@@ -312,4 +312,56 @@
             }
 
         }
+
+        public function isDoctorHasAppointments($doctor_id){
+            $sql = "SELECT * FROM `appointment` WHERE `doctor_id` = $doctor_id AND `is_exit` = 0 AND `status`='PENDING'";
+
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['value'] = 1;
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = 0;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['value'] = -1;
+                return $output;
+            }
+
+
+        }
+
+        public function isPatientHasAppointments($patient_id){
+            $sql = "SELECT * FROM `appointment` WHERE `patient_id` = $patient_id AND `is_exit` = 0 AND `status`='PENDING'";
+
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['value'] = 1;
+                    // appointment not exist
+                    return $output;
+                }else{
+                    // appointment exist
+                    $output['value'] = 0;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['value'] = -1;
+                return $output;
+            }
+
+
+        }
     }

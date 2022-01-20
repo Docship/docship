@@ -13,7 +13,7 @@ function doc_delete(){
 
     if(arr.length > 0){
         var method = "POST";
-        var url = window.location.href+ '/../../doctor/delete';
+        var url = "http://localhost/docship/doctor/delete";
         console.log(url);
         var data = arr;
 
@@ -35,6 +35,7 @@ function doc_delete(){
                 else
                 {
                     alert(jsonData.msg);
+                    const myTimeout = setTimeout(refresh('doctors'), 5000);
                 }
            }
        });
@@ -57,7 +58,7 @@ function pat_delete(){
 
     if(arr.length > 0){
         var method = "POST";
-        var url = window.location.href+ '/../../patient/delete';
+        var url = "http://localhost/docship/patient/delete";
         console.log(url);
         var data = arr;
 
@@ -78,10 +79,15 @@ function pat_delete(){
                 }
                 else
                 {
-                    alert('Deletion fails');
+                    alert(jsonData.msg);
+                    const myTimeout = setTimeout(refresh('patients'), 5000);
                 }
            }
        });
 
     }
+}
+
+function refresh(url){
+    location.href = url;
 }

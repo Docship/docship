@@ -407,3 +407,7 @@ select.valid,
 input.valid {
     border-color: green !important;
 }
+select.invalid,
+input.invalid {
+    border-color: red !important;
+}

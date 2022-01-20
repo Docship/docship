@@ -323,6 +323,7 @@
                     $working_days = $doctor['working_days'];
                     $day = Date::getDateNumber($date);
 
+
                     if(strpos($working_days, strval($day))){
                         $r = Date::isTimeBetween($doctor['working_from'] , $doctor['working_to'] , $time);
                         if($r==true){

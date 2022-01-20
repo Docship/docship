@@ -319,6 +319,10 @@
                 $result = false;
                 $data['passw0rd_err'] = "Invalid Password format";
             }
+            if(empty($data['role']) || !($data['role'] == 'admin' || $data['role'] == 'patient' || $data['role'] == 'doctor')){
+                $result = false;
+                $data['role_err'] = "Invalid Role";
+            }
             return $result;
 
         }

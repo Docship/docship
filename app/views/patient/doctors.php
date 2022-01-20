@@ -83,6 +83,14 @@
         </select>
       </div>
 
+      <div class="col-auto">
+          <select id="status" class="custom-select form-select " onchange="setUrlDoctor(this.value);">
+              <option value="" disabled selected>Filter</option>
+              <option value="all">All</option>
+              <option value="subcribe">Subcribed</option>
+          </select>
+      </div>
+
       <div class="col-auto" style="visibility:hidden">
         <button type="submit" class="btn btn-primary mb-2 rounded-circle"> <i class="fas fa-search"></i> </button>
       </div>
@@ -165,6 +173,17 @@
   </div>
 </main>
 <script src="<?php echo URLROOT; ?>/js/subcribe.js"></script>
+
+<script>
+  function setUrlDoctor(value){
+    if(value=="subcribe"){
+        location.href ='http://localhost/docship/patient/doctors/subcribe';
+    }else {
+        location.href ='http://localhost/docship/patient/doctors/all';
+    }
+  }
+</script>
+
 <script>
   const listOfDoctors = document.getElementsByClassName('doctor-card');
 

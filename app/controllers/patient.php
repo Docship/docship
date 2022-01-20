@@ -418,7 +418,7 @@
                             $result_avg = $this->model('rate')->getTotalRatingByDoctor($doctor['user_id']);
                             $doc = $doctor;
                             $doc['is_sub'] = 0; // 0 is true, 1 is false
-                            $doc['rating'] = round($result_avg);
+                            $doc['rating'] = round($result_avg['value']);
                             array_push($doctors,$doc);
                             
                         }
@@ -426,7 +426,7 @@
                         //$this->view('patient/messages' , $data);
                 }
 
-                    $this->view('patient/doctors_sub' , $data) ;
+                    $this->view('patient/doctors' , $data) ;
                     //$this->view('pages/dumy' , $data) ;
                 }else {
                     $result = $this->model('Doctor')->getAll();
@@ -443,7 +443,7 @@
                             $result_avg = $this->model('rate')->getTotalRatingByDoctor($doctor['user_id']);
                             $doc = $doctor;
                             $doc['is_sub'] = $result_sub['value']; // 0 is true, 1 is false
-                            $doc['rating'] = round($result_avg);
+                            $doc['rating'] = round($result_avg['value']);
                             $doctor = $doctor + array('is_sub' => $result_sub['value']);
                             array_push($doctors,$doc);
                             
@@ -452,13 +452,8 @@
                         //$this->view('patient/messages' , $data);
                     }
 
-                    
-
                     $this->view('patient/doctors' , $data) ;
                 }
-
-                
-
 
             }
 
@@ -476,10 +471,16 @@
                 $model = $this->model('patient');
                 if(!empty($params)){
                     foreach($params as $id){
+                        $condition = $this->isAppointmentAvailable($id);
+                        if($condition==0){
+                            echo json_encode(array('success' => 1 , 'msg'=>"Patient Id : " . $id ." has upcoming appointments"));
+                            return;
+                        }
                         $result = $model->delete($id);
                         if($result!=0){
                             $data['cancel_err_id'] = $id;
-                            echo json_encode(array('success' => 1)); // 1 means false
+                            echo json_encode(array('success' => 1 , 'msg'=>"Patient Id : " . $id ." deletion fail.")); // 1 means false
+                            return;
                         }
                     }
                 }else {
@@ -555,6 +556,15 @@
             }
     
             return "";
+        }
+
+        private function isAppointmentAvailable($id){
+            $result = $this->model('appointment')->findByPatientId($id);
+
+            if(isset($result['value']) && !empty($result['value'])){
+                return 0;
+            }
+            return 1;
         }
 
 

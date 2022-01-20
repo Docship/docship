@@ -62,12 +62,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\appointments_confirmed" id="b">
-                <span data-feather="calendar"></span>
-                Appointments Confirmed
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\message" id="d">
                 <span data-feather="message-circle"></span>
                 Messages

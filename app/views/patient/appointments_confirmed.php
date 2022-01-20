@@ -38,15 +38,30 @@
     </div>
 -->
   </div>
-  <form class="my-1 border-bottom d-flex justify-content-end">
-  <script src="<?php echo URLROOT; ?>/js/appointment_cancel.js"></script>
-    <div class="row">
-      <div class="col">
-        <select id="status" class="custom-select form-select ">
-          <option value="confirmed" selected>Confirmed</option>
-          <option value="pending">Upcoming</option>
+  <form class="my-1 d-flex justify-content-center border-bottom">
+  <script src="<?php echo URLROOT; ?>/js/appointment_button.js"></script>
+    <div class="form-row mx-2">
+      <div class="col-12 col-md-auto">
+        <input id="filter-name" type="text" class="form-control" placeholder="Search">
+      </div>
+
+      <div class="col-auto">
+        <select id="search" class="custom-select">
+          <option value = "id" >Search by Id</option>
+          <option value="name" selected>Search by Name</option>
+          <option value="date">Search by Date</option>
+          <option value="receipt">Search by Receipt</option>
         </select>
       </div>
+
+      
+      <div class="col-auto">
+        <select id="status" class="custom-select" onchange="setUrlAppoinmentPat(this.value);">
+          <option value="pending">Upcoming</option>
+          <option value="confirmed" selected>Confirmed</option>
+        </select>
+      </div>
+
     </div>
   </form>
 

@@ -151,7 +151,7 @@
             </div>
 
             <div class="col-sm-12" id="role">
-              <input class="form-control form-control-lg shadow-none" id="charge" name="charge" type="number" step="0.01" placeholder="charge" value="<?php echo $data['charge'];?>" readonly/>
+              <input class="form-control form-control-lg shadow-none" id="charge" name="charge" type="number" step="0.01" placeholder="charge" readonly/>
 
               <div><?php
                     echo getErrorMessage($data['amount_err']);

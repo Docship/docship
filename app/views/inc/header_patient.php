@@ -64,12 +64,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\patient\appointments_confirmed" id="appointment_confirmed">
-                <span data-feather="calendar"></span>
-                Appointments Confirmed
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>\patient\doctors\all" id="doctors">
                 <span data-feather="users"></span>
                 Doctors
