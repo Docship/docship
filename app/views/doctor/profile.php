@@ -27,9 +27,15 @@
             <div class="progress mx-4 my-3">
               <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
             </div>
+            <script src="<?php echo URLROOT; ?>/js/subcribe.js"></script>
             <?php 
               if($_SESSION['user_role'] == 'patient'){
-                echo '<button class="btn btn-primary btn-sm mb-3" onclick="subcribe('.$data['doctor']['id'].');">Subscribe</button>';
+                if($data['doctor']['is_sub'] == '1'){
+                  echo '<button class="btn btn-primary btn-sm mb-3" onclick="subcribe('.$data['doctor']['id'].');">Subscribe</button>';
+                }else {
+                  echo '<button class="btn btn-primary btn-sm mb-3" onclick="unsubcribe('.$data['doctor']['id'].');">Unsubscribe</button>';
+                }
+                
               } 
             ?>
             

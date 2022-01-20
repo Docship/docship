@@ -34,6 +34,11 @@
             }else {
                 $data['db_err_2'] = "prescriptions limited searching failed"; 
             }
+            
+            $arrears = $this->model('receipt')->getTotalReceiptSumByPatient($_SESSION['user_id']);
+            $data['arrears'] = number_format((float)$arrears, 2, '.', '');
+
+            
 
             $this->view('patient/index', $data);
         }
@@ -407,9 +412,24 @@
                     //$data['db_err'] = "system failure";
                     //$this->view('patient/messages' , $data);
                 }else {
-                    $data['doctors'] = $result;
+                    $doctors = array();
+                    $model = $this->model('subcribe');
+                   
+                    foreach($result as $doctor){
+                        $result_sub = $model->isDoctorSubcribed($doctor['id'] , $_SESSION['user_id']);
+                        $result_avg = $this->model('rate')->getTotalRatingByDoctor($doctor['user_id']);
+                        $doc = $doctor;
+                        $doc['is_sub'] = $result_sub['value']; // 0 is true, 1 is false
+                        $doc['rating'] = round($result_avg);
+                        $doctor = $doctor + array('is_sub' => $result_sub['value']);
+                        array_push($doctors,$doc);
+                        
+                    }
+                    $data['doctors'] = $doctors;
                     //$this->view('patient/messages' , $data);
                 }
+
+                
 
                 $this->view('patient/doctors' , $data) ;
 

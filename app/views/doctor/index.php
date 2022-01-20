@@ -64,11 +64,11 @@
 
             <div class="col-lg-4 highlight-card">
               <div class="card text-white bg-danger mb-3" style="max-width: 50rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">Payments</div>
                   <div class="card-body">
-                    <h5 class="card-title">Primary card title</h5>
+                    <h5 class="card-title">Total Income</h5>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                      Rs. <?php echo ($data['income'])?$data['income']:0.00; ?>
                     </p>
                   </div><!-- card body ends -->
               </div><!-- card ends -->
@@ -97,7 +97,7 @@
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td>". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . $appointment['time'] . "</td>";
+                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
                 $r4 = "<td>" . $appointment['firstname'] . "</td>";
                 $r5 = "<td>" . $appointment['telephone'] . "</td>";
                 $color = getStatusColor($appointment['status']);

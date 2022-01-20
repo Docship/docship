@@ -35,6 +35,13 @@
                 $data['db_err_2'] = "prescriptions limited searching failed"; 
             }
 
+            $doc_result = $this->model('doctor')->findById($_SESSION['user_id']);
+
+            if(isset($doc_result['value']) && !empty($doc_result['value'])){
+                
+                $data['income'] = number_format((float)$$doc_result['value']['total_income'], 2, '.', '') ;
+            }
+
             $this->view('doctor/index', $data);
         }
 
@@ -624,6 +631,70 @@
     
         }
 
+        public function subcribe(){
+            if ($_SESSION['role'] != 'patient') {
+                echo json_encode(array('success' => 1));
+            }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data = array();
+                $params = file_get_contents( "php://input" );
+                $params = json_decode( $params); 
+                $model = $this->model('subcribe');
+                if(!empty($params)){
+                    $data = array();
+                    $data['doctor_id'] = $params;
+                    $data['patient_id'] = $_SESSION['user_id'];
+                    $result = $model->insert($data);
+                    if($result==0){
+                        echo json_encode(array('success' => 0 ));
+                    }else {
+                        echo json_encode(array('success' => 1));
+                    }
+                }else {
+                    echo json_encode(array('success' => 1));
+                }
+    
+                 // 0 -> true
+            }
+    
+            else {
+                
+    
+            }
+    
+        }
+
+        public function unsubcribe(){
+            if ($_SESSION['role'] != 'patient') {
+                echo json_encode(array('success' => 1));
+            }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data = array();
+                $params = file_get_contents( "php://input" );
+                $params = json_decode( $params); 
+                $model = $this->model('subcribe');
+                if(!empty($params)){
+                    $data = array();
+                    $data['doctor_id'] = $params;
+                    $data['patient_id'] = $_SESSION['user_id'];
+                    $result = $model->delete($data);
+                    if($result==0){
+                        echo json_encode(array('success' => 0 ));
+                    }else {
+                        echo json_encode(array('success' => 1));
+                    }
+                }else {
+                    echo json_encode(array('success' => 1));
+                }
+    
+                 // 0 -> true
+            }
+    
+            else {
+                
+    
+            }
+    
+        }
+
         public function detail($param){
             $id = $param[0];
 
@@ -640,6 +711,12 @@
 
                 if($result!=-1 && !empty($result['value'])){
                     $data['doctor'] = $result['value'];
+                    $result_avg = $this->model('rate')->getTotalRatingByDoctor($data['doctor']['user_id']);
+                    $data['doctor']['rating'] = round($result_avg);
+                    if($_SESSION['role'] == 'patient'){
+                        $result_sub = $this->model('subcribe')->isDoctorSubcribed($data['doctor']['id'] , $_SESSION['user_id']);
+                        $data['doctor']['is_sub'] = $result['value'];
+                    }
                     $this->view('doctor/profile', $data);
                 }
             }

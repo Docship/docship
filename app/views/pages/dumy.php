@@ -15,22 +15,26 @@ echo $doctor[0]; echo "<br>";
 
 
 //echo $data['messages'];
-echo "Dumy </br>";
+echo "Dumy Page </br>";
 
-/*
-foreach($result as $x => $x_value) {
+
+foreach($data as $x => $x_value) {
 
   echo "Key=" . $x . ", Value=" . $x_value;
-    
+    /*
     foreach($x_value as $y => $y_value){
       echo "Key=" . $y . ", Value=" . $y_value;
     }
+    */
+    
     
     echo "<br>";
   }
-*/
 
-echo $sql;
+
+echo $value;
+echo "<br>";
+
 
 
 
@@ -40,4 +44,17 @@ $id = bin2hex($bytes);
 
 echo $id;
 */
+
+function calculate_total($amount , $discount){
+  echo $discount;
+  if($discount==0.0){
+      return $amount;
+  }else {
+      $percent = $discount;
+      $discount = ($percent / 100) * $amount;
+      $total = $amount - $discount;
+      $total = number_format((float)$total, 2, '.', '');
+      return $total;
+  }
+}
 

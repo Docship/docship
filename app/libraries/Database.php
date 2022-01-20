@@ -260,7 +260,10 @@ final class Database {
                 echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
                 return -1;
             }
-            return $this->mysqli->query($sql);
+            $result =  mysqli_query($this->mysqli , $sql);
+            $row = mysqli_fetch_object($result);
+            $value = $row->value;
+            return $value;
             
         }catch(Exception $e){
             return -1;

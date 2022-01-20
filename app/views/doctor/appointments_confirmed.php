@@ -50,7 +50,7 @@
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td>". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . $appointment['time'] . "</td>";
+                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
                 $r4 = "<td>" . $appointment['firstname'] . "</td>";
                 $r5 = "<td>" . $appointment['telephone'] . "</td>";
                 $color = getStatusColor($appointment['status']);
