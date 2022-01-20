@@ -107,6 +107,28 @@
             }
         }
 
+        public function findByemailAll($email){
+            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $result = $this->DB->selectAll($sql);
+            $output = [];
+            
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "invalid_email";
+                    $output['value'] = [];
+                    // email not exist
+                    return $output;
+                }
+                $patients = $result;
+                $output['value'] = $patients;
+                return $output;
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+        }
+
         public function insert($data){
 
             $firstname = ucwords($data['fname']);
@@ -157,10 +179,12 @@
             $telephone = $data['telephone'];
 
             if($data['password'] == ''){
-                $sql = "UPDATE `patient` SET `firstname`=$firstname,`lastname`=$lastname,`email`=$email,`bday`=$bday,`gender`=$gender,`telephone`=$telephone WHERE id=$id";
+                $sql = "UPDATE `patient` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email',`bday`='$bday',`gender`='$gender',`telephone`='$telephone' WHERE id=$id";
             }else {
-                $sql = "UPDATE `patient` SET `firstname`=$firstname,`lastname`=$lastname,`email`=$email,`pwd`=$pwd,`bday`=$bday,`gender`=$gender,`telephone`=$telephone WHERE id=$id";
+                $sql = "UPDATE `patient` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email',`bday`='$bday',`gender`='$gender', `pwd`='$pwd' ,`telephone`='$telephone' WHERE id=$id";
             }
+
+            
 
             $result = $this->DB->update($sql , [] , 'patient');
 

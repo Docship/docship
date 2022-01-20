@@ -296,9 +296,6 @@
                     'isExist' => false
                   ];
 
-                include_once '../app/views/' . "pages/dumy" . '.php';
-                die();
-
                 //$validate = $this->getValidation();
                 $result = Validate::checkPatientUpdateData($data);
 
@@ -311,14 +308,14 @@
 
                     $result = $patientModel->findByEmailAll($data['email']);
 
-                    if(isset($result['value']) && !empty($result['value'])){
+
+                    if(isset($result['value'])){
                         $result_email = $result['value'];
                         if(empty($result_email)){
                             $result = $patientModel->update($data);
 
                             if($result!=-1){
                                 redirect('patient/update');
-                                //or else redirect to user admin!?
                             }else {
                                 $data['db_err'] = 'Error Occured in System!';
                                 $data['result'] = $result;
@@ -327,7 +324,7 @@
      
                         }else if(sizeof($result_email)==1){
                             if($result_email[0]['id']==$_SESSION['user_id']){
-                                $result = $patientModel->insert($data);
+                                $result = $patientModel->update($data);
 
                                 if($result!=-1){
                                     redirect('patient/update');

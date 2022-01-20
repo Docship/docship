@@ -1,3 +1,27 @@
+<?php
+  function getErrorMessage($error)
+  {
+    $message = "";
+    if (empty($error)) {
+      $message = "<small></small>";
+      return $message;
+    }else{
+      $message = "<small style = 'color:red;'> ".$error." </small>";
+      return $message;
+    }
+  }
+
+  function isExist($var)
+  {
+    $message = "";
+    if($var){
+      $error = "Email already exist.";
+      $message = "<small style = 'color:red;'> ".$error." </small>";
+    }
+    return $message;
+    
+  }
+?>
 <?php require_once APPROOT."/views/inc/header_patient.php"; ?>
 <!-- Settings -->
 <main role="main" class="settings col-md-9 ml-sm-auto col-lg-10 px-md-4" id="F">
@@ -38,24 +62,34 @@
               <div class="col-lg-6 mt-2">
                 <input name="fname" type="text" class="form-control update-inputs update-patient"
                   placeholder="First name" value=<?php echo $data['fname'] ?>>
-                <div><?php ?></div>
+                  <div><?php 
+                                    echo getErrorMessage($data['fname_err']);
+                                ?></div>
               </div>
               <div class="col-lg-6 mt-2">
                 <input name="lname" type="text" class="form-control update-inputs update-patient"
                   placeholder="Last name" value=<?php echo $data['lname'] ?>>
-                <div></div>
+                  <div><?php 
+                                    echo getErrorMessage($data['lname_err']);
+                                ?></div>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 mt-2">
                 <input name="email" type="email" class="form-control update-inputs update-patient" placeholder="Email"
                   value=<?php echo $data['email'] ?>>
-                <div></div>
+                  <div><?php 
+                                    echo getErrorMessage($data['email_err']);
+                                ?>
+                            </div>
               </div>
               <div class="col-lg-6 mt-2">
                 <input name="telephone" type="tel" class="form-control update-inputs update-patient"
                   placeholder="Phone number" value=<?php echo $data['telephone'] ?>>
-                <div></div>
+                  <div><?php 
+                                    echo getErrorMessage($data['telephone_err']);
+                                ?>
+                                </div>
               </div>
             </div>
             <div class="row d-flex justify-content-start" style="margin:10px 10px 0 0;">
@@ -65,12 +99,18 @@
               <div class="col-lg-6 mt-2">
                 <input name="password" id="passwordInput" type="password"
                   class="form-control update-inputs update-patient" placeholder="New Password" value="">
-                <div></div>
+                  <div><?php 
+                                    echo getErrorMessage($data['password_err']);
+                                ?>
+                                </div>
               </div>
               <div class="col-lg-6 mt-2">
                 <input name="repassword" id="rePasswordInput" type="password" class="form-control update-inputs update-patient"
                   placeholder="Re Type your password" value="">
-                <div></div>
+                  <div><?php 
+                                    echo getErrorMessage($data['repassword_err']);
+                                ?>
+                                </div>
               </div>
             </div>
             <div class="row">
@@ -78,7 +118,10 @@
                 <input name="bday" placeholder="Birthday" name="bday" class="form-control shadow-none update-patient"
                   id="bday" type="text" value="<?php echo $data['bday']?>" onfocus="(this.type='date')"
                   onblur="(this.type='text')" id="date" />
-                <div></div>
+                  <div><?php 
+                                    echo getErrorMessage($data['bday_err']);
+                                ?>
+                                </div>
               </div>
               <div class="col-lg-6 mt-2">
                 <select aria-label="label for the select" id="gender-select" name="gender"

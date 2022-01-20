@@ -579,14 +579,7 @@
                 $result = false;
                 $data['gender_err'] = "Please enter a valid gender";
             }
-            if(self::isEmptyString($data['password']) ||!self::isValidPassward($data['password'])){
-                $result = false;
-                $data['passward_err'] = "Invalid Passward formt";
-            }
-            if(self::isEmptyString($data['repassword']) ||!self::isValidPassward($data['repassword'])){
-                $result = false;
-                $data['passward_err'] = "Invalid Passward formt";
-            }
+            
             if(!self::isStringMatching($data['password'] , $data['repassword'])){
                 $result = false;
                 $data['repassward_err'] = "Passward and Repassward are not matching each other.";
