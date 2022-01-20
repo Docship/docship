@@ -23,17 +23,24 @@
             </div> -->
           </div>
         </div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-        <h2 class="subtitle">Upcoming Appointments</h2>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <script src="<?php echo URLROOT; ?>/js/appointment_confirm.js"></script>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="confirm();">
-            <span data-feather="x-circle" class="mr-2"></span>
-            Confirm
-          </button>
+        <form class="my-1 border-bottom d-flex justify-content-end">
+        <script src="<?php echo URLROOT; ?>/js/appointment_confirm.js"></script>
+          <div class="row">
+            <div class="col">
+              <select id="status" class="custom-select form-select ">
+                <option value="confirmed">Confirmed</option>
+                <option value="pending" selected>Upcoming</option>
+              </select>
+            </div>
 
-        </div>
-      </div>
+            <div class="col pr-0">
+            <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="confirm();">
+              <span data-feather="x-circle" class="mr-2"></span>
+              Confirm
+            </button>
+            </div>
+          </div>
+        </form>
 
         <div class="table-responsive">
         <?php 

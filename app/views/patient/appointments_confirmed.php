@@ -38,9 +38,17 @@
     </div>
 -->
   </div>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-    <h2 class="subtitle">Confimed Appointments</h2>
-  </div>
+  <form class="my-1 border-bottom d-flex justify-content-end">
+  <script src="<?php echo URLROOT; ?>/js/appointment_cancel.js"></script>
+    <div class="row">
+      <div class="col">
+        <select id="status" class="custom-select form-select ">
+          <option value="confirmed" selected>Confirmed</option>
+          <option value="pending">Upcoming</option>
+        </select>
+      </div>
+    </div>
+  </form>
 
   <div class="table-responsive">
         <?php 

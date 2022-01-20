@@ -23,12 +23,16 @@
             </div> -->
           </div>
         </div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-        <h2 class="subtitle">Confirmed Appointments</h2>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
+        <form class="my-1 border-bottom d-flex justify-content-end">
+          <div class="row">
+            <div class="col">
+              <select id="status" class="custom-select form-select ">
+                <option value="confirmed" selected>Confirmed</option>
+                <option value="pending">Upcoming</option>
+              </select>
+            </div>
+          </div>
+        </form>
 
         <div class="table-responsive">
         <?php 
@@ -40,7 +44,7 @@
                 echo "<th>ID</th>";
                 echo "<th>Date</th>";
                 echo "<th>Time</th>";
-                echo "<th>Patient</th>";
+                echo "<th>Patient Name</th>";
                 echo "<th>Patient Tel.</th>";
                 echo "<th>Status</th>";
                 echo "<th>Prescription</th>";
@@ -50,7 +54,7 @@
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td>". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
+                $r3 = "<td>" . $appointment['time'] . "</td>";
                 $r4 = "<td>" . $appointment['firstname'] . "</td>";
                 $r5 = "<td>" . $appointment['telephone'] . "</td>";
                 $color = getStatusColor($appointment['status']);
