@@ -1,7 +1,7 @@
-function doc_delete(){ 
+function paid(){ 
     var checkedValue = null;
     arr = []; 
-    var inputElements = document.getElementsByClassName('doctorCheckbox');
+    var inputElements = document.getElementsByClassName('appointmentCheckbox');
     for(var i=0; inputElements[i]; ++i){
       if(inputElements[i].checked){
            checkedValue = inputElements[i].value;
@@ -13,7 +13,7 @@ function doc_delete(){
 
     if(arr.length > 0){
         var method = "POST";
-        var url = window.location.href+ '/../../doctor/delete';
+        var url = window.location.href+ '/../../appointment/paid';
         console.log(url);
         var data = arr;
 
@@ -27,14 +27,14 @@ function doc_delete(){
                 var jsonData = JSON.parse(response);
 
                 //console.log(jsonData);
- 
+
                 if (jsonData.success == "0")
                 {
-                    location.href = 'doctors';
+                    location.href = 'appointments';
                 }
                 else
                 {
-                    alert(jsonData.msg);
+                    alert('Confirmation fails');
                 }
            }
        });
@@ -42,10 +42,10 @@ function doc_delete(){
     }
 }
 
-function pat_delete(){ 
+function unpaid(){ 
     var checkedValue = null;
     arr = []; 
-    var inputElements = document.getElementsByClassName('patientCheckbox');
+    var inputElements = document.getElementsByClassName('appointmentCheckbox');
     for(var i=0; inputElements[i]; ++i){
       if(inputElements[i].checked){
            checkedValue = inputElements[i].value;
@@ -57,7 +57,7 @@ function pat_delete(){
 
     if(arr.length > 0){
         var method = "POST";
-        var url = window.location.href+ '/../../patient/delete';
+        var url = window.location.href+ '/../../appointment/unpaid';
         console.log(url);
         var data = arr;
 
@@ -71,14 +71,14 @@ function pat_delete(){
                 var jsonData = JSON.parse(response);
 
                 //console.log(jsonData);
- 
+
                 if (jsonData.success == "0")
                 {
-                    location.href = 'patients';
+                    location.href = 'appointments';
                 }
                 else
                 {
-                    alert('Deletion fails');
+                    alert('Confirmation fails');
                 }
            }
        });

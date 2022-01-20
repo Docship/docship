@@ -26,6 +26,7 @@
                 echo "<tr>";
                   echo "<th>ID</th>";
                   echo "<th>Name</th>";
+                  echo "<th>Email</th>";
                   echo "<th>Gender</th>";
                   echo "<th>Telephone</th>";
                 echo "</tr>";
@@ -34,9 +35,10 @@
                 foreach($data['patients'] as $patient){
                   $r1 = "<td><input class='patientCheckbox' id='patient-id' type='checkbox' value='".$patient['id']."' >". $patient['id'] . "</td>";
                   $r2 = "<td>" . $patient['firstname'] . " " . $patient['lastname'] . "</td>";
-                  $r3 = "<td>" . $patient['gender'] . "</td>";
-                  $r4 = "<td>" . $patient['telephone'] . "</td>";
-                  $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . "</tr>";
+                  $r3 = "<td>" . $patient['email'] . "</td>";
+                  $r4 = "<td>" . $patient['gender'] . "</td>";
+                  $r5 = "<td>" . $patient['telephone'] . "</td>";
+                  $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . "</tr>";
 
                   echo $row;
                 }

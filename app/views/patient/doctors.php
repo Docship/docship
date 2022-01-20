@@ -1,3 +1,14 @@
+<?php 
+  function getSubcribeButton($is_sub , $id){
+    if($is_sub=='1'){
+      return '<button class="btn btn-primary btn-sm mb-3" onclick="subcribe('.$id.');">Subscribe</button>';
+    }else {
+      return '<button class="btn btn-primary btn-sm mb-3" onclick="unsubcribe('.$id.');">Unsubscribe</button>';
+    }
+  }
+
+?>
+
 <?php require_once APPROOT."/views/inc/header_patient.php"; ?>
 
 
@@ -111,7 +122,7 @@
                     <div class="progress mx-4 mb-2">
                       <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
                     </div>
-                    <button class="btn btn-primary btn-sm mb-3">Subscribe</button>
+                    '.getSubcribeButton($doctor['is_sub'] , $doctor['id']).'
         
                     <div class="my-1 days">
                     <div class="week d-flex justify-content-center">'
@@ -153,6 +164,7 @@
     </div>
   </div>
 </main>
+<script src="<?php echo URLROOT; ?>/js/subcribe.js"></script>
 <script>
   const listOfDoctors = document.getElementsByClassName('doctor-card');
 

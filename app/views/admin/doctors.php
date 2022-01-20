@@ -36,9 +36,11 @@
                 echo "<tr>";
                   echo "<th>ID</th>";
                   echo "<th>Name</th>";
+                  echo "<th>Email</th>";
                   echo "<th>Gender</th>";
                   echo "<th>Category</th>";
                   echo "<th>Charge Amount</th>";
+                  echo "<th>Action</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
@@ -46,10 +48,13 @@
                   //$r1 = "<td><a href='\docship\doctor\detail\\"."".$doctor['id']."'>". $doctor['id'] . "</a></td>";
                   $r1 = "<td><input class='doctorCheckbox' id='doctor-id' type='checkbox' value='".$doctor['id']."' >". "<a href='\docship\doctor\detail\\"."".$doctor['id']."'>". $doctor['id'] . "</a>" . "</td>";
                   $r2 = "<td>" . $doctor['firstname'] . " " . $doctor['lastname'] . "</td>";
-                  $r3 = "<td>" . $doctor['gender'] . "</td>";
-                  $r4 = "<td>" . $doctor['category'] . "</td>";
-                  $r5 = "<td> Rs. ".$doctor['charge_amount'] . "</td>";
-                  $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . "</tr>";
+                  $r3 = "<td>" . $doctor['email'] . "</td>";
+                  $r4 = "<td>" . $doctor['gender'] . "</td>";
+                  $r5 = "<td>" . $doctor['category'] . "</td>";
+                  $r6 = "<td> Rs. ".$doctor['charge_amount'] . "</td>";
+                  $href= URLROOT."/doctor/payment/".$doctor['id'];
+                  $r7 = "<td>"."<a href='".$href."'><button>Payment</button></a>"."</td>";
+                  $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . $r7 . "</tr>";
 
                   echo $row;
                 }

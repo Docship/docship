@@ -45,7 +45,9 @@ class Appointment extends Controller
                 //$data['result'] = $result_doc['value'];
 
 
-                if (isset($result_doc['value'])) {
+                if (isset($result_doc['value']) && !empty($result_doc['value'])) {
+
+                    $data['doctor_obj'] = $result_doc['value'];
 
                     if (sizeof($result_doc['value']) <= 0) {
                         $data['doctor_err'] = 'Invalid doctor';
@@ -101,19 +103,23 @@ class Appointment extends Controller
                                 $this->viewAppointmentForm($data);
                             }else {
                                 $data['db_err'] = 'System error';
+                                
                                 $this->viewAppointmentForm($data);
                                 //$this->view('patient/appointment', $data);
                             }
                         }elseif($result1['error']=='not exist time'){
                             $data['time_err'] = 'This Time is not available for selected doctor.';
                             //$this->view('patient/appointment', $data);
+                            
                             $this->viewAppointmentForm($data);
                         }elseif($result1['error']=='not exist day'){
-                            $data['day_err'] = 'Doctor is not available for given date.';
+                            $data['date_err'] = 'Doctor is not available for given date.';
+                            
                             //$this->view('patient/appointment', $data);
                             $this->viewAppointmentForm($data);
                         }elseif($result1['error']=='system error'){
                             $data['db_err'] = 'System error';
+                            
                             $this->viewAppointmentForm($data);
                             //$this->view('patient/appointment', $data);
                         }
@@ -121,12 +127,14 @@ class Appointment extends Controller
                 } else {
                     //doctor not exist
                     $data['doctor_err'] = 'Invalid doctor selected';
+                   
                     $this->viewAppointmentForm($data);
                     //$this->view('patient/appointments', $data);
                 }
             } else {
                 // invalid input
                 $doctors = $this->model('Doctor')->getAll();
+
 
                 if($doctors==-1 || empty($doctors)){
                     // no doctors in the system
@@ -176,11 +184,13 @@ class Appointment extends Controller
             $model = $this->model('appointment');
             if(!empty($params)){
                 foreach($params as $id){
+                    $result_app = $model->findById($id);
                     $result = $model->cancel($id);
                     if($result!=0){
                         $data['cancel_err_id'] = $id;
                         echo json_encode(array('success' => 1)); // 1 means false
                     }
+                    $this->model('Receipt')->delete($result_app['value']['receipt_id']);
                 }
             }else {
                 //redirect('patient/index');
@@ -247,6 +257,72 @@ class Appointment extends Controller
 
     }
 
+    public function paid($param = []){
+
+        if ($_SESSION['role'] != 'admin') {
+            echo json_encode(array('success' => 1));
+        }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = array();
+            $params = file_get_contents( "php://input" );
+            $params = json_decode( $params); 
+            $model = $this->model('appointment');
+            if(!empty($params)){
+                foreach($params as $id){
+                    $result_app = $model->findById($id);
+                    $result = $model->marksPaid($id);
+                    if($result!=0){
+                        $data['confirm_err_id'] = $id;
+                        echo json_encode(array('success' => 1)); // 1 means false
+                    }
+                    $this->model('Receipt')->complete($result_app['value']['receipt_id']);
+                }
+            }else {
+                //redirect('patient/index');
+            }
+
+            echo json_encode(array('success' => 0)); // 0 -> true
+        }
+
+        else {
+            
+
+        }
+
+    }
+
+    public function unpaid($param = []){
+
+        if ($_SESSION['role'] != 'admin') {
+            echo json_encode(array('success' => 1));
+        }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = array();
+            $params = file_get_contents( "php://input" );
+            $params = json_decode( $params); 
+            $model = $this->model('appointment');
+            if(!empty($params)){
+                foreach($params as $id){
+                    $result_app = $model->findById($id);
+                    $result = $model->marksUnPaid($id);
+                    if($result!=0){
+                        $data['confirm_err_id'] = $id;
+                        echo json_encode(array('success' => 1)); // 1 means false
+                    }
+                    $this->model('Receipt')->notcomplete($result_app['value']['receipt_id']);
+                }
+            }else {
+                //redirect('patient/index');
+            }
+
+            echo json_encode(array('success' => 0)); // 0 -> true
+        }
+
+        else {
+            
+
+        }
+
+    }
+
     private function viewAppointments(&$data){
         $appointments_result = $this->model('Appointment')->findByPatientId($_SESSION['user_id']);
 
@@ -261,6 +337,7 @@ class Appointment extends Controller
     }
 
     private function viewAppointmentForm(&$data){
+
         // get doctor
         $doctors = $this->model('Doctor')->getAll();
 
@@ -290,6 +367,7 @@ class Appointment extends Controller
     }
 
     private function addReceiptToAppointment(&$data){
+        $result_sub = $this->model('subcribe')->isDoctorSubcribed($data['doctor'] , $_SESSION['user_id']);
         $insert_data = array(
             'patient_id' => $_SESSION['user_id'],
             'bank_name' => BANK_NAME,
@@ -300,9 +378,15 @@ class Appointment extends Controller
             'issue_date' => Date::getTodayDate(),
             'expiry_date' => Date::getPreviousDate($data['date']),
             'description' => 'This receipt is issued Automatically',
-            'total' => $this->calculate_total($data['charge'] , 0.0),
             'is_complete' => '0'
         );
+
+        if($result_sub['value'] == 0){
+            $insert_data['discount'] = $data['doctor_obj']['discount'];
+        }
+
+        $insert_data['total'] = $this->calculate_total($data['charge'] , $insert_data['discount']);
+
 
         /*
 

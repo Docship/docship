@@ -92,6 +92,7 @@
 
         private function createUserSession($user , $role){
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_uid'] = $user['user_id'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['fname'] =$user['firstname'];
             $_SESSION['lname'] =$user['lastname'];
@@ -101,6 +102,7 @@
         public function logout(){
             
             unset($_SESSION['user_id']);
+            unset($_SESSION['user_uid']);
             unset($_SESSION['user_email']);
             unset($_SESSION['fname']);
             unset($_SESSION['lname']);

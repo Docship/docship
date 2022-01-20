@@ -1,6 +1,6 @@
 <?php
 
-    class RateModel {
+    class SubcribeModel {
 
         private $DB;
 
@@ -8,9 +8,9 @@
             $this->DB = LibFactory::getInstance()->getLibrary('Database');
         }
 
-        public function getTotalRateCountByDoctor($doctor_id){
+        public function isDoctorSubcribed($doctor_id , $patient_id){
             
-            $sql = "SELECT * FROM `rate` WHERE `doctor_id`=$doctor_id";
+            $sql = "SELECT * FROM `subcriber` WHERE `doctor_id`=$doctor_id AND `patient_id`=$patient_id";
 
             $result = $this->DB->selectAll($sql);
 
@@ -20,12 +20,12 @@
             if($result!=-1){
                 if(empty($result)){
                     $output['error'] = "empty";
-                    $output['value'] = 0;
+                    $output['value'] = 1; // false
                     // appointment not exist
                     return $output;
                 }else{
                     // appointment exist
-                    $output['value'] = sizeof($result);
+                    $output['value'] = 0; // true
                     return $output;
                 }
             }else {
@@ -37,35 +37,24 @@
             return $output;
         }
 
-        public function getTotalRatingByDoctor($doctor_id){
-            
-            $sql = "SELECT AVG(value) AS value FROM rate WHERE `doctor_id`=$doctor_id";
-
-            $result = $this->DB->execute($sql);
-
-            $output = array();
-
-            if($result!=-1){
-                $output['value'] = $result;
-            }else {
-                // db error
-                $output['error'] = "system_error";
-                return $output;
-            }
-
-            return $output;
-        }
 
         public function insert($data){
 
-            $value = $data['value'];
             $doctor_id = $data['doctor_id'];
             $patient_id = $data['patient_id'];
 
-            $sql = "INSERT INTO `rate`(`patient_id`, `doctor_id`, `value`) VALUES ($patient_id,$doctor_id,$value)";
+            $sql = "INSERT INTO `subcriber`(`patient_id`, `doctor_id`) VALUES ($patient_id,$doctor_id)";
 
             $result = $this->DB->insert($sql , [] , 'rate');
 
+            return $result;
+        }
+
+        public function delete($data){
+            $doctor_id = $data['doctor_id'];
+            $patient_id = $data['patient_id'];
+            $sql = "DELETE FROM `subcriber` WHERE `doctor_id`=$doctor_id AND `patient_id`=$patient_id";
+            $result = $this->DB->delete($sql);
             return $result;
         }
 

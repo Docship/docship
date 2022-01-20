@@ -12,12 +12,12 @@
   }
 
   function getRateButton($rate , $id , $confirm){
-    $href= URLROOT."/appointment/rate/".$id;
+    $href= URLROOT."/rate/add/".$id;
     if($rate == '1'){
       $b = "<a><button disabled>Rate</button></a>";
       return $b;
     }else if($confirm == "CONFIRMED") {
-      $b = "<a".$href."><button>Rate</button></a>";
+      $b = "<a href='".$href."'><button>Rate</button></a>";
       return $b;
     }else {
       $b = "<a><button disabled>Rate</button></a>";
@@ -52,7 +52,7 @@
                 echo "<th>ID</th>";
                 echo "<th>Date</th>";
                 echo "<th>Time</th>";
-                echo "<th>Doctor Name</th>";
+                echo "<th>Doctor</th>";
                 echo "<th>Status</th>";
                 echo "<th>Rating</th>";
                 //echo "<th>Action</th>";
@@ -62,7 +62,7 @@
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td>". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . $appointment['time'] . "</td>";
+                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
                 $r4 = "<td><a href='".URLROOT."/doctor/detail/".$appointment['doctor_id']."'>Dr. " . $appointment['firstname'] . "</a></td>";
                 $color = getStatusColor($appointment['status']);
                 $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";

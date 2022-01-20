@@ -124,5 +124,31 @@
             }
         }
 
+        public function complete($id){
+            $sql = "UPDATE `receipt` SET `is_complete` = 1 WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
+        public function notcomplete($id){
+            $sql = "UPDATE `receipt` SET `is_complete` = 0 WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
+        public function getTotalReceiptSumByPatient($patient_id){
+            $sql = "SELECT SUM(`total`) AS value FROM receipt WHERE `patient_id`=$patient_id AND `is_complete`=0";
+            
+            $result = $this->DB->execute($sql);
+            
+            if($result==null || $result==-1){
+                return 0.00;
+            }else {
+                return $result;
+            }
+        }
+
+        
+
 
     }
