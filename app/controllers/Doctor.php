@@ -543,7 +543,7 @@
         }
 
         public function payment($id){
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 
@@ -598,7 +598,7 @@
         }
 
         public function delete(){
-            if ($_SESSION['role'] != 'admin') {
+            if (!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')) {
                 redirect('pages/prohibite?user=' . $_SESSION['role']);
             }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $data = array();

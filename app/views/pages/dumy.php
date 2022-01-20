@@ -17,11 +17,11 @@ echo $doctor[0]; echo "<br>";
 //echo $data['messages'];
 echo "Dumy Page </br>";
 
-/*
-foreach($data as $x => $x_value) {
+
+foreach($result_msg as $x => $x_value) {
 
   echo "Key=" . $x . ", Value=" . $x_value . "<br>";
-    /*
+    
     foreach($x_value as $y => $y_value){
       echo "Key=" . $y . ", Value=" . $y_value;
     }
@@ -29,8 +29,8 @@ foreach($data as $x => $x_value) {
     
     
   }
-*/
-echo $sql;
+
+echo $output;
 
 
 

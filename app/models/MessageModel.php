@@ -75,4 +75,34 @@
 
         }
 
+        public function getSendersForChatBot(){
+            $result_chatbot = $this->getChatBotId();
+            $chat_botID = $result_chatbot['value'];
+
+            $sql = "SELECT DISTINCT user.* FROM message INNER JOIN user ON message.sender=user.id WHERE message.receiver=$chat_botID";
+
+
+            $result = $this->DB->selectAll($sql);
+
+            $output = array();
+
+            if($result!=-1){
+                if(empty($result)){
+                    $output['error'] = "empty";
+                    $output['value'] = [];
+                    return $output;
+                }else{
+                    
+                    $output['value'] = $result;
+                    return $output;
+                }
+            }else {
+                // db error
+                $output['error'] = "system_error";
+                return $output;
+            }
+
+
+        }
+
     }

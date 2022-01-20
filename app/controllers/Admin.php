@@ -4,7 +4,7 @@
 
         public function index(){
 
-            if($_SESSION['role'] != 'admin'){
+            if(!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
             }
             $data = array();
@@ -52,7 +52,7 @@
         //extra - admin doesn't need to be registered explicitly
         public function register(){
 
-            if($_SESSION['role'] != 'admin'){
+            if(!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
             }
 
@@ -148,7 +148,7 @@
 
         public function doctor_register(){
 
-            if($_SESSION['role'] != 'admin'){
+            if(!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
             }
 
@@ -323,7 +323,7 @@
 
         public function appointments(){
 
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 
@@ -409,7 +409,7 @@
 
         public function message(){
 
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 
@@ -417,7 +417,12 @@
                 //
             }
             else {
-                $this->view('admin/messages');
+                $result = $this->model('message')->getSendersForChatBot();
+                $data = array();
+                if(isset($result['value'])){
+                    $data['users'] = $result['value'];
+                }
+                $this->view('admin/message_panel' , $data);
             }
 
         }
@@ -448,7 +453,7 @@
 
         public function patients(){
 
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 

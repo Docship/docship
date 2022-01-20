@@ -259,7 +259,7 @@ class Appointment extends Controller
 
     public function paid($param = []){
 
-        if ($_SESSION['role'] != 'admin') {
+        if (!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')) {
             echo json_encode(array('success' => 1));
         }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data = array();
@@ -292,7 +292,7 @@ class Appointment extends Controller
 
     public function unpaid($param = []){
 
-        if ($_SESSION['role'] != 'admin') {
+        if (!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')) {
             echo json_encode(array('success' => 1));
         }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data = array();

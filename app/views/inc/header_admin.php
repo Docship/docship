@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
   <script src="<?php echo URLROOT; ?>/js/feather-icons.js"></script>
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>  
 
 <body>
@@ -73,13 +75,16 @@
                 Appointments
               </a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\message" id="e">
-                <span data-feather="message-circle"></span>
-                Messages
-              </a>
-            </li>
+            <?php 
+              if($_SESSION['role']=='chat_admin'){
+                echo '<li class="nav-item">
+                  <a class="nav-link" href="'.URLROOT.'\admin\message" id="e">
+                    <span data-feather="message-circle"></span>
+                    Messages
+                  </a>
+                </li>';
+              }
+            ?>
             
           </ul>          
         </div>

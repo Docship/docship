@@ -48,13 +48,13 @@
         <script src="<?php echo URLROOT; ?>/js/appointment_paid.js"></script>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="paid();">
+          <button type="button" class="btn btn-sm btn-success d-flex justify-content-center ml-2" id="appointment-form" onclick="paid();">
             <span data-feather="x-circle" class="mr-2"></span>
             Marks Paid
           </button>
           </div>
           <div>
-          <button type="button" class="btn btn-sm btn-outline-danger d-flex justify-content-center" id="appointment-form" onclick="unpaid();">
+          <button type="button" class="btn btn-sm btn-danger d-flex justify-content-center ml-2" id="appointment-form" onclick="unpaid();">
             <span data-feather="x-circle" class="mr-2"></span>
             Marks UnPaid
           </button>
@@ -62,6 +62,31 @@
       
         </div>
       </div>
+
+      <form class="my-1 d-flex justify-content-center border-bottom">
+          <div class="form-row mx-2">
+            <div class="col-12 col-md-auto">
+              <input id="filter-name" type="text" class="form-control" placeholder="Search">
+            </div>
+
+            <div class="col-auto">
+              <select id="search" class="custom-select">
+                <option value = "id" >Search by Id</option>
+                <option value="name" selected>Search by Name</option>
+                <option value="date">Search by Date</option>
+                <option value="receipt">Search by Receipt</option>
+              </select>
+            </div>
+
+            <!--<div class="col-auto">
+              <select id="status" class="custom-select" onchange="setUrlAppoinmentDoc(this.value);">
+                <option value="pending">Upcoming</option>
+                <option value="confirmed" selected>Confirmed</option>
+              </select>
+            </div>-->
+
+          </div>
+        </form>
 
         <div class="table-responsive">
         <?php 

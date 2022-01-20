@@ -97,7 +97,7 @@
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['fname'] =$user['firstname'];
             $_SESSION['lname'] =$user['lastname'];
-            $_SESSION['role'] = lcfirst($role);
+            $_SESSION['role'] = lcfirst($this->setRole($user['user_id']));
         }
 
         public function logout(){
@@ -114,6 +114,13 @@
 
         public function showLogin(){
             redirect('user/login'); 
+        }
+
+        private function setRole($user_id){
+            $result_user = $this->model('user')->findById($user_id);
+            $user = $result_user['value'];
+            $role = $user['role'];
+            return $role;
         }
 
     }
