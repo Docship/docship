@@ -239,6 +239,10 @@ img {
   height: calc(100vh - 8rem);
 }
 
+.message-admin{
+  height: calc(100vh - 12rem);
+}
+
 .imessage::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
@@ -252,6 +256,8 @@ img {
   position: relative;
   word-wrap: break-word;
 }
+
+
 
 .imessage p::before,
 .imessage p::after {

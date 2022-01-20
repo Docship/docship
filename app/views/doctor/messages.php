@@ -46,8 +46,8 @@
             </div>
 
 
-            <div class="row send m-0 px-3 pt-1 align-items-center border-top">
-            <form action="#" class="typing-area" autocomplete="off">
+
+            <form action="#" class="typing-area d-flex" autocomplete="off">
                     <div class="col-10 col-md-11">
                         <input type="text" class="form-control input-field" name="message" placeholder="Typing a message here....">  
                     </div>
@@ -56,7 +56,7 @@
                     </div>
             </form>
             <script src="<?php echo URLROOT; ?>/js/chat-sent-doctor.js"></script>        
-            </div>            
+         
         </div>
     </div>
 
