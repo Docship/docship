@@ -186,7 +186,7 @@ tr td:last-child{
   box-shadow: none;
 }
 
-.wrapper .container .row .border{
+.wrapper .container .border{
   border-radius: 1rem;
 }
 
@@ -197,7 +197,7 @@ tr td:last-child{
 .content .user{
   border-top-left-radius: inherit; 
   border-top-right-radius: inherit; 
-  background-color: var(--color-unimportant-text);
+  
 }
 
 .content .user .col-2 button{
@@ -212,11 +212,11 @@ tr td:last-child{
 }
 
 
-.send .col-10 input{
+.col-10 input{
   border: none;
 }
 
-.send .col-2 button{
+.col-2 button{
   height:2rem;
   width: 2rem;
   border-radius: 50%;
@@ -250,6 +250,10 @@ img {
   height: calc(100vh - 8rem);
 }
 
+.message-admin{
+  height: calc(100vh - 12rem);
+}
+
 .imessage::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
@@ -263,6 +267,8 @@ img {
   position: relative;
   word-wrap: break-word;
 }
+
+
 
 .imessage p::before,
 .imessage p::after {

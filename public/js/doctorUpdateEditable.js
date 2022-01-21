@@ -150,7 +150,7 @@ function validate(field, regex) {
 document.addEventListener('readystatechange', event => {
     if (event.target.readyState === "complete") {
         checkWhenLoad();
-        lockInpututsSelects(true);
+        //lockInpututsSelects(true);
     }
 });
 
@@ -234,12 +234,10 @@ function validateSelects(field) {
 
     if (val.indexOf(field.value) == -1) {
         field.classList.add('valid');
-        /*
         if (field.name == "working_from") {
             to.disabled = false;
-            setTime(field.value);
+            //setTime(field.value);
         }
-        */
     }
     var validSelects = 0;
     selects.forEach((select1) => {

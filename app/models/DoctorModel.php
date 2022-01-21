@@ -180,7 +180,7 @@
             $firstname = ucwords($data['fname']);
             $lastname = ucwords($data['lname']);
 
-            $sql_user = "INSERT INTO `user`(`role`, `firstname`, `lastname`) VALUES ('patient' , '$firstname' , '$lastname')";
+            $sql_user = "INSERT INTO `user`(`role`, `firstname`, `lastname`) VALUES ('doctor' , '$firstname' , '$lastname')";
             $result1 = $this->DB->insert($sql_user , [] , "user");
             sleep(0.5);
             if($result1==0){
@@ -296,9 +296,9 @@
             $current_arrears = $data['current_arrears'];
 
             if($data['password'] ==""){
-                $sql = "UPDATE `doctor` SET `firstname`='$firstname',`lastname`=$lastname,`email`='$email',`bday`='$bday',`gender`='$gender',`charge_amount`=$charge_amount,`category`='$category',`college`='$college',`working_from`='$working_from',`working_to`='$working_to',`working_days`='$working_days',`nic`='$nic',`discount`=$discount,`telephone`='$telephone',`bank_name`='$bank_name',`bank_branch`='$bank_branch',`bank_acc_no`='$bank_acc_no' WHERE id=$id";
+                $sql = "UPDATE `doctor` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email',`bday`='$bday',`gender`='$gender',`charge_amount`=$charge_amount,`category`='$category',`college`='$college',`working_from`='$working_from',`working_to`='$working_to',`working_days`='$working_days',`nic`='$nic',`discount`=$discount,`telephone`='$telephone',`bank_name`='$bank_name',`bank_branch`='$bank_branch',`bank_acc_no`='$bank_acc_no' WHERE id=$id";
             }else {
-                $sql = "UPDATE `doctor` SET `firstname`='$firstname',`lastname`=$lastname,`email`='$email', `pwd`= '$pwd' ,`bday`='$bday',`gender`='$gender',`charge_amount`=$charge_amount,`category`='$category',`college`='$college',`working_from`='$working_from',`working_to`='$working_to',`working_days`='$working_days',`nic`='$nic',`discount`=$discount,`telephone`='$telephone',`bank_name`='$bank_name',`bank_branch`='$bank_branch',`bank_acc_no`='$bank_acc_no' WHERE id=$id";
+                $sql = "UPDATE `doctor` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email', `pwd`= '$pwd' ,`bday`='$bday',`gender`='$gender',`charge_amount`=$charge_amount,`category`='$category',`college`='$college',`working_from`='$working_from',`working_to`='$working_to',`working_days`='$working_days',`nic`='$nic',`discount`=$discount,`telephone`='$telephone',`bank_name`='$bank_name',`bank_branch`='$bank_branch',`bank_acc_no`='$bank_acc_no' WHERE id=$id";
             }
 
             $result = $this->DB->update($sql , [] , 'doctor');

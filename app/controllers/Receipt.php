@@ -6,7 +6,7 @@
     }
 
     public function show($id){
-      if(isset($_SESSION['role']) && $_SESSION['role'] != 'patient'){
+      if(isset($_SESSION['role']) && $_SESSION['role'] == 'doctor'){
         redirect('pages/prohibit?user='.$_SESSION['role']);
     
 

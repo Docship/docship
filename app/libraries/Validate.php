@@ -23,7 +23,7 @@
         public static function isValidCollege($name){
             $result = false;
 
-            if((preg_match('/^[a-z\d\s]+$/', $name))){
+            if((preg_match('/^[a-zA-Z\d\s]+$/', $name))){
                 $result = true;
             }
             return $result;
@@ -377,14 +377,6 @@
                 $result = false;
                 $data['college_err'] = "Invalid Input format for college";
             }
-            if(!self::isValidTimeFormate($data['working_from'])){
-                $result = false;
-                $data['working_from_err'] = "Invalid Input format for college 'Working From' time";
-            }
-            if(!self::isValidTimeFormate($data['working_to'])){
-                $result = false;
-                $data['working_to_err'] = "Invalid Input format for college 'Working To' time";
-            }
             if(self::isEmptyString($data['nic']) || !self::isValidNic($data['nic']) ){
                 $result = false;
                 $data['nic_err'] = "Invalid Input format for nic";
@@ -438,14 +430,6 @@
                 $result = false;
                 $data['email_err'] = "Invalid Email format";
             }
-            if(self::isEmptyString($data['password']) ||!self::isValidPassward($data['password'])){
-                $result = false;
-                $data['passward_err'] = "Invalid Passward formt";
-            }
-            if(self::isEmptyString($data['repassword']) ||!self::isValidPassward($data['repassword'])){
-                $result = false;
-                $data['repassward_err'] = "Invalid Passward formt";
-            }
             if(!self::isStringMatching($data['password'] , $data['repassword'])){
                 $result = false;
                 $data['passward_err'] = "Passward and Repassward are not matching each other.";
@@ -469,14 +453,6 @@
             if(self::isEmptyString($data['college']) || !self::isValidCollege($data['college']) ){
                 $result = false;
                 $data['college_err'] = "Invalid Input format for college";
-            }
-            if(!self::isValidTimeFormate($data['working_from'])){
-                $result = false;
-                $data['working_from_err'] = "Invalid Input format for college 'Working From' time";
-            }
-            if(!self::isValidTimeFormate($data['working_to'])){
-                $result = false;
-                $data['working_to_err'] = "Invalid Input format for college 'Working To' time";
             }
             if(self::isEmptyString($data['nic']) || !self::isValidNic($data['nic']) ){
                 $result = false;

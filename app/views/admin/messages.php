@@ -11,8 +11,8 @@
   
     
   <div class="wrapper col-md-9 ml-sm-auto px-0 col-lg-10">
-        <div class="content container border px-0 ">
-            <div class="user row align-items-center m-0 p-3">
+        <div class="content container border px-3">
+            <div class="user row align-items-center m-0 p-3 border-bottom">
                 <div class="col-1 d-flex justify-content-center">
                     <a href="<?php echo URLROOT; ?>/admin/message"><i class="fas fa-chevron-left"></i></a>
                 </div>
@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="overflow-scroll px-0 py-2 imessage d-flex chat-box">
+            <div class="overflow-scroll px-2 py-2 imessage d-flex chat-box message-admin">
                 
             </div>
 

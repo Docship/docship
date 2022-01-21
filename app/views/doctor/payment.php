@@ -18,7 +18,7 @@
         <div class="card" style="border-radius: 15px;">
           <div class="card-body text-center">
             <div class="mt-3 mb-2 d-flex justify-content-center mx-auto">
-              <img src="<?php echo URLROOT ?>/img/u1.jpg" class="img-fluid" />
+              <img src="<?php echo URLROOT ?>/img/user.png" class="img-fluid" />
             </div>
             <h4 class="m-0 p-0"> Dr. <?php echo $data['doctor']['firstname'] ?></h4>
             <div class="text-muted m-0 pb-2"><?php echo $data['doctor']['category'] ?></div>

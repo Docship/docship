@@ -26,8 +26,6 @@ foreach($data as $x => $x_value) {
       echo "Key=" . $y . ", Value=" . $y_value;
     }
     
-    
-    
   }
 
 echo $sql;

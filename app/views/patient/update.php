@@ -92,9 +92,7 @@
                                 </div>
               </div>
             </div>
-            <div class="row d-flex justify-content-start" style="margin:10px 10px 0 0;">
-              <button class="btn btn-primary" onclick="passwordChange()" type="button">change password</button>
-            </div>
+            
             <div class="row" id="passwordSector" style="display: none;">
               <div class="col-lg-6 mt-2">
                 <input name="password" id="passwordInput" type="password"
@@ -133,6 +131,9 @@
                 </select>
                 <div></div>
               </div>
+            </div>
+            <div class="row d-flex justify-content-start" style="margin:10px 10px 0 0;">
+              <button class="btn btn-primary" onclick="passwordChange()" type="button">change password</button>
             </div>
           </form>
 

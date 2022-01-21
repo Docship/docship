@@ -51,26 +51,26 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="<?php echo URLROOT; ?>\admin\index" id="a">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\index" id="index">
                 <span data-feather="home"></span>
                 Home <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="b">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="doctors">
                 <span data-feather="calendar"></span>
                 Doctors
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\patients" id="c">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\patients" id="patients">
                 <span data-feather="users"></span>
                 Patients
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\appointments" id="d">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\appointments" id="appointments">
                 <span data-feather="file-plus"></span>
                 Appointments
               </a>
@@ -78,7 +78,7 @@
             <?php 
               if($_SESSION['role']=='chat_admin'){
                 echo '<li class="nav-item">
-                  <a class="nav-link" href="'.URLROOT.'\admin\message" id="e">
+                  <a class="nav-link" href="'.URLROOT.'\admin\message" id="message">
                     <span data-feather="message-circle"></span>
                     Messages
                   </a>

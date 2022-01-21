@@ -39,7 +39,7 @@
 
             if(isset($doc_result['value']) && !empty($doc_result['value'])){
                 
-                $data['income'] = number_format((float)$$doc_result['value']['total_income'], 2, '.', '') ;
+                $data['income'] = number_format((float)$doc_result['value']['total_income'], 2, '.', '');
             }
 
             $this->view('doctor/index', $data);
@@ -364,7 +364,7 @@
                                     }else {
                                         $data['db_err'] = 'Error Occured in System!';
                                         $data['result'] = $result;
-                                        $this->view('doctor/update', $data);
+                                        $this->view('doctor/update_editable', $data);
                                     }
                                 }else if(sizeof($result_doc_nic)==1){
                                     $d1 = $result_doc_nic[0];
@@ -380,24 +380,24 @@
                                         }else {
                                             $data['db_err'] = 'Error Occured in System!';
                                             //$data['result'] = $result;
-                                            $this->view('doctor/update', $data);
+                                            $this->view('doctor/update_editable', $data);
                                         }
                                     }else {
                                         $data['nic_err'] = "NIC exist";
-                                        $this->view('doctor/update', $data);
+                                        $this->view('doctor/update_editable', $data);
                                     }
                                 }else if(sizeof($result_doc_nic)>1){
                                     $data['nic_err'] = "NIC exist";
-                                    $this->view('doctor/update', $data);
+                                    $this->view('doctor/update_editable', $data);
                                 }else {
                                     $data['db_err'] = 'Error Occured in System!';
                                     //$data['result'] = $result;
-                                    $this->view('doctor/update', $data);
+                                    $this->view('doctor/update_editable', $data);
                                 }
                             }else {
                                 $data['db_err'] = 'Error Occured in System!';
                                 //$data['result'] = $result;
-                                $this->view('doctor/update', $data);
+                                $this->view('doctor/update_editable', $data);
                             }
                         }else if(sizeof($result_email)==1){
                             if($result_email[0]['id']==$_SESSION['user_id']){
@@ -416,7 +416,7 @@
                                         }else {
                                             $data['db_err'] = 'Error Occured in System!';
                                             $data['result'] = $result;
-                                            $this->view('doctor/update', $data);
+                                            $this->view('doctor/update_editable', $data);
                                         }
                                     }else if(sizeof($result_doc_nic)==1){
                                         $d1 = $result_doc_nic[0];
@@ -432,37 +432,37 @@
                                             }else {
                                                 $data['db_err'] = 'Error Occured in System!';
                                                 //$data['result'] = $result;
-                                                $this->view('doctor/update', $data);
+                                                $this->view('doctor/update_editable', $data);
                                             }
                                         }else {
                                             $data['nic_err'] = "NIC exist";
-                                            $this->view('doctor/update', $data);
+                                            $this->view('doctor/update_editable', $data);
                                         }
                                     }else if(sizeof($result_doc_nic)>1){
                                         $data['nic_err'] = "NIC exist";
-                                        $this->view('doctor/update', $data);
+                                        $this->view('doctor/update_editable', $data);
                                     }else {
                                         $data['db_err'] = 'Error Occured in System!';
                                         //$data['result'] = $result;
-                                        $this->view('doctor/update', $data);
+                                        $this->view('doctor/update_editable', $data);
                                     }
                                 }else {
                                     $data['db_err'] = 'Error Occured in System!';
                                     //$data['result'] = $result;
-                                    $this->view('doctor/update', $data);
+                                    $this->view('doctor/update_editable', $data);
                                 }
 
                             }else {
                                 $data['email_err'] = "email exist";
-                                $this->view('doctor/update', $data);
+                                $this->view('doctor/update_editable', $data);
                             }
                         }else if(sizeof($result_email)>1){
                             $data['email_err'] = "email exist";
-                            $this->view('doctor/update', $data);
+                            $this->view('doctor/update_editable', $data);
                         }else {
                             $data['db_err'] = 'Error Occured in System!';
                             //$data['result'] = $result;
-                            $this->view('doctor/update', $data);
+                            $this->view('doctor/update_editable', $data);
                         }
 
 
@@ -470,11 +470,11 @@
                     }else {
                         $data['db_err'] = 'Error Occured in System! doctor existance checking fail by email';
                         //$this->view('doctor/dumy', $data);
-                        $this->view('doctor/update', $data);
+                        $this->view('doctor/update_editable', $data);
                     }
                 }else {
                     //invalid input data
-                    $this->view('doctor/update', $data);
+                    $this->view('doctor/update_editable', $data);
                 }
             }
 
