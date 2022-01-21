@@ -7,7 +7,7 @@
   define('DB_NAME', 'docship');
 
   // App Root
-  define('APPROOT', dirname(dirname(__FILE__)));
+  define('APPROOT', dirname(dirname(_FILE_)));
   // URL Root
   define('URLROOT', 'http://localhost/docship');
   // Site Name
@@ -21,7 +21,9 @@
   define('BANK_ACC', '0123456789');
 
   //Formats
+
   define('FORMAT_DATE' , '"Y-m-d"');
+
   define('FORMAT_TIME' , 'h:i A');
 
   

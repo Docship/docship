@@ -236,9 +236,11 @@
             $gender = $data['gender'];
             $charge_amount = $data['charge_amount'];
             $category = $data['category'];
+
             $college = $data['college'];
             $working_from = $data['working_from_24hrs'];
             $working_to = $data['working_to_24hrs'];
+
             $working_days = $data['working_days'];
             $nic = $data['nic'];
             //$gov_registration_no = $data['gov_registration_no'];
@@ -251,6 +253,7 @@
             $current_arrears = $data['current_arrears'];
 
             $sql = "INSERT INTO `doctor` (firstname, lastname, email, pwd, bday, gender, charge_amount, category, 
+
                         working_from, working_to, working_days, nic, discount, telephone, bank_name, 
                             bank_branch, bank_acc_no, total_income, current_arrears , college) 
                                 VALUES ('$firstname' , '$lastname' , '$email' , '$pwd' , 
@@ -312,58 +315,6 @@
 
             $output = array();
 
-            if(!is_null($result)){
-                $doctor = $result;
-
-                if(empty($doctor)){
-                    $output['error'] = "not exist doctor";
-                    $output['value'] = false;
-                    return $output;
-                }else {
-                    $working_days = $doctor['working_days'];
-                    $day = Date::getDateNumber($date);
-
-
-                    if(strpos($working_days, strval($day))){
-                        $r = Date::isTimeBetween($doctor['working_from'] , $doctor['working_to'] , $time);
-                        if($r==true){
-                            $output['value'] = true;
-                            return $output;
-                        }else {
-                            $output['error'] = "not exist time";
-                            $output['value'] = false;
-                            return $output;
-                        }
-                    }else {
-                        $output['error'] = "not exist day";
-                        $output['value'] = false;
-                        return $output;
-                    }
-                }
-            }else {
-                $output['error'] = "system error";
-                return $output;
-            }
-
-        }
-
-        public function getAll(){
-            $sql = "SELECT * FROM `doctor` WHERE 1";
-            $result = $this->DB->selectAll($sql);
-            return $result;
-        }
-
-        public function delete($id){
-            $sql = "DELETE FROM `doctor` WHERE id='$id'";
-            $result = $this->DB->delete($sql);
-            return $result;
-        }
-
-        public function addPayment($id , $payment){
-            $sql = "UPDATE `doctor` SET `total_income`=$payment WHERE id='$id'";
-            $result = $this->DB->delete($sql);
-            return $result;
-        }
 
 
     }
