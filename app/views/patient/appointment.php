@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/form.css">
 
-  <title>DocShip | LogIn</title>
+  <title>Appointment</title>
 </head>
 
 <body>
@@ -73,7 +73,6 @@
                     var opt = document.createElement('option');
                     opt.value = doctor['id'];
                     opt.innerHTML = "Dr. " + doctor['firstname'];
-                    setTime(doctor['working_from'],doctor['working_to']);
                     select.appendChild(opt);
                   }
                 });
@@ -93,22 +92,26 @@
                     var startTimeObject = new Date();
                     startTimeObject.setHours(from[0], from[1],from[2]);
                     //console.log(startTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
-                    
+
                     var endTimeObject = new Date();
                     endTimeObject.setHours(to[0], to[1], to[2]);
                     //console.log(endTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
-                    
+
                     const timeSlot=document.getElementById('time-slices');
-                    timeSlot.innerHTML="<option selected>Time</option>";
-                    
+                    timeSlot.innerHTML="<option selected disabled>Time</option>";
+
+                    startTimeObject.setMinutes( startTimeObject.getMinutes());
+                    var dd=startTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+                        //console.log(startTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
+                    timeSlot.innerHTML+="<option>"+dd+"</option>";
+
                     while(startTimeObject<endTimeObject){
-                        startTimeObject.setMinutes( startTimeObject.getMinutes() + 15 );
+                        startTimeObject.setMinutes( startTimeObject.getMinutes() + 30 );
                         var dd=startTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
                         //console.log(startTimeObject.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3"));
                         timeSlot.innerHTML+="<option>"+dd+"</option>";
                     }
                   }
-
             </script>
 
             <div class="col-sm-12">
@@ -130,7 +133,7 @@
 
             <div class="col-sm-12" id="role">
               <select id="doctors" name="doctor" class="form-control form-control-lg shadow-none" onchange="setCharge();">
-                <option selected>Doctor</option>
+                <option selected disabled>Doctor</option>
                 <?php
                   if(isset($data['doctors']) && !empty($data['doctors'])){
                     foreach($data['doctors'] as $doctor){
@@ -148,7 +151,7 @@
             </div>
 
             <div class="col-sm-12" id="role">
-              <input class="form-control form-control-lg shadow-none" id="charge" name="charge" type="number" step="0.01" placeholder="charge" value="<?php echo $data['charge'];?>" readonly/>
+              <input class="form-control form-control-lg shadow-none" id="charge" name="charge" type="number" step="0.01" placeholder="charge" readonly/>
 
               <div><?php
                     echo getErrorMessage($data['amount_err']);
@@ -158,11 +161,8 @@
 
             <div class="col-sm-12" id="role">
               <select id="time-slices" name="time" class="form-control form-control-lg shadow-none">
-                <option selected>Time</option>
-                <!-- <option <?php echo ((isset($data['time'])) && $data['time'] == "6.00 AM") ? "selected" : ""; ?>>6.00 AM</option>
-                <option <?php echo ((isset($data['time'])) && $data['time'] == "6.30 AM") ? "selected" : ""; ?>>6.30 AM</option>
-                <option <?php echo ((isset($data['time'])) && $data['time'] == "2.00 PM") ? "selected" : ""; ?>>2.00 PM</option>
-                <option <?php echo ((isset($data['time'])) && $data['time'] == "2.30 PM") ? "selected" : ""; ?>>2.30 PM</option> -->
+                <option selected disabled>Time</option>
+                
               </select>
               <div><?php
                     if($data['isExist']){

@@ -70,7 +70,7 @@
               type="submit"
               class="btn btn-primary btn-lg w-100 shadow-none my-1"
               name="submit_patient"
-              id="loginSubmit"
+              id="submit"
             >
               Submit
             </button>

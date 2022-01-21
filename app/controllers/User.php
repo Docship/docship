@@ -93,15 +93,17 @@
         private function createUserSession($user , $role){
 
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_uid'] = $user['user_id'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['fname'] =$user['firstname'];
             $_SESSION['lname'] =$user['lastname'];
-            $_SESSION['role'] = lcfirst($role);
+            $_SESSION['role'] = lcfirst($this->setRole($user['user_id']));
         }
 
         public function logout(){
             
             unset($_SESSION['user_id']);
+            unset($_SESSION['user_uid']);
             unset($_SESSION['user_email']);
             unset($_SESSION['fname']);
             unset($_SESSION['lname']);
@@ -112,6 +114,13 @@
 
         public function showLogin(){
             redirect('user/login'); 
+        }
+
+        private function setRole($user_id){
+            $result_user = $this->model('user')->findById($user_id);
+            $user = $result_user['value'];
+            $role = $user['role'];
+            return $role;
         }
 
     }

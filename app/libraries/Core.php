@@ -20,7 +20,7 @@
       $url = $this->getUrl();
 
       // Require the controller Factory
-      require_once '../app/controllers/'. 'ControllerFactory' . '.php';
+      include_once '../app/controllers/'. 'ControllerFactory' . '.php';
 
       // Require the controller library
       require_once 'Controller.php';

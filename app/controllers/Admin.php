@@ -4,11 +4,44 @@
 
         public function index(){
 
-            if($_SESSION['role'] != 'admin'){
+            if(!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
             }
+            $data = array();
+            $appointments_result1 = $this->model('Appointment')->getAll();
+            if($appointments_result1!=-1){
+                if(empty($appointments_result1)){
+                    $data['appointments_size'] = 0;
+                }else {
+                    $data['appointments_size'] = sizeof($appointments_result1);
+                }
+            }else {
+                $data['db_err_3'] = "appointments searching failed"; 
+            }
 
-            $this->view('admin/index', []);
+            $patients_result1 = $this->model('Patient')->getAll();
+            if($patients_result1!=-1){
+                if(empty($patients_result1)){
+                    $data['patients_size'] = 0;
+                }else {
+                    $data['patients_size'] = sizeof($patients_result1);
+                }
+            }else {
+                $data['db_err_1'] = "patients searching failed"; 
+            }
+
+            $doctors_result1 = $this->model('Doctor')->getAll();
+            if($doctors_result1!=-1){
+                if(empty($doctors_result1)){
+                    $data['doctors_size'] = 0;
+                }else {
+                    $data['doctors_size'] = sizeof($doctors_result1);
+                }
+            }else {
+                $data['db_err_2'] = "doctors searching failed"; 
+            }
+
+            $this->view('admin/index', $data);
         }
 
         //extra - admin doesn't need to be registered explicitly
@@ -19,7 +52,7 @@
         //extra - admin doesn't need to be registered explicitly
         public function register(){
 
-            if($_SESSION['role'] != 'admin'){
+            if(!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
             }
 
@@ -115,7 +148,7 @@
 
         public function doctor_register(){
 
-            if($_SESSION['role'] != 'admin'){
+            if(!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibite?user='.$_SESSION['role']);
             }
 
@@ -132,19 +165,18 @@
                     'repassword'=>trim($_POST['repassword']),
                     'bday'=> trim($_POST['bday']),
                     'gender'=> trim($_POST['gender']),
-                    'charge_amount'=> trim($_POST['charge_amount']),
+                    'charge_amount'=> trim($_POST['charge']),
                     'category'=> trim($_POST['category']),
                     'college'=> trim($_POST['college']),
                     'working_from'=> trim($_POST['working_from']),
                     'working_to'=> trim($_POST['working_to']),
-                    'working_days'=> trim($_POST['working_days']),
+                    'working_days'=> trim($_POST['days']),
                     'nic'=> trim($_POST['nic']),
-                    'gov_registration_no'=> trim($_POST['gov_registration_no']),
                     'discount'=> trim($_POST['discount']),
                     'telephone'=> trim($_POST['telephone']),
-                    'bank_name'=> trim($_POST['bank_name']),
-                    'bank_branch'=> trim($_POST['bank_branch']),
-                    'bank_acc_no'=> trim($_POST['bank_acc_no']),
+                    'bank_name'=> trim($_POST['bank']),
+                    'bank_branch'=> trim($_POST['branch']),
+                    'bank_acc_no'=> trim($_POST['account_no']),
                     'total_income'=> 0.0,
                     'current_arrears'=> 0.0,
 
@@ -188,23 +220,38 @@
 
                     if($result==0){
 
-                        $result = $doctorModel->insert($data);
+                        
+                        $result_nic = $doctorModel->isExistByNIC($data['nic']);
 
-                        if($result!=-1){
-                            redirect('admin/doctors');
-                            //or else redirect to user admin!?
+                        if($result_nic==0){
+                            $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
+                            $data['working_to_24hrs'] = date("H:i", strtotime($data['working_to']));
+                            $result = $doctorModel->insert($data);
+
+                        
+                            if($result!=-1){
+                                redirect('admin/doctors');
+                                //or else redirect to user admin!?
+                            }else {
+                                $data['db_err'] = 'Error Occured in System!';
+                                $data['result'] = $result;
+                                $this->view('admin/doctor_register', $data);
+                            }
+                        }else if($result_nic==1) {
+                            $data['nic_err'] = "NIC exist";
+                            $this->view('admin/doctor_register', $data);
                         }else {
-                            $data['db_err'] = 'Error Occured in System!';
-                            $data['result'] = $result;
+                            $data['db_err'] = 'Error Occured in System! doctor existance checking fail by nic';
                             $this->view('admin/doctor_register', $data);
                         }
 
                     }if($result==1) {
                         $data['isExist'] = true;
+                        $data['email_err'] = "email exist";
                         //$this->view('doctor/dumy', $data);
                         $this->view('admin/doctor_register', $data);
                     } else {
-                        $data['db_err'] = 'Error Occured in System! doctor existance checking fail';
+                        $data['db_err'] = 'Error Occured in System! doctor existance checking fail by email';
                         //$this->view('doctor/dumy', $data);
                         $this->view('admin/doctor_register', $data);
                     }
@@ -276,6 +323,33 @@
 
         public function appointments(){
 
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
+                redirect('pages/prohibit?user='.$_SESSION['role']);
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            }
+
+            else {
+
+                $appointments_result = $this->model('Appointment')->findPendingForAdmin();
+
+                if(isset($appointments_result['value']) && !empty($appointments_result['value'])){
+                    $data['appointments'] = $appointments_result['value'];
+                }else {
+                    //$data['appointments'] = null;
+                }
+
+
+                $this->view('admin/appointments' , $data) ;
+                
+            }
+
+        }
+
+        public function appointments_confirmed(){
+
             if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
@@ -286,7 +360,7 @@
 
             else {
 
-                $appointments_result = $this->model('Appointment')->getAll();
+                $appointments_result = $this->model('Appointment')->findConfirmedForAdmin();
 
                 if($appointments_result!=-1){
                     $data['appointments'] = $appointments_result;
@@ -295,14 +369,14 @@
                 }
 
 
-                $this->view('admin/appointments' , $data) ;
+                $this->view('admin/appointments_confirmed' , $data) ;
             }
 
         }
 
         public function doctors(){
 
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 
@@ -335,7 +409,7 @@
 
         public function message(){
 
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 
@@ -343,7 +417,12 @@
                 //
             }
             else {
-                $this->view('admin/messages');
+                $result = $this->model('message')->getSendersForChatBot();
+                $data = array();
+                if(isset($result['value'])){
+                    $data['users'] = $result['value'];
+                }
+                $this->view('admin/message_panel' , $data);
             }
 
         }
@@ -374,7 +453,7 @@
 
         public function patients(){
 
-            if(isset($_SESSION['role']) && $_SESSION['role'] != 'admin'){
+            if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
                 redirect('pages/prohibit?user='.$_SESSION['role']);
             }
 

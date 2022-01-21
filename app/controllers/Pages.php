@@ -25,4 +25,8 @@
     public function error_page(){
       $this->view('error/error' , ['error_message' => 'Invalid URL']);
     }
+
+    public function zoom(){
+      $this->view('pages/zoom_dumy');
+    }
   }

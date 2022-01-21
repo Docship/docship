@@ -1,4 +1,3 @@
-<?php require_once APPROOT."/views/inc/error_input.php";?>
 <!doctype html>
 <html lang="en">
 
@@ -14,19 +13,23 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
   <script src="<?php echo URLROOT; ?>/js/feather-icons.js"></script>
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
 </head>
 
 <body>
 
-  <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-4" href="#"><span class="brand-color1">Doc</span><span class="brand-color2">Ship</span></a>
-    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+<nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap shadow">
+  <a class="navbar-brand mx-auto mx-md-3" href="#"><span class="brand-color1">Doc</span><span class="brand-color2">Ship</span></a>
+    <button class="navbar-toggler position-absolute d-md-none border-0 collapsed" type="button" data-toggle="collapse"
       data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="user-wrapper mx-2">
+      <!-- <span class="navbar-toggler-icon"></span> -->
+      <i class="far fa-bars" id="toggler-icon"></i>
+     
+      <!-- <i data-feather="menu"></i> -->
+    </button>   
+    <div class="user-wrapper mx-lg-2">
       <img src="<?php echo URLROOT; ?>/img/user.png" alt="" width="40px" height="40px" 
       data-toggle="modal" data-target=".logout-popup"
       />
@@ -51,37 +54,31 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="<?php echo URLROOT; ?>\doctor\index" id="a">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\index" id="index">
                 <span data-feather="home"></span>
                 Home 
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\appointments" id="b">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\appointments" id="appointments">
                 <span data-feather="calendar"></span>
                 Appointments
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\patients" id="c">
-                <span data-feather="users"></span>
-                Patients
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\messages" id="d">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\message" id="message">
                 <span data-feather="message-circle"></span>
                 Messages
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\prescriptions" id="e">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\prescriptions" id="prescriptions">
                 <span data-feather="file-plus"></span>
                 Prescriptions
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\update" id="f">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\doctor\update" id="update">
                 <span data-feather="settings"></span>
                 Edit Account
               </a>

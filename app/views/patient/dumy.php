@@ -14,15 +14,39 @@
 
 
 <h1>Test</h1>
-<p><?php echo $_SESSION['user_id']; ?></p>
+<p><?php
+/*
+        $t1 =  date("H:i", strtotime("04:25 Pm")); 
+        $t2 =  date("H:i", strtotime("08:25 Pm")); 
+        $t3 =  date("H:i", strtotime("09:25 Pm")); 
+        $start = strtotime($t1);
+        $end = strtotime($t2);
+        $time = strtotime($t3);
+        
+        if($time >= $start && $time <= $end) {
+          echo "done";
+        } else {
+          echo "wrong";
+        }
+*/
 
-<ul>
-  <?php
-    foreach ($data['doctors'] as $doctor) {
-        echo "<li>".$doctor['firstname']."</li>";
-    }
-  ?>
-</ul>
+        $date = '2021-12-26';
+        $dayofweek = date('w', strtotime($date));
+        $result    = date('Y-m-d', strtotime(($day - $dayofweek).' day', strtotime($date))); 
+        $weekday = date('l', strtotime($date));
+        $map = array(
+          "Monday" => 1,
+          "Tuesday" => 2,
+          "Wednesday" => 3,
+          "Thursday" => 4,
+          "Friday" => 5,
+          "Saturday" => 6,
+          "Sunday" => 7
+        );
+        echo $weekday;
+        echo $map[$weekday];
+?></p>
+
 
 <?php 
           if(isset($data['doctors'])){

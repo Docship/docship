@@ -1,16 +1,39 @@
+<?php
+  function getErrorMessage($error)
+  {
+    $message = "";
+    if (empty($error)) {
+      $message = "<small></small>";
+      return $message;
+    }else{
+      $message = "<small style = 'color:red;'> ".$error." </small>";
+      return $message;
+    }
+  }
 
+  function isExist($var)
+  {
+    $message = "";
+    if($var){
+      $error = "Email already exist.";
+      $message = "<small style = 'color:red;'> ".$error." </small>";
+    }
+    return $message;
+    
+  }
+?>
 <?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
 <!-- Settings -->
 <main role="main" class="settings col-md-9 ml-sm-auto col-lg-10 px-md-4" id="F">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="text-center topic mb-2">Profile Details</h1>
-  </div>
-  <div class="d-flex justify-content-center sign-up-form">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="text-center topic mb-2">Profile Details</h1>
+    </div>
+    <div class="d-flex justify-content-center sign-up-form">
         <div class="row">
             <div class="col-lg-12 px-5 my-5 fill">
-                <form action="<?php echo URLROOT; ?>/doctor/update" method="POST"
-                    class="mx-sm-3 mx-md-2 mx-lg-3">
-                    
+                <form action="<?php echo URLROOT; ?>/doctor/update" method="POST" class="mx-sm-3 mx-md-2 mx-lg-3">
+
                     <h5 class="text-center mt-3">Personal Information</h5>
                     <div class="form-row">
                         <div class="col-lg-5 my-1">
@@ -62,8 +85,11 @@
                             ?></div>
                         </div>
                     </div>
-
-                    <div class="form-row">
+                    <div class="row d-flex justify-content-start" style="margin: 0 0 10px 0;">
+                        <button class="btn btn-primary" id="button_password" type="button">change
+                            password</button>
+                    </div>     
+                    <div class="form-row row" id="passwordSector" style="display: none;"> 
                         <div class="col-lg-6 my-1">
                             <input name="password" id="passwordInput" type="password"
                                 class="form-control shadow-none doc-reg" value="<?php echo $data['password']; ?>"
@@ -73,7 +99,7 @@
                                 ?></div>
                         </div>
                         <div class="col-lg-6 my-1">
-                            <input name="repassword" type="password" class="form-control shadow-none doc-reg"
+                            <input name="repassword" id="rePasswordInput" type="password" class="form-control shadow-none doc-reg"
                                 value="<?php echo $data['repassword']; ?>" placeholder="Re-type password" />
                             <div><?php 
                                     echo getErrorMessage($data['repassword_err']);
@@ -104,17 +130,7 @@
                                     echo getErrorMessage($data['gender_err']);
                             ?></div>
                         </div>
-                        <div class="col-lg-5 my-1">
-                            <div class="custom-file">
-                                <!-- <input type="file" class="custom-file-input" id="uploadImage"> -->
-                                <label class="custom-file-label" for="uploadImage" data-browse="choose">Upload your
-                                    image</label>
-                            </div>
-                            <div><?php 
-                                    echo getErrorMessage($data['telephone_err']);
-                                ?>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <h5 class="text-center mt-3">Educational Qualification</h5>
@@ -190,7 +206,8 @@
                                 <label class="checkbox-inline">
                                     <input class="doc-reg-check" name="saturday" type="checkbox" value="6"> Sat
                                 </label>
-                                <input type="hidden" id="daysSelected" name="days" value="<?php echo $data['working_days']; ?>">
+                                <input type="hidden" id="daysSelected" name="days"
+                                    value="<?php echo $data['working_days']; ?>">
                             </div>
                             <div><?php 
                                     echo getErrorMessage($data['working_days_err']);
@@ -209,13 +226,13 @@
                                     <?php echo ((isset($data['working_from'])) && $data['working_from']=="06.00 AM") ? "selected":""; ?>>
                                     06.00 AM</option>
                                 <option
-                                    <?php echo ((isset($data['working_from'])) && $data['working_from']=="07.00 Am") ? "selected":""; ?>>
+                                    <?php echo ((isset($data['working_from'])) && $data['working_from']=="07.00 AM") ? "selected":""; ?>>
                                     07.00 AM</option>
                                 <option
-                                    <?php echo ((isset($data['working_from'])) && $data['working_from']=="08.00 Am") ? "selected":""; ?>>
+                                    <?php echo ((isset($data['working_from'])) && $data['working_from']=="08.00 AM") ? "selected":""; ?>>
                                     08.00 AM</option>
                                 <option
-                                    <?php echo ((isset($data['working_from'])) && $data['working_from']=="09.00 Am") ? "selected":""; ?>>
+                                    <?php echo ((isset($data['working_from'])) && $data['working_from']=="09.00 AM") ? "selected":""; ?>>
                                     09.00 AM</option>
                                 <option
                                     <?php echo ((isset($data['working_from'])) && $data['working_from']=="10.00 AM") ? "selected":""; ?>>
@@ -268,13 +285,13 @@
                                     <?php echo ((isset($data['working_to'])) && $data['working_to']=="06.00 AM") ? "selected":""; ?>>
                                     06.00 AM</option>
                                 <option
-                                    <?php echo ((isset($data['working_to'])) && $data['working_to']=="07.00 Am") ? "selected":""; ?>>
+                                    <?php echo ((isset($data['working_to'])) && $data['working_to']=="07.00 AM") ? "selected":""; ?>>
                                     07.00 AM</option>
                                 <option
-                                    <?php echo ((isset($data['working_to'])) && $data['working_to']=="08.00 Am") ? "selected":""; ?>>
+                                    <?php echo ((isset($data['working_to'])) && $data['working_to']=="08.00 AM") ? "selected":""; ?>>
                                     08.00 AM</option>
                                 <option
-                                    <?php echo ((isset($data['working_to'])) && $data['working_to']=="09.00 Am") ? "selected":""; ?>>
+                                    <?php echo ((isset($data['working_to'])) && $data['working_to']=="09.00 AM") ? "selected":""; ?>>
                                     09.00 AM</option>
                                 <option
                                     <?php echo ((isset($data['working_to'])) && $data['working_to']=="10.00 AM") ? "selected":""; ?>>
@@ -322,29 +339,55 @@
                     <h5 class="text-center mt-3">Payment</h5>
                     <div class="form-row">
                         <div class="col-lg-7 my-1">
-                        <select id="bank" name="bank" class="form-control shadow-none">
+                            <select id="bank" name="bank" class="form-control shadow-none">
                                 <option selected disabled value="Bank">Bank</option>
-                                <option value="Peoples Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Peoples Bank") ? "selected":""; ?>>Peoples Bank</option>
-                                <option value="Bank Of Ceylon" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Bank Of Ceylon") ? "selected":""; ?>>Bank Of Ceylon</option>
-                                <option value="Commercial Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Commercial Bank") ? "selected":""; ?>>Commercial Bank</option>
-                                <option value="Sampath Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Sampath Bank") ? "selected":""; ?>>Sampath Bank</option>
-                                <option value="Selan Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Selan Bank") ? "selected":""; ?>>Selan Bank</option>
-                                <option value="HNB Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="HNB Bank") ? "selected":""; ?>>HNB Bank</option>
+                                <option value="Peoples Bank"
+                                    <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Peoples Bank") ? "selected":""; ?>>
+                                    Peoples Bank</option>
+                                <option value="Bank Of Ceylon"
+                                    <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Bank Of Ceylon") ? "selected":""; ?>>
+                                    Bank Of Ceylon</option>
+                                <option value="Commercial Bank"
+                                    <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Commercial Bank") ? "selected":""; ?>>
+                                    Commercial Bank</option>
+                                <option value="Sampath Bank"
+                                    <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Sampath Bank") ? "selected":""; ?>>
+                                    Sampath Bank</option>
+                                <option value="Selan Bank"
+                                    <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Selan Bank") ? "selected":""; ?>>
+                                    Selan Bank</option>
+                                <option value="HNB Bank"
+                                    <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="HNB Bank") ? "selected":""; ?>>
+                                    HNB Bank</option>
                             </select>
                             <div><?php 
                                     echo getErrorMessage($data['bank_name_err']);
                             ?></div>
                         </div>
                         <div class="col-lg-5 my-1">
-                        <select id="branch" name="branch" class="form-control shadow-none">
+                            <select id="branch" name="branch" class="form-control shadow-none">
                                 <option selected disabled value="Branch">Branch</option>
-                                <option value="Colombo" <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Colombo") ? "selected":""; ?>>Colombo</option>
-                                <option value="Gampaha"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Gampaha") ? "selected":""; ?>>Gampaha</option>
-                                <option value="Kegalle"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Kegalle") ? "selected":""; ?>>Kegalle</option>
-                                <option value="Negombo"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Negombo") ? "selected":""; ?>>Negombo</option>
-                                <option value="Galle"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Galle") ? "selected":""; ?>>Galle</option>
-                                <option value="Chilaw"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Chilaw") ? "selected":""; ?>>Chilaw</option>
-                                <option value="Matara"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Matara") ? "selected":""; ?>>Matara</option>
+                                <option value="Colombo"
+                                    <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Colombo") ? "selected":""; ?>>
+                                    Colombo</option>
+                                <option value="Gampaha"
+                                    <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Gampaha") ? "selected":""; ?>>
+                                    Gampaha</option>
+                                <option value="Kegalle"
+                                    <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Kegalle") ? "selected":""; ?>>
+                                    Kegalle</option>
+                                <option value="Negombo"
+                                    <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Negombo") ? "selected":""; ?>>
+                                    Negombo</option>
+                                <option value="Galle"
+                                    <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Galle") ? "selected":""; ?>>
+                                    Galle</option>
+                                <option value="Chilaw"
+                                    <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Chilaw") ? "selected":""; ?>>
+                                    Chilaw</option>
+                                <option value="Matara"
+                                    <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Matara") ? "selected":""; ?>>
+                                    Matara</option>
                             </select>
                             <div><?php 
                                     echo getErrorMessage($data['bank_branch_err']);
@@ -380,11 +423,12 @@
                     </div>
 
                     <div class="row d-flex justify-content-around">
-                    <button type="submit" class="btn btn-n btn-primary w-25 shadow-none my-1" name="submit"
-                        id="submit-reg" disabled=true>
-                        Update Doctor Account
-                    </button>
-                    <button type="button" onclick="lockInpututsSelects(false)" class="btn btn-n btn-primary w-25 shadow-none my-1" id="edit">Edit Details</button>
+                        <button type="submit" class="btn btn-n btn-primary w-25 shadow-none my-1" name="submit"
+                            id="submit-reg" disabled=true>
+                            Update Doctor Account
+                        </button>
+                        <button type="button" onclick="lockInpututsSelects(false)"
+                            class="btn btn-n btn-primary w-25 shadow-none my-1" id="edit">Edit Details</button>
                     </div>
                 </form>
             </div>

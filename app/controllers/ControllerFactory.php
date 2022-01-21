@@ -17,14 +17,14 @@
 
         public function getController($name){
             $name = ucwords($name);
-            if(isset($libs[$name])){
-                return $libs[$name];
+            if(isset($controllers[$name])){
+                return $controllers[$name];
             }else{
                 // Require the controller
                 require_once $name . '.php';
-                $lib = new $name;
-                $libs[$name] = $lib;
-                return $lib;
+                $ctrl = new $name;
+                $controllers[$name] = $lib;
+                return $ctrl;
             }
         }
     }

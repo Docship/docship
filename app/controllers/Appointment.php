@@ -45,7 +45,9 @@ class Appointment extends Controller
                 //$data['result'] = $result_doc['value'];
 
 
-                if (isset($result_doc['value'])) {
+                if (isset($result_doc['value']) && !empty($result_doc['value'])) {
+
+                    $data['doctor_obj'] = $result_doc['value'];
 
                     if (sizeof($result_doc['value']) <= 0) {
                         $data['doctor_err'] = 'Invalid doctor';
@@ -101,19 +103,23 @@ class Appointment extends Controller
                                 $this->viewAppointmentForm($data);
                             }else {
                                 $data['db_err'] = 'System error';
+                                
                                 $this->viewAppointmentForm($data);
                                 //$this->view('patient/appointment', $data);
                             }
                         }elseif($result1['error']=='not exist time'){
                             $data['time_err'] = 'This Time is not available for selected doctor.';
                             //$this->view('patient/appointment', $data);
+                            
                             $this->viewAppointmentForm($data);
                         }elseif($result1['error']=='not exist day'){
-                            $data['day_err'] = 'Doctor is not available for given date.';
+                            $data['date_err'] = 'Doctor is not available for given date.';
+                            
                             //$this->view('patient/appointment', $data);
                             $this->viewAppointmentForm($data);
                         }elseif($result1['error']=='system error'){
                             $data['db_err'] = 'System error';
+                            
                             $this->viewAppointmentForm($data);
                             //$this->view('patient/appointment', $data);
                         }
@@ -121,12 +127,14 @@ class Appointment extends Controller
                 } else {
                     //doctor not exist
                     $data['doctor_err'] = 'Invalid doctor selected';
+                   
                     $this->viewAppointmentForm($data);
                     //$this->view('patient/appointments', $data);
                 }
             } else {
                 // invalid input
                 $doctors = $this->model('Doctor')->getAll();
+
 
                 if($doctors==-1 || empty($doctors)){
                     // no doctors in the system
@@ -165,7 +173,7 @@ class Appointment extends Controller
         }
     }
 
-    public function delete($param = []){
+    public function cancel($param = []){
 
         if ($_SESSION['role'] != 'patient') {
             redirect('pages/prohibite?user=' . $_SESSION['role']);
@@ -176,16 +184,19 @@ class Appointment extends Controller
             $model = $this->model('appointment');
             if(!empty($params)){
                 foreach($params as $id){
+                    $result_app = $model->findById($id);
                     $result = $model->cancel($id);
                     if($result!=0){
                         $data['cancel_err_id'] = $id;
-                        $this->viewAppointments($data);
-                        return;
+                        echo json_encode(array('success' => 1)); // 1 means false
                     }
+                    $this->model('Receipt')->delete($result_app['value']['receipt_id']);
                 }
+            }else {
+                //redirect('patient/index');
             }
 
-            redirect('patient/appointments');
+            echo json_encode(array('success' => 0)); // 0 -> true
         }
 
         else {
@@ -215,6 +226,155 @@ class Appointment extends Controller
 
     }
 
+    public function confirm($param = []){
+
+        if ($_SESSION['role'] != 'doctor') {
+            echo json_encode(array('success' => 1));
+        }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = array();
+            $params = file_get_contents( "php://input" );
+            $params = json_decode( $params); 
+            $model = $this->model('appointment');
+            if(!empty($params)){
+                foreach($params as $id){
+                    $result = $model->confirm($id);
+                    if($result!=0){
+                        $data['confirm_err_id'] = $id;
+                        echo json_encode(array('success' => 1)); // 1 means false
+                    }
+                }
+            }else {
+                //redirect('patient/index');
+            }
+
+            echo json_encode(array('success' => 0)); // 0 -> true
+        }
+
+        else {
+            
+
+        }
+
+    }
+
+    public function paid($param = []){
+
+        if (!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')) {
+            echo json_encode(array('success' => 1));
+        }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = array();
+            $params = file_get_contents( "php://input" );
+            $params = json_decode( $params); 
+            $model = $this->model('appointment');
+            if(!empty($params)){
+                foreach($params as $id){
+                    $result_app = $model->findById($id);
+                    $result = $model->marksPaid($id);
+                    if($result!=0){
+                        $data['confirm_err_id'] = $id;
+                        echo json_encode(array('success' => 1)); // 1 means false
+                    }
+                    $this->model('Receipt')->complete($result_app['value']['receipt_id']);
+                }
+            }else {
+                //redirect('patient/index');
+            }
+
+            echo json_encode(array('success' => 0)); // 0 -> true
+        }
+
+        else {
+            
+
+        }
+
+    }
+
+    public function unpaid($param = []){
+
+        if (!($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')) {
+            echo json_encode(array('success' => 1));
+        }elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = array();
+            $params = file_get_contents( "php://input" );
+            $params = json_decode( $params); 
+            $model = $this->model('appointment');
+            if(!empty($params)){
+                foreach($params as $id){
+                    $result_app = $model->findById($id);
+                    $result = $model->marksUnPaid($id);
+                    if($result!=0){
+                        $data['confirm_err_id'] = $id;
+                        echo json_encode(array('success' => 1)); // 1 means false
+                    }
+                    $this->model('Receipt')->notcomplete($result_app['value']['receipt_id']);
+                }
+            }else {
+                //redirect('patient/index');
+            }
+
+            echo json_encode(array('success' => 0)); // 0 -> true
+        }
+
+        else {
+            
+
+        }
+
+    }
+
+    public function zoom($id=0){
+        if(isset($_SESSION['role']) && !($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'chat_admin')){
+            redirect('pages/prohibit?user='.$_SESSION['role']);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $result = $this->model('appointment')->findById($id);
+
+            $data = array();
+
+            if(isset($result['value']) && !empty($result['value'])){
+                $data['appointment'] = $result['value'];
+            }
+            
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data =[
+                'zoom_link'=> trim($_POST['zoom-link']),
+                'zoom_err' => ""
+            ];
+
+            if(true){
+                $result_update = $this->model('appointment')->addZoomLink($id , $data['zoom_link']);
+
+                if($result_update==0){
+                    redirect('admin/appointments');
+                }else {
+                    // update fail
+                }
+            }else {
+                $this->view('pages/zoom' , $data) ;
+            }
+        }
+
+        else {
+
+            $result = $this->model('appointment')->findById($id);
+
+            $data = array();
+
+            if(isset($result['value']) && !empty($result['value'])){
+                $data['appointment'] = $result['value'];
+            }
+
+            $this->view('pages/zoom' , $data) ;
+
+
+        }
+    }
+
+
+
     private function viewAppointments(&$data){
         $appointments_result = $this->model('Appointment')->findByPatientId($_SESSION['user_id']);
 
@@ -229,6 +389,7 @@ class Appointment extends Controller
     }
 
     private function viewAppointmentForm(&$data){
+
         // get doctor
         $doctors = $this->model('Doctor')->getAll();
 
@@ -258,6 +419,7 @@ class Appointment extends Controller
     }
 
     private function addReceiptToAppointment(&$data){
+        $result_sub = $this->model('subcribe')->isDoctorSubcribed($data['doctor'] , $_SESSION['user_id']);
         $insert_data = array(
             'patient_id' => $_SESSION['user_id'],
             'bank_name' => BANK_NAME,
@@ -268,9 +430,15 @@ class Appointment extends Controller
             'issue_date' => Date::getTodayDate(),
             'expiry_date' => Date::getPreviousDate($data['date']),
             'description' => 'This receipt is issued Automatically',
-            'total' => $this->calculate_total($data['charge'] , 0.0),
             'is_complete' => '0'
         );
+
+        if($result_sub['value'] == 0){
+            $insert_data['discount'] = $data['doctor_obj']['discount'];
+        }
+
+        $insert_data['total'] = $this->calculate_total($data['charge'] , $insert_data['discount']);
+
 
         /*
 

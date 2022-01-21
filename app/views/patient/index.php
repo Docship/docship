@@ -29,10 +29,10 @@
                     <h5 class="card-title">Appointments Count</h5>
                     <p class="card-text">
                     <?php
-                        if(isset($data['appointments_size']) && !empty($data['appointments_size'])){
+                        if(isset($data['appointments_size'])){
                           echo $data['appointments_size'];
-                        }elseif(isset($data['db_err_2']) && !empty($data['db_err_2'])){
-                          echo $data['db_err_2'];
+                        }elseif(isset($data['db_err_1']) && !empty($data['db_err_1'])){
+                          echo $data['db_err_1'];
                         }else {
                           echo "System Error";
                         }
@@ -49,10 +49,10 @@
                     <h5 class="card-title">Prescriptions Count</h5>
                     <p class="card-text">
                       <?php
-                        if(isset($data['prescriptions_size']) && !empty($data['prescriptions_size'])){
+                        if(isset($data['prescriptions_size'])){
                           echo $data['prescriptions_size'];
-                        }elseif(isset($data['db_err_3']) && !empty($data['db_err_3'])){
-                          echo $data['db_err_3'];
+                        }elseif(isset($data['db_err_2']) && !empty($data['db_err_2'])){
+                          echo $data['db_err_2'];
                         }else {
                           echo "System Error";
                         }
@@ -64,11 +64,11 @@
 
             <div class="col-lg-4 highlight-card">
               <div class="card text-white bg-danger mb-3" style="max-width: 50rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">Receipt Arrears</div>
                   <div class="card-body">
-                    <h5 class="card-title">Primary card title</h5>
+                    <h5 class="card-title">Total Arrears</h5>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                    Rs. <?php echo ($data['arrears'])?$data['arrears']:0.00; ?>
                     </p>
                   </div><!-- card body ends -->
               </div><!-- card ends -->
@@ -82,7 +82,7 @@
         <?php 
           if(isset($data['appointments'])){
             if(!empty($data['appointments'])){
-              echo "<table class='table table-striped table-sm' >";
+              echo "<table class='table table-striped table-hover table-sm' >";
               echo "<thead>";
               echo "<tr>";
                 echo "<th>ID</th>";
@@ -96,7 +96,7 @@
               foreach($data['appointments'] as $appointment){
                 $r1 = "<td>". $appointment['id'] . "</td>";
                 $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . $appointment['time'] . "</td>";
+                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
                 $r4 = "<td>" . $appointment['doctor_id'] . "</td>";
                 $color = getStatusColor($appointment['status']);
                 $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";

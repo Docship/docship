@@ -9,13 +9,13 @@ const dayOut = document.getElementById("daysSelected");
 const days = document.getElementById('daysSelected');
 const from = document.getElementById('working_from');
 const to = document.getElementById('working_to');
+const passwordSector = document.getElementById('passwordSector');
 
 // from.addEventListener('change',e=>{
 
 // })
 function setTime(time) {
-    
-    //console.log("Enter set time");
+
     var docStartTime = time.split('.');
     // console.log(docStartTime);
     // console.log(docStartTime[1][3]);
@@ -73,19 +73,28 @@ var isCheked = false;
 var isValidSelected = false;
 //input texts (8)
 var addedInputData = false;
+var changingPassword = false;
 
 
-document.addEventListener('readystatechange', event => {
-    if (event.target.readyState === "complete") {
-        checkWhenLoad();
-        lockInpututsSelects(true);
+const buttonPassword=document.getElementById('button_password');
+function passwordChange() {
+    if (changingPassword == false) {
+        passwordSector.style.display = 'flex';
+        changingPassword = true;
+    } else {
+        passwordSector.style.display = 'none';
+        changingPassword = false;
     }
-});
-//window.addEventListener('load', checkWhenLoad);
+    validInputs(document.getElementById('passwordInput'));
+    validInputs(document.getElementById('rePasswordInput'));
+}
+buttonPassword.addEventListener('click',(e)=>{
+    passwordChange();
+})
 
 
 function checkWhenLoad() {
-    to.disabled = true;
+    // to.disabled = true;
     /////////////////////////////////////////////////////
     inputs.forEach(input => {
         validInputs(input);
@@ -110,18 +119,19 @@ function checkWhenLoad() {
     });
 
 }
+
 function lockInpututsSelects(action) {
-    inputs.forEach(e=>{
+    inputs.forEach(e => {
         e.readOnly = action;
     });
-    selects.forEach(e=>{
-        e.disabled=action;
+    selects.forEach(e => {
+        e.disabled = action;
     });
-    checkBoxes.forEach(e=>{
-        e.disabled=action;
+    checkBoxes.forEach(e => {
+        e.disabled = action;
     });
-    inputChanges.forEach(e=>{
-        e.readOnly=action;
+    inputChanges.forEach(e => {
+        e.readOnly = action;
     });
 }
 
@@ -134,6 +144,17 @@ function validate(field, regex) {
         field.classList.remove('valid');
     }
 }
+
+
+
+document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === "complete") {
+        checkWhenLoad();
+        lockInpututsSelects(true);
+    }
+});
+
+
 
 //birthday charge discount
 ///////////////////////////////////////////////////////
@@ -162,7 +183,6 @@ checkBoxes.forEach((box) => {
             if (box1.checked) {
                 boxselect++;
                 days2 += box1.value;
-                //console.log(days2);
             }
         });
         dayOut.value = days2;
@@ -190,7 +210,6 @@ function validateInputChanges(field) {
             changes++;
         }
     });
-    console.log(changes);
     if (changes == 4) {
         isInputChanged = true;
     } else isInputChanged = false;
@@ -215,10 +234,12 @@ function validateSelects(field) {
 
     if (val.indexOf(field.value) == -1) {
         field.classList.add('valid');
+        /*
         if (field.name == "working_from") {
             to.disabled = false;
             setTime(field.value);
         }
+        */
     }
     var validSelects = 0;
     selects.forEach((select1) => {
@@ -234,9 +255,12 @@ function validateSelects(field) {
 
 
 function validInputs(field) {
-    if (field.name == 'repassword') {
+    if ((field.name == 'password' || field.name == 'repassword') && !changingPassword) {
+        document.getElementById('passwordInput').classList.remove('valid');
+        document.getElementById('rePasswordInput').classList.remove('valid');
+    } else if (field.name == 'repassword') {
         if (field.value == "") {
-            console.log("nothing in inputs");
+            //console.log("nothing in inputs");
         } else if (field.value == document.getElementById('passwordInput').value) {
             field.classList.add('valid');
             field.classList.remove('invalid');
@@ -258,8 +282,9 @@ function validInputs(field) {
             valids++;
         }
     });
-    console.log(valids);
-    if ((valids == 8)) addedInputData = true;
+    if ((!changingPassword) && (valids == 6)) {
+        addedInputData = true;
+    } else if (changingPassword && (valids == 8)) addedInputData = true;
     else addedInputData = false;
     buttonDisabler(isInputChanged, isCheked, isValidSelected, addedInputData);
 }

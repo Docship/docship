@@ -7,13 +7,13 @@
     class Date {
 
         private static $week_days = array(
-                                        'Monday' => 0, 
-                                        'Tuesday' => 1, 
-                                        'Wednesday' => 2,  
-                                        'Thursday' => 3,  
-                                        'Friday' => 4,  
-                                        'Saturday' => 5,  
-                                        'Sunday' => 6
+                                        'Monday' => 1, 
+                                        'Tuesday' => 2, 
+                                        'Wednesday' => 3,  
+                                        'Thursday' => 4,  
+                                        'Friday' => 5,  
+                                        'Saturday' => 6,  
+                                        'Sunday' => 7
          );
 
         public static function getDateNumber($date) {
@@ -30,7 +30,7 @@
             $date1 = DateTime::createFromFormat(FORMAT_TIME, $time);
             $date2 = DateTime::createFromFormat(FORMAT_TIME, $from);
             $date3 = DateTime::createFromFormat(FORMAT_TIME, $to);
-            if ($date1 > $date2 && $date1 < $date3)
+            if ($date1 >= $date2 && $date1 <= $date3)
             {
                 return true;
             }return false;

@@ -118,17 +118,7 @@
                                     echo getErrorMessage($data['gender_err']);
                             ?></div>
                         </div>
-                        <div class="col-lg-5 my-1">
-                            <div class="custom-file">
-                                <!-- <input type="file" class="custom-file-input" id="uploadImage"> -->
-                                <label class="custom-file-label" for="uploadImage" data-browse="choose">Upload your
-                                    image</label>
-                            </div>
-                            <div><?php 
-                                    echo getErrorMessage($data['telephone_err']);
-                                ?>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <h5 class="text-center mt-3">Educational Qualification</h5>
@@ -204,7 +194,7 @@
                                 <label class="checkbox-inline">
                                     <input class="doc-reg-check" name="saturday" type="checkbox" value="6"> Sat
                                 </label>
-                                <input type="hidden" id="daysSelected" name="days" value="">
+                                <input type="hidden" id="daysSelected" name="days" value="<?php echo $data['working_days']; ?>">
                             </div>
                             <div><?php 
                                     echo getErrorMessage($data['working_days_err']);
@@ -338,12 +328,12 @@
                         <div class="col-lg-7 my-1">
                             <select id="bank" name="bank" class="form-control shadow-none">
                                 <option selected disabled value="Bank">Bank</option>
-                                <option value="Peoples Bank">Peoples Bank</option>
-                                <option value="Bank Of Ceylon">Bank Of Ceylon</option>
-                                <option value="Commercial Bank">Commercial Bank</option>
-                                <option value="Sampath Bank">Sampath Bank</option>
-                                <option value="Selan Bank">Selan Bank</option>
-                                <option value="HNB Bank">HNB Bank</option>
+                                <option value="Peoples Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Peoples Bank") ? "selected":""; ?>>Peoples Bank</option>
+                                <option value="Bank Of Ceylon" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Bank Of Ceylon") ? "selected":""; ?>>Bank Of Ceylon</option>
+                                <option value="Commercial Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Commercial Bank") ? "selected":""; ?>>Commercial Bank</option>
+                                <option value="Sampath Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Sampath Bank") ? "selected":""; ?>>Sampath Bank</option>
+                                <option value="Selan Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="Selan Bank") ? "selected":""; ?>>Selan Bank</option>
+                                <option value="HNB Bank" <?php echo ((isset($data['bank_name'])) && $data['bank_name']=="HNB Bank") ? "selected":""; ?>>HNB Bank</option>
                             </select>
                             <div><?php 
                                     echo getErrorMessage($data['bank_name_err']);
@@ -352,13 +342,13 @@
                         <div class="col-lg-5 my-1">
                             <select id="branch" name="branch" class="form-control shadow-none">
                                 <option selected disabled value="Branch">Branch</option>
-                                <option value="Colombo">Colombo</option>
-                                <option value="Gampaha">Gampaha</option>
-                                <option value="Kegalle">Kegalle</option>
-                                <option value="Nigambo">Nigambo</option>
-                                <option value="Galle">Galle</option>
-                                <option value="Chilaw">Chilaw</option>
-                                <option value="Matara">Matara</option>
+                                <option value="Colombo" <?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Colombo") ? "selected":""; ?>>Colombo</option>
+                                <option value="Gampaha"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Gampaha") ? "selected":""; ?>>Gampaha</option>
+                                <option value="Kegalle"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Kegalle") ? "selected":""; ?>>Kegalle</option>
+                                <option value="Negombo"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Negombo") ? "selected":""; ?>>Negombo</option>
+                                <option value="Galle"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Galle") ? "selected":""; ?>>Galle</option>
+                                <option value="Chilaw"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Chilaw") ? "selected":""; ?>>Chilaw</option>
+                                <option value="Matara"<?php echo ((isset($data['bank_branch'])) && $data['bank_branch']=="Matara") ? "selected":""; ?>>Matara</option>
                             </select>
                             <div><?php 
                                     echo getErrorMessage($data['bank_branch_err']);
@@ -370,9 +360,9 @@
                         <div class="col-lg-6 my-1">
                             <input name="account_no" type="number" min="1" step="any"
                                 class="form-control shadow-none input-change" placeholder="Account No"
-                                value="<?php echo $data['charge_amount'];?>" />
+                                value="<?php echo $data['bank_acc_no'];?>" />
                             <div><?php 
-                                    echo getErrorMessage($data['bank_acc_err']);
+                                    echo getErrorMessage($data['bank_acc_no_err']);
                                 ?></div>
                         </div>
                         <div class="col-lg-3 my-1">
@@ -384,7 +374,7 @@
                                 ?></div>
                         </div>
                         <div class="col-lg-3 my-1">
-                            <input name="discount" type="number" min="1" step="any"
+                            <input name="discount" type="number" min="1" max="100" step="any"
                                 class="form-control shadow-none input-change" placeholder="Discount"
                                 value="<?php echo $data['discount'];?>" />
                             <div><?php 

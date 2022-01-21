@@ -1,18 +1,23 @@
+<?php 
+  function getStatusColor($status){
+    switch($status){
+      case 'PENDING':
+        return 'orange';
+      case 'CONFIRMED':
+        return 'green';
+      case 'CANCELED':
+        return 'red';
+      default: return 'black';       
+    }
+  }
+?>
 <?php require_once APPROOT."/views/inc/header_doctor.php"; ?>
       <!-- Home -->
       <main role="main" class="home col-md-9 ml-sm-auto col-lg-10 px-md-4" id="A">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="title">Home</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary ">
-              <span data-feather="calendar"></span>
-            </button>
-          </div>
+
         </div>
 
         <div class="container-fluid">
@@ -21,9 +26,17 @@
               <div class="card text-white bg-primary mb-3" style="max-width: 50rem;">
                 <div class="card-header">Appointments</div>
                   <div class="card-body">
-                    <h5 class="card-title">Next Appointment</h5>
+                    <h5 class="card-title">Appointments Count</h5>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                    <?php
+                        if(isset($data['appointments_size'])){
+                          echo $data['appointments_size'];
+                        }elseif(isset($data['db_err_1']) && !empty($data['db_err_1'])){
+                          echo $data['db_err_1'];
+                        }else {
+                          echo "System Error";
+                        }
+                      ?>
                     </p>
                   </div><!-- card body ends -->
               </div><!-- card ends -->
@@ -33,9 +46,17 @@
               <div class="card text-white bg-success mb-3" style="max-width: 50rem;">
                 <div class="card-header">prescriptions</div>
                   <div class="card-body">
-                    <h5 class="card-title">Last Prescription</h5>
+                    <h5 class="card-title">Prescriptions Count</h5>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                      <?php
+                        if(isset($data['prescriptions_size'])){
+                          echo $data['prescriptions_size'];
+                        }elseif(isset($data['db_err_2']) && !empty($data['db_err_2'])){
+                          echo $data['db_err_2'];
+                        }else {
+                          echo "System Error";
+                        }
+                      ?>
                     </p>
                   </div><!-- card body ends -->
               </div><!-- card ends -->
@@ -43,11 +64,11 @@
 
             <div class="col-lg-4 highlight-card">
               <div class="card text-white bg-danger mb-3" style="max-width: 50rem;">
-                <div class="card-header">Header</div>
+                <div class="card-header">Payments</div>
                   <div class="card-body">
-                    <h5 class="card-title">Primary card title</h5>
+                    <h5 class="card-title">Total Income</h5>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                      Rs. <?php echo ($data['income'])?$data['income']:0.00; ?>
                     </p>
                   </div><!-- card body ends -->
               </div><!-- card ends -->
@@ -56,56 +77,50 @@
           </div><!-- Row ends -->           
         </div><!-- Container-fluid ends -->
         
-        <h2 class="subtitle">Section title</h2>
+        <h2 class="subtitle">Upcoming Appointments</h2>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-              </tr>
-              <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-              </tr>
-            </tbody>
-          </table>
+        <?php 
+          if(isset($data['appointments'])){
+            if(!empty($data['appointments'])){
+              echo "<table class='table table-striped table-sm' >";
+              echo "<thead>";
+              echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Date</th>";
+                echo "<th>Time</th>";
+                echo "<th>Patient Name</th>";
+                echo "<th>Patient Tel.</th>";
+                echo "<th>Status</th>";
+              echo "</tr>";
+              echo "</thead>";
+              echo "<tbody>";
+              foreach($data['appointments'] as $appointment){
+                $r1 = "<td>". $appointment['id'] . "</td>";
+                $r2 = "<td>" . $appointment['date'] . "</td>";
+                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
+                $r4 = "<td>" . $appointment['firstname'] . "</td>";
+                $r5 = "<td>" . $appointment['telephone'] . "</td>";
+                $color = getStatusColor($appointment['status']);
+                $r6 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
+                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 . $r6 . "</tr>";
+
+                echo $row;
+              }
+              echo " </tbody>";
+              echo "</table>";
+             
+            }else {
+              echo "<br><p>" . 'No any Appointment available.' . "</p>";
+            }
+          }elseif(isset($data['db_err_1']) && !empty($data['db_err_1'])) {
+            echo "<br><p style='color:red'>" . $data['db_err_1'] . "</p>";
+          }else {
+            echo "<br><p style='color:red'>" . 'System failure.' . "</p>";
+          }
+        ?>
         </div>
       </main>
-<?php require_once APPROOT."/views/inc/footer.php"; ?>
+
+
+
+      <?php require_once APPROOT."/views/inc/footer.php"; ?>

@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.css">
   <script src="<?php echo URLROOT; ?>/js/feather-icons.js"></script>
   <link href="<?php echo URLROOT; ?>/css/dashboard.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>  
 
 <body>
@@ -49,37 +51,40 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="<?php echo URLROOT; ?>\admin\index" id="a">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\index" id="index">
                 <span data-feather="home"></span>
                 Home <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="b">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\doctors" id="doctors">
                 <span data-feather="calendar"></span>
                 Doctors
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\patients" id="c">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\patients" id="patients">
                 <span data-feather="users"></span>
                 Patients
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\appointments" id="d">
+              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\appointments" id="appointments">
                 <span data-feather="file-plus"></span>
                 Appointments
               </a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo URLROOT; ?>\admin\message" id="e">
-                <span data-feather="message-circle"></span>
-                Messages
-              </a>
-            </li>
+            <?php 
+              if($_SESSION['role']=='chat_admin'){
+                echo '<li class="nav-item">
+                  <a class="nav-link" href="'.URLROOT.'\admin\message" id="message">
+                    <span data-feather="message-circle"></span>
+                    Messages
+                  </a>
+                </li>';
+              }
+            ?>
             
           </ul>          
         </div>
