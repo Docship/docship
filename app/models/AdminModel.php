@@ -1,13 +1,11 @@
 <?php
-
-    class AdminModel {
+    class AdminModel{
 
         private $DB;
 
         public function __construct(){
             $this->DB = LibFactory::getInstance()->getLibrary('Database');
         }
-
 
         public function isExistByEmail($email){
 
@@ -30,7 +28,7 @@
 
         public function findByEmailAndPassword($email, $pwd){
             $sql = "SELECT * FROM `admin` WHERE email='$email'";
-            $result = $this->DB->selectOne($sql);
+            $result = $this->DB->selectAll($sql);
 
             $output = array();
             
@@ -41,7 +39,7 @@
                     // email not exist
                     return $output;
                 }
-                $admin = $result;
+                $admin = $result[0];
                 $password = $admin['pwd'];
                 $pwdmatch = password_verify($pwd , $password);
                 if($pwdmatch){

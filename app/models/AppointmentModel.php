@@ -1,6 +1,6 @@
 <?php
 
-    class AppointmentModel {
+    class AppointmentModel{
 
         private $DB;
 

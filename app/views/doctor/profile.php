@@ -1,3 +1,9 @@
+<?php 
+  function getRating($rate){
+    return ($rate/5)*100;
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +31,7 @@
             <div class="text-muted m-0 p-0"><?php if(isset($data['doctor'])) echo $data['doctor']['category']; ?></div>
             <div class="text-muted m-0 p-0"><?php if(isset($data['doctor'])) echo $data['doctor']['college']; ?></div>
             <div class="progress mx-4 my-3">
-              <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
+              <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $data['doctor']['rating']; ?>%"></div>
             </div>
             <script src="<?php echo URLROOT; ?>/js/subcribe.js"></script>
             <?php 

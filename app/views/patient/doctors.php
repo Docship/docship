@@ -7,6 +7,10 @@
     }
   }
 
+  function getRating($rate){
+    return ($rate/5)*100;
+  }
+
 ?>
 
 <?php require_once APPROOT."/views/inc/header_patient.php"; ?>
@@ -128,7 +132,7 @@
                     <h4 class="m-0">Dr. ' . $doctor["firstname"] . ' ' . $doctor["lastname"] . ' </h4>
                     <p class="text-muted"> ' . $doctor["category"] . ' </p>
                     <div class="progress mx-4 mb-2">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
+                      <div class="progress-bar bg-warning" role="progressbar" style="width: '.getRating($doctor['rating']).'%"></div>
                     </div>
                     '.getSubcribeButton($doctor['is_sub'] , $doctor['id']).'
         

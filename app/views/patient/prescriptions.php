@@ -1,6 +1,6 @@
 <?php require_once APPROOT."/views/inc/header_patient.php"; ?>
 
-
+<main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4">
   <div class="card-columns m-3">
 
   <?php
@@ -27,5 +27,5 @@
   ?>
 
   </div>
-
+</main>
 <?php require_once APPROOT."/views/inc/footer.php"; ?>

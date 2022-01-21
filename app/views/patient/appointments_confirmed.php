@@ -47,10 +47,9 @@
 
       <div class="col-auto">
         <select id="search" class="custom-select">
-          <option value = "id" >Search by Id</option>
-          <option value="name" selected>Search by Name</option>
-          <option value="date">Search by Date</option>
-          <option value="receipt">Search by Receipt</option>
+        <option value = "app-id" >Search by Id</option>
+          <option value="name-of-doc" selected>Search by Name</option>
+          <option value="app-date">Search by Date</option>
         </select>
       </div>
 
@@ -83,15 +82,15 @@
               echo "</thead>";
               echo "<tbody>";
               foreach($data['appointments'] as $appointment){
-                $r1 = "<td>". $appointment['id'] . "</td>";
-                $r2 = "<td>" . $appointment['date'] . "</td>";
-                $r3 = "<td>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
-                $r4 = "<td><a href='".URLROOT."/doctor/detail/".$appointment['doctor_id']."'>Dr. " . $appointment['firstname'] . "</a></td>";
+                $r1 = "<td class='app-id'>". $appointment['id'] . "</td>";
+                $r2 = "<td class='app-date'>" . $appointment['date'] . "</td>";
+                $r3 = "<td class='app-time'>" . date('h:i A', strtotime($appointment['time'])) . "</td>";
+                $r4 = "<td class='name-of-doc'><a href='".URLROOT."/doctor/detail/".$appointment['doctor_id']."'>Dr. " . $appointment['firstname'] . "</a></td>";
                 $color = getStatusColor($appointment['status']);
                 $r5 = "<td><span class= 'status " . $color . "'></span>".$appointment['status'] . "</td>";
                 //$r6 = "<td><button type='submit' id='".$appointment['id']."1'>Precription</button></td>";
                 $r7 = "<td>".getRateButton($appointment['is_rated'] , $appointment['id'] , $appointment['status'])."</td>";
-                $row = "<tr>" . $r1 .$r2 . $r3 . $r4 . $r5 .$r7 . "</tr>";
+                $row = "<tr class='appoinments'>" . $r1 .$r2 . $r3 . $r4 . $r5 .$r7 . "</tr>";
 
                 echo $row;
               }
@@ -107,5 +106,32 @@
         ?>
   </div>
 </main>
+
+<script>
+  const listOfAppoinments = document.getElementsByClassName('appoinments');
+
+  function filterfunction(selectedFilter,input) {
+    var filterByName = input.value.toUpperCase();
+    for (let i = 0; i < listOfAppoinments.length; i++) {
+      const name = listOfAppoinments[i].getElementsByClassName(selectedFilter);
+      console.log(name[0].innerHTML);
+      if (name[0]) {
+        var nameInsideH4 = name[0].innerHTML;
+
+        if (nameInsideH4.toUpperCase().indexOf(filterByName) > -1) {
+          listOfAppoinments[i].hidden = false;
+        } else {
+          listOfAppoinments[i].hidden = true;
+        }
+      }
+    }
+  }
+  var input = document.getElementById('filter');
+  input.addEventListener('keyup', e => {
+    const selectedFilter=document.getElementById('search').value;
+    filterfunction(selectedFilter,input);
+  });
+
+</script>
 
 <?php require_once APPROOT."/views/inc/footer.php"; ?>
