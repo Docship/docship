@@ -31,7 +31,8 @@
         public function findByIdForDoctor($id){
             $sql = "SELECT * FROM `prescription` WHERE id='$id'";
 
-            $sql1 = "SELECT prescription.id , prescription.doctor_id , prescription.subject , prescription.description , prescription.issue_date , patient.firstname , patient.lastname FROM prescription INNER JOIN patient ON prescription.patient_id = patient.id WHERE prescription.id=$id";
+            $sql1 = "SELECT prescription.id , prescription.doctor_id , prescription.subject , prescription.description , prescription.issue_date , patient.firstname , patient.lastname FROM prescription INNER JOIN patient ON prescription.patient_id = patient.id WHERE prescription.id='$id'";
+
 
             $result = $this->DB->selectAll($sql1);
 
@@ -57,7 +58,7 @@
         public function findByIdForPatient($id){
             $sql = "SELECT * FROM `prescription` WHERE id='$id'";
 
-            $sql1 = "SELECT prescription.id , prescription.doctor_id , prescription.subject , prescription.description , prescription.issue_date , doctor.firstname , doctor.lastname , doctor.telephone FROM prescription INNER JOIN doctor ON prescription.doctor_id = doctor.id WHERE prescription.id=$id";
+            $sql1 = "SELECT prescription.id , prescription.doctor_id , prescription.subject , prescription.description , prescription.issue_date , doctor.firstname , doctor.lastname , doctor.telephone FROM prescription INNER JOIN doctor ON prescription.doctor_id = doctor.id WHERE prescription.id='$id'";
 
             $result = $this->DB->selectAll($sql1);
 
@@ -82,14 +83,14 @@
 
         public function insert($data){
 
-            $patient_id  = $data['patient_id '];
-            $description = $data['description'];
+            $patient_id  = $data['patient_id'];
+            $description = $data['desc'];
             $issue_date = $data['issue_date'];
             $doctor_id = $data['doctor_id'];
-            $subject = $data['subject'];    
+            $subject = $data['subject'];
+            $id = $data['id'];    
 
-            $sql = "INSERT INTO `prescription` (`patient_id` , `doctor_id` , `description`, `issue_date` , `subject`) 
-                        VALUES ('$patient_id' , '$doctor_id' , '$description' ,'$issue_date' , '$subject')";
+            $sql = "INSERT INTO `prescription`(id , `doctor_id`, `patient_id`, `subject`, `description`, `issue_date`) VALUES ('$id' , $doctor_id,$patient_id,'$subject','$description','$issue_date')";
 
             $result = $this->DB->insert($sql , [] , 'prescription');
 
@@ -106,9 +107,8 @@
             $doctor_id = $data['doctor_id'];
             $id = $data['id'];
 
-            $sql = "UPDATE `prescription` SET `doctor_id`=$doctor_id,`patient_id`=$patient_id,`subject`='$subject',`description`='$description',`issue_date`='$issue_date' WHERE id=$id";
+            $sql = "UPDATE `prescription` SET `doctor_id`=$doctor_id,`patient_id`=$patient_id,`subject`='$subject',`description`='$description',`issue_date`='$issue_date' WHERE id='$id'";
 
-            
 
             $result = $this->DB->update($sql , [] , 'prescription');
 

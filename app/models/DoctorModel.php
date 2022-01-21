@@ -11,7 +11,7 @@
 
         public function isExistByEmail($email){
 
-            $sql = "SELECT * FROM `doctor` WHERE email='$email'";
+            $sql = "SELECT * FROM `doctor` WHERE email='$email' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             
             if(($result!=-1)){
@@ -30,7 +30,7 @@
 
         public function isExistByNIC($nic){
 
-            $sql = "SELECT * FROM `doctor` WHERE nic='$nic'";
+            $sql = "SELECT * FROM `doctor` WHERE nic='$nic' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
 
             
@@ -51,7 +51,7 @@
 
         public function isExistById($id){
 
-            $sql = "SELECT * FROM `doctor` WHERE id='$id'";
+            $sql = "SELECT * FROM `doctor` WHERE id='$id' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             
             if(!is_null($result)){
@@ -70,7 +70,7 @@
 
         public function findById($id){
 
-            $sql = "SELECT * FROM `doctor` WHERE id='$id'";
+            $sql = "SELECT * FROM `doctor` WHERE id='$id' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             
             $output = array();
@@ -94,7 +94,7 @@
 
         public function findByNICAll($nic){
 
-            $sql = "SELECT * FROM `doctor` WHERE nic='$nic'";
+            $sql = "SELECT * FROM `doctor` WHERE nic='$nic' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             
             $output = array();
@@ -118,7 +118,7 @@
 
         public function findByEmailAll($email){
 
-            $sql = "SELECT * FROM `doctor` WHERE email='$email'";
+            $sql = "SELECT * FROM `doctor` WHERE email='$email' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             
             $output = array();
@@ -141,7 +141,7 @@
         }
 
         public function findByEmailAndPassword($email, $pwd){
-            $sql = "SELECT * FROM `doctor` WHERE email='$email'";
+            $sql = "SELECT * FROM `doctor` WHERE email='$email' AND is_remove=0";
             $result = $this->DB->selectOne($sql);
 
             $output = array();
@@ -307,7 +307,7 @@
         }
 
         public function isDoctorWroking($id , $date , $time=null){
-            $sql = "SELECT * FROM `doctor` WHERE id='$id'";
+            $sql = "SELECT * FROM `doctor` WHERE id='$id' AND is_remove=0";
             $result = $this->DB->selectOne($sql);
 
             $output = array();
@@ -348,14 +348,14 @@
         }
 
         public function getAll(){
-            $sql = "SELECT * FROM `doctor` WHERE 1";
+            $sql = "SELECT * FROM `doctor` WHERE is_remove=0";
             $result = $this->DB->selectAll($sql);
             return $result;
         }
 
         public function delete($id){
-            $sql = "DELETE FROM `doctor` WHERE id='$id'";
-            $result = $this->DB->delete($sql);
+            $sql = "UPDATE `doctor` SET is_remove=1 WHERE id='$id'";
+            $result = $this->DB->update($sql);
             return $result;
         }
 

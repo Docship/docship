@@ -20,6 +20,8 @@
           'desc_err' => ''
         ];
 
+        
+
         $result_app = $this->model('appointment')->findById($id);
 
         $appointment = $result_app['value'];
@@ -39,7 +41,11 @@
             $data['id'] = $appointment['prescription_id'];
             $result = $model->update($data);
           }else {
+            $bytes = random_bytes(5);
+            $p_id = bin2hex($bytes);
+            $data['id'] = $p_id;
             $result = $model->insert($data);
+            $this->model('appointment')->addPrescriptionId($id , $p_id);
           }
 
           if($result==0){
@@ -74,9 +80,6 @@
             $result_pat = $this->model('patient')->findById($appointment['patient_id']);
 
             $data['patient'] = $result_pat['value'];
-
-           
-            
 
             if($appointment['prescription_id']!=0){
               $result_pres = $this->model('prescription')->findByIdForDoctor($appointment['prescription_id']);

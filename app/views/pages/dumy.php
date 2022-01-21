@@ -18,7 +18,7 @@ echo $doctor[0]; echo "<br>";
 echo "Dumy Page </br>";
 
 
-foreach($result_msg as $x => $x_value) {
+foreach($data as $x => $x_value) {
 
   echo "Key=" . $x . ", Value=" . $x_value . "<br>";
     
@@ -30,7 +30,7 @@ foreach($result_msg as $x => $x_value) {
     
   }
 
-echo $output;
+echo $sql;
 
 
 

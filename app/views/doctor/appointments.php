@@ -14,7 +14,7 @@
   function getConfirmTick($condition , $id){
     switch($condition){
       case '1':
-        return "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$id."' disabled>". $id . "</td>";
+        return "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$id."'>". $id . "</td>";
       case '0':
         return "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$id."' disabled>". $id . "</td>";
       default: return "<td><input class='appointmentCheckbox' id='appointment-id' type='checkbox' value='".$id."' disabled>". $id . "</td>";       
@@ -40,6 +40,7 @@
           <div class="btn-toolbar mb-2 mb-md-0">
 
             <div class="btn-group mr-2">
+            <script src="<?php echo URLROOT; ?>/js/appointment_confirm.js"></script>
               <button type="button" class="btn btn-sm btn-success d-flex justify-content-center" id="appointment-form" onclick="confirm();">
                 <span data-feather="x-circle" class="mr-2"></span>
                 Confirm

@@ -14,13 +14,13 @@
   function getRateButton($rate , $id , $confirm){
     $href= URLROOT."/rate/add/".$id;
     if($rate == '1'){
-      $b = "<a><button disabled>Rate</button></a>";
+      $b = "<a><button class='btn btn-sm btn-secondary d-flex justify-content-center ml-2' disabled>Rate</button></a>";
       return $b;
     }else if($confirm == "CONFIRMED") {
-      $b = "<a href='".$href."'><button>Rate</button></a>";
+      $b = "<a href='".$href."'><button class='btn btn-sm btn-secondary d-flex justify-content-center ml-2'>Rate</button></a>";
       return $b;
     }else {
-      $b = "<a><button disabled>Rate</button></a>";
+      $b = "<a><button class='btn btn-sm btn-secondary d-flex justify-content-center ml-2' disabled>Rate</button></a>";
       return $b;
     }
   }

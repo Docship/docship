@@ -212,6 +212,12 @@
             return $result;
         }
 
+        public function addPrescriptionId($id , $p_id){
+            $sql = "UPDATE `appointment` SET `prescription_id` = '$p_id' WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
         public function getConfirmedByPatient($patient_id){
             $sql = "SELECT * FROM `appointment` WHERE patient_id = $patient_id AND is_exit = 0 AND status = 'CONFIRMED' ORDER BY `date` DESC";
 

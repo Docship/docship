@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
               <label for="text">Issue Date</label>
-              <input type="text" class="form-control" id="date" name="issue_date" value="<?php echo $data['issue_date']; ?>">
+              <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"         class="form-control form-control-lg shadow-none" name="issue_date" value="<?php echo $data['issue_date']; ?>">
             </div>
             <div class="form-group">
               <label for="text">Patient Telephone</label>
