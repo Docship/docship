@@ -41,16 +41,30 @@ final class Database {
         return self::$database;
       }
 
-    public function insert($sql , $params = []){
+    public function insert($sql , $params = [] , $table){
 
         try{
             if ($this->mysqli -> connect_errno) {
                 //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
                 return -1;
               }
-            $this->mysqli -> query($sql);
+
+            if($this->mysqli->query($sql)){
+                sleep(0.5);
+                return 0;
+            }
+            if($this->mysqli→errno){
+                return 1;
+            }
+            /*
+            if (!$this->mysqli -> query($sql)) {
+                return -1;
+            }
+            */
+            return 0;
             //$this->mysqli -> close();
-            return 1;
+            
+            //return $id;
         }catch(Exception $e){
             //$this->mysqli -> close();
             return -1;
@@ -78,15 +92,24 @@ final class Database {
 
             if ($this->mysqli -> connect_errno) {
                 //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
-                return null;
+                return -1;
             }
             $result = $this->mysqli->query($sql);
+
+            if($result->num_rows > 0){
+                return $result->fetch_all(MYSQLI_ASSOC);
+            }else {
+                return [];
+            }
             //$this->mysqli -> close();
+
+            $result_arr = $result->fetch_all(MYSQLI_ASSOC);
+            mysqli_free_result($result);
             
-            return $result->fetch_all(MYSQLI_ASSOC);
+            return $result_arr;
         }catch(Exception $e){
             //$this->mysqli -> close();
-            return null;
+            return -1;
         }
 
         /*
@@ -110,8 +133,8 @@ final class Database {
     public function selectOne($sql , $params = []){
         try{
             if ($this->mysqli -> connect_errno) {
-                //echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
-                return null;
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
             }
             $result = $this->mysqli->query($sql);
             //$this->mysqli -> close();
@@ -119,7 +142,7 @@ final class Database {
             return $result->fetch_assoc();
         }catch(Exception $e){
             //$this->mysqli -> close();
-            return null;
+            return -1;
         }
     }
 
@@ -140,6 +163,8 @@ final class Database {
 
         return $type;
     }
+
+    /*
       
     public function query($sql){
         $stmt = $this->dbh->prepare($sql);
@@ -209,5 +234,77 @@ final class Database {
         return ERR_DB;
         
     }
+    */
+
+    public function delete($sql , $params = []){
+        try{
+            if ($this->mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
+            }
+            if($this->mysqli->query($sql)){
+                return 0;
+            }
+            if($this->mysqli→errno){
+                return 1;
+            }
+            
+        }catch(Exception $e){
+            return -1;
+        }
+    }
+
+    public function execute($sql , $params = []){
+        try{
+            if ($this->mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
+            }
+            $result =  mysqli_query($this->mysqli , $sql);
+            $row = mysqli_fetch_object($result);
+            $value = $row->value;
+            if($value==null) $value = 0;
+            return $value;
+            
+        }catch(Exception $e){
+            return -1;
+        }
+    }
+
+    public function update($sql , $params = []){
+        try{
+            if ($this->mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
+                return -1;
+            }
+            if($this->mysqli->query($sql)){
+                return 0;
+            }
+            if($this->mysqli→errno){
+                return 1;
+            }
+            
+        }catch(Exception $e){
+            return -1;
+        }
+    }
+
+    public function getLast($table){
+        $sql = "SELECT * FROM `$table` ORDER BY ID DESC LIMIT 1";
+
+        try{
+            if ($this->mysqli -> connect_errno) {
+                return -1;
+            }
+            $result = $this->mysqli->query($sql);
+            
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }catch(Exception $e){
+            //$this->mysqli -> close();
+            return -1;
+        }
+
+    }
+
 
 }

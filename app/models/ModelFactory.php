@@ -17,16 +17,25 @@
 
         public function getModel($name){
             $name = ucwords($name);
-            if(isset($libs[$name])){
-                return $libs[$name];
+            if(isset($models[$name])){
+                return $models[$name];
             }else{
                 //require_once '../app/libraries/LibFactory.php';
                 // Require the Model
-                require_once $name . 'Model.php';
-                $model = $name . 'Model';
-                $lib = new $model;
-                $libs[$name] = $lib;
-                return $lib;
+                try {
+                    if (! @include_once( $name . 'Model.php' )){
+                        throw new Exception ('functions.php does not exist');
+                    }
+                    //require_once $name . 'Model.php';
+                    $model = $name . 'Model';
+                    $lib = new $model;
+                    $models[$name] = $lib;
+                    return $lib;
+                }
+                catch(Exception $e) {    
+                    return null;
+                }
+                
             }
         }
     }

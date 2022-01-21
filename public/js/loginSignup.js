@@ -4,18 +4,20 @@ const signIn = document.querySelectorAll(".sign-in"),
     signInForm = document.querySelector(".sign-in-form"),
     signUpForm = document.querySelector(".sign-up-form"),
     lostPasswordForm = document.querySelector(".lost-password-form");
-const inputs = document.querySelectorAll('input');
+const inputs = document.querySelectorAll('.input-text');
 const smalls = document.querySelectorAll('small');
-const submitReg = document.getElementById('submit-reg');
+const submitReg = document.getElementById('submit-reg-patient');
 const select = document.querySelector('select');
+const bday = document.getElementById('bday');
+
 
 //regex for validation
 const patterns = {
     telephone: /^\d{10}$/,
-    firstName: /^[a-z\d]{3,12}$/,
-    lastName: /^[a-z\d]{3,12}$/,
+    fname: /^[a-zA-Z\d]{3,12}$/,
+    lname: /^[a-zA-Z\d]{3,12}$/,
     password: /^[\w@-]{8,20}$/,
-    email: /^([a-z\d\.-]+)(@[a-z\d-]+)\.([a-z]+)(\.[a-z]+)?$/,
+    email: /^([a-zA-Z\d\.-]+)(@[a-zA-Z\d-]+)\.([a-zA-Z]+)(\.[a-zA-Z]+)?$/,
     repassword: /^$/
 };
 
@@ -34,11 +36,12 @@ function validate(field, regex) {
     }
 }
 
-inputs[6].addEventListener('change', (e) => {
+bday.addEventListener('change', (e) => {
     if (e.target.value != '') {
         e.target.classList.add('valid');
         isBdaySelect=true;
-    }
+    }else isBdaySelect=false;
+
     buttonDisabler(addedInputData,genderSelect,isBdaySelect);
 });
 
@@ -47,7 +50,7 @@ inputs[6].addEventListener('change', (e) => {
 select.addEventListener('change', (e) => {
     e.target.classList.add('valid')
     genderSelect = true;
-    console.log(addedInputData,genderSelect,isBdaySelect);
+    //console.log(addedInputData,genderSelect,isBdaySelect);
     buttonDisabler(addedInputData,genderSelect,isBdaySelect);
 });
 
@@ -80,7 +83,8 @@ inputs.forEach((input) => {
         });
         console.log(valids);
         if ((valids == 6)) addedInputData=true;
-        else inputData=false;
+        else addedInputData=false;
+        //console.log(addedInputData);
         buttonDisabler(addedInputData,genderSelect,isBdaySelect);
     });
 });
@@ -201,3 +205,18 @@ function HandleBackendError(url, urlError) {
 
 let error = readError();
 HandleBackendError(error[0], error[1]);
+
+
+//upload image
+
+// $('#uploadImage').on('change',function(){
+//     //get the file name
+//     var fileName = $(this).val();
+//     //replace the "Choose a file" label
+//     $(this).next('.custom-file-label').html(fileName);
+// })
+
+$('input[type="file"]').change(function(e){
+    var fileName = e.target.files[0].name;
+    $('.custom-file-label').html(fileName);
+});

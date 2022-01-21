@@ -12,13 +12,26 @@
         }
 
         public static function isValidName($name){
-            $result = true;
 
-            if(!preg_match("/^[a-z\d]{3,12}$/", $name)){
-                $result = false;
+            $result = false;
+
+
+            if((preg_match('/^[a-zA-Z0-9]{3,20}$/', $name))){
+                $result = true;
             }
-            return true;
+            return $result;
         }
+
+
+        public static function isValidCollege($name){
+            $result = false;
+
+            if((preg_match('/^[a-z\d\s]+$/', $name))){
+                $result = true;
+            }
+            return $result;
+        }
+
 
         public static function isValidEmail($email) {
 
@@ -46,10 +59,19 @@
             return (strlen($pwd)<8 && !preg_match("/^[\w@-]{8,20}$/" , $pwd))?false:true;
         }
 
-        public static function isValidTime($working_time){
+
+        public static function isValidTimeFormate($time){
             //validate the time
             //format = 10.21 AM 
-            return (!preg_match("/^[0-1]\d\.[0-1]\d (A|P)M/" , $working_time))?false:true;
+            return (!preg_match("/^1?\d.\d\d\s[AP]M$/" , $time))?false:true;
+            //return is_object(DateTime::createFromFormat('h:i a', $time));
+        }
+
+        public static function isValidTime($time){
+            //validate the time
+            //format = 10.21 AM 
+            //return (!preg_match("/^[0-1]\d\.[0-1]\d (A|P)M/" , $working_time))?false:true;
+            return is_object(DateTime::createFromFormat('h:i a', $time));
         }
 
         public static function isValidGender($gender){
@@ -61,7 +83,9 @@
                 $first_letters = substr($nic, 0, strlen($nic)-1);
                 $last_letter = substr($nic,strlen($nic)-1);
                 $last_letter_valid = $last_letter==="V" || $last_letter==="v" || $last_letter==="X" || $last_letter==="x";
-                if(is_numeric($first_letters) && last_letter_valid){
+
+                if(is_numeric($first_letters) && $last_letter_valid){
+
                     return true;
                 }else{
                     return false;
@@ -89,37 +113,38 @@
             $day   = $date_arr[2];
 
             return checkdate($month, $day, $year);
+
         }
 
+        public static function getDateNumber($date){
+            $weekday = date('l', strtotime($date));
+            $map = array(
+            "Monday" => 1,
+            "Tuesday" => 2,
+            "Wednesday" => 3,
+            "Thursday" => 4,
+            "Friday" => 5,
+            "Saturday" => 6,
+            "Sunday" => 7
+            );
 
-        public static function isValidAmount($amount){
-            // To convert this number to a string:
-            $amountString = (string)$amount;
-            // Try to convert the string to a float
-            $floatVal = floatval($amountString);
-            // If the parsing succeeded and the value is not equivalent to an int
-            return ($floatVal && intval($floatVal) != $floatVal); //$amount is a float
-        
+            return $map[$weekday];
         }
 
-        public static function checkAppointmentData(&$data){
-            $result = true;
-
-            if(!self::isValidTime($data['time'])){
-                $result = false;
-                $data['time_err'] = "Invalid time";
-            }
-            if(!self::isValidDate($data['date'])){
-                $result = false;
-                $data['date_err'] = "Invalid date";
-            }
-            if(!self::isValidAmount($data['amount'])){
-                $result = false;
-                $data['amount_err'] = "Invalid amount";
+        public static function isTimeBetween($t1 , $t2 , $t3){
+            $t1 =  date("H:i", strtotime($t1)); 
+            $t2 =  date("H:i", strtotime($t2)); 
+            $t3 =  date("H:i", strtotime($t3)); 
+            $start = strtotime($t1);
+            $end = strtotime($t2);
+            $time = strtotime($t3);
+            
+            if($time >= $start && $time <= $end) {
+                return true;
+            } else {
+                return false;
             }
 
-
-            return $result;
         }
 
         public static function isValidBank($bank_name){
@@ -224,6 +249,26 @@
             //              && len($bank_acc_no)=$lengthOfAccNo then return true
             // else return false;
             //}
+
+        }
+
+        public static function isValidAmount($amount){
+            /*
+            // To convert this number to a string:
+            $amountString = (string)$amount;
+            // Try to convert the string to a float
+            $floatVal = floatval($amountString);
+            // If the parsing succeeded and the value is not equivalent to an int
+            return ($floatVal && intval($floatVal) != $floatVal); //$amount is a float
+            */
+
+            
+            $amountString = (string)$amount;
+            if(!preg_match("/^\d+(\.\d\d?)?$/" , $amountString)){
+                return false;
+            }
+            return true;
+        
         }
 
 
@@ -284,6 +329,10 @@
                 $result = false;
                 $data['passw0rd_err'] = "Invalid Password format";
             }
+            if(empty($data['role']) || !($data['role'] == 'admin' || $data['role'] == 'patient' || $data['role'] == 'doctor')){
+                $result = false;
+                $data['role_err'] = "Invalid Role";
+            }
             return $result;
 
         }
@@ -312,7 +361,7 @@
             }
             if(self::isEmptyString($data['repassword']) ||!self::isValidPassward($data['repassword'])){
                 $result = false;
-                $data['passward_err'] = "Invalid Passward formt";
+                $data['repassward_err'] = "Invalid Passward formt";
             }
             if(!self::isStringMatching($data['password'] , $data['repassword'])){
                 $result = false;
@@ -334,15 +383,17 @@
                 $result = false;
                 $data['category_err'] = "Invalid Input format for category";
             }
-            if(self::isEmptyString($data['college']) || !self::isValidName($data['college']) ){
+
+            if(self::isEmptyString($data['college']) || !self::isValidCollege($data['college']) ){
                 $result = false;
                 $data['college_err'] = "Invalid Input format for college";
             }
-            if(!self::isValidTime($data['working_from'])){
+            if(!self::isValidTimeFormate($data['working_from'])){
                 $result = false;
                 $data['working_from_err'] = "Invalid Input format for college 'Working From' time";
             }
-            if(!self::isValidTime($data['working_to'])){
+            if(!self::isValidTimeFormate($data['working_to'])){
+
                 $result = false;
                 $data['working_to_err'] = "Invalid Input format for college 'Working To' time";
             }
@@ -350,10 +401,7 @@
                 $result = false;
                 $data['nic_err'] = "Invalid Input format for nic";
             }
-            if(self::isEmptyString($data['gov_registration_no']) || !self::isValidGovRegNo($data['gov_registration_no']) ){
-                $result = false;
-                $data['gov_registration_no_err'] = "Invalid Input format for Government Registration No.";
-            }
+
             if($data['discount']<0.0){
                 $result = false;
                 $data['discount_err'] = "Discount cannot be lesser than 0.00";
@@ -364,11 +412,19 @@
             }
 
 
-            
+
+            /*            
+
             if(self::isEmptyString($data['bank_name']) || !self::isValidBank($data['bank_name'])){
                 $result = false;
                 $data['bank_name_err'] = "Invalid Bank name";
             }
+
+            if(self::isEmptyString($data['gov_registration_no']) || !self::isValidGovRegNo($data['gov_registration_no']) ){
+                $result = false;
+                $data['gov_registration_no_err'] = "Invalid Input format for Government Registration No.";
+            }
+
             if(self::isEmptyString($data['bank_branch']) || !self::isValidBankBranch($data['bank_branch'], $data['bank_name'])){
                 $result = false;
                 $data['bank_branch_err'] = "Invalid Bank branch";
@@ -377,16 +433,84 @@
                 $result = false;
                 $data['bank_acc_no_err'] = "Invalid Bank account no";
             }
-            if(self::isEmptyString($data['total_income']) || $data['total_income']!=0.0){
-                $result = false;
-                $data['total_income_err'] = "Total income must be 0.0 at the time of the registration.";
-            }
-            if(self::isEmptyString($data['current_arrears']) || $data['current_arrears']!=0.0){
-                $result = false;
-                $data['current_arrears_err'] = "Current arrears must be 0.0 at the time of the registration.";
-            }
+
+            */
 
 
+            return $result;
+        }
+
+        public static function checkDoctorEditData(&$data){
+
+            $result = true;
+
+            if(self::isEmptyString($data['fname']) || !self::isValidName($data['fname'])){
+                $result = false;
+                $data['fname_err'] = "Invalid Input format for First name";
+            }
+            if(self::isEmptyString($data['lname']) || !self::isValidName($data['lname']) ){
+
+                $result = false;
+                $data['lname_err'] = "Invalid Input format for Last name";
+            }
+
+            if(self::isEmptyString($data['email']) || !self::isValidEmail($data['email'])){
+
+                $result = false;
+                $data['email_err'] = "Invalid Email format";
+            }
+            if(self::isEmptyString($data['password']) ||!self::isValidPassward($data['password'])){
+                $result = false;
+                $data['passward_err'] = "Invalid Passward formt";
+            }
+            if(self::isEmptyString($data['repassword']) ||!self::isValidPassward($data['repassword'])){
+                $result = false;
+                $data['repassward_err'] = "Invalid Passward formt";
+            }
+            if(!self::isStringMatching($data['password'] , $data['repassword'])){
+                $result = false;
+                $data['passward_err'] = "Passward and Repassward are not matching each other.";
+            }
+            if(!self::isValidDate($data['bday'])){
+                $result = false;
+                $data['bday_err'] = "Invalid Birth date";
+            }
+            if(self::isEmptyString($data['gender']) || !self::isValidGender($data['gender'])){
+                $result = false;
+                $data['gender_err'] = "Invalid gender";
+            }
+            if($data['charge_amount']<0.0){
+                $result = false;
+                $data['charge_amount_err'] = "Charge amount cannot be lesser than 0.00";
+            }
+            if(self::isEmptyString($data['category']) || !self::isValidName($data['category']) ){
+                $result = false;
+                $data['category_err'] = "Invalid Input format for category";
+            }
+            if(self::isEmptyString($data['college']) || !self::isValidCollege($data['college']) ){
+                $result = false;
+                $data['college_err'] = "Invalid Input format for college";
+            }
+            if(!self::isValidTimeFormate($data['working_from'])){
+                $result = false;
+                $data['working_from_err'] = "Invalid Input format for college 'Working From' time";
+            }
+            if(!self::isValidTimeFormate($data['working_to'])){
+                $result = false;
+                $data['working_to_err'] = "Invalid Input format for college 'Working To' time";
+            }
+            if(self::isEmptyString($data['nic']) || !self::isValidNic($data['nic']) ){
+                $result = false;
+                $data['nic_err'] = "Invalid Input format for nic";
+            }
+            if($data['discount']<0.0){
+                $result = false;
+                $data['discount_err'] = "Discount cannot be lesser than 0.00";
+            }
+            if(self::isEmptyString($data['telephone']) || !self::isValidTelephone($data['telephone'])){
+                $result = false;
+                $data['telephone_err'] = "Invalid Phone Number format";
+            }
 
             return $result;
         }
@@ -427,6 +551,97 @@
             }
 
             return $result;
+        }
+
+        public static function checkAppointmentData(&$data){
+            $result = true;
+
+            if($data['time']=="" || !self::isValidTimeFormate($data['time'])){
+                $result = false;
+                $data['time_err'] = "invalid input";
+            }
+            if($data['date']=="" || !self::isValidDate($data['date'])){
+                $result = false;
+                $data['date_err'] = "invalid input";
+            }
+            if($data['charge']=="" || !self::isValidAmount($data['charge'])){
+                $result = false;
+                if(!($data['doctor']=="" || $data['doctor']=="Doctor")) $data['amount_err'] = "Invalid amount";
+            }
+            if($data['doctor']=="" || $data['doctor']=="Doctor"){
+                $result = false;
+                $data['doctor_err'] = "Select doctor";
+            }
+
+            return $result;
+        }
+
+        public static function checkPatientUpdateData(&$data){
+
+            $result = true;
+
+            if(self::isEmptyString($data['fname']) || !self::isValidName($data['fname'])){
+                $result = false;
+                $data['fname_err'] = "Please enter a valid name";
+            }
+            if(self::isEmptyString($data['lname']) || !self::isValidName($data['lname']) ){
+                $result = false;
+                $data['lname_err'] = "Please enter a valid name";
+            }
+            if(self::isEmptyString($data['email']) || !self::isValidEmail($data['email'])){
+                $result = false;
+                $data['email_err'] = "Please enter a valid email";
+            }
+            if(!self::isValidDate($data['bday'])){
+                $result = false;
+                $data['bday_err'] = "Please enter a valid date";
+            }
+            if(self::isEmptyString($data['telephone']) || !self::isValidTelephone($data['telephone'])){
+                $result = false;
+                $data['telephone_err'] = "Please enter a valid telephone number";
+            }
+            if(self::isEmptyString($data['gender']) || !self::isValidGender($data['gender'])){
+                $result = false;
+                $data['gender_err'] = "Please enter a valid gender";
+            }
+            
+            if(!self::isStringMatching($data['password'] , $data['repassword'])){
+                $result = false;
+                $data['repassward_err'] = "Passward and Repassward are not matching each other.";
+            }
+
+            return $result;
+        }
+
+        public static function validateRating(&$data){
+
+            $value = $data['value'];
+
+            $result = true;
+
+            if(!is_numeric($value)){
+                $result = false;
+                $data['value_err'] = "Rating must be a number";
+                return $result;
+            }
+            if($value>0 && $value<=5){
+                $result = false;
+                $data['value_err'] = "Invalid number for rating";
+                return $result;
+            }
+        }
+
+        public static function validatePayment(&$data){
+
+            $value = $data['value'];
+
+            $result = true;
+
+            if(!is_numeric($value)){
+                $result = false;
+                $data['value_err'] = "Payment must be a number";
+                return $result;
+            }
         }
 
         

@@ -3,10 +3,10 @@
   error_reporting(E_ERROR | E_PARSE);
 
   // Load Config
-  require_once 'config/config.php';
+  include_once 'config/config.php';
 
   // Load Helpers
-  require_once 'helpers/url_helper.php';
+  include_once 'helpers/url_helper.php';
 
   session_start();
 
@@ -16,7 +16,7 @@
     require_once 'libraries/' . $className . '.php';
   });
   */
-  
 
-  require_once 'libraries/LibFactory.php';
-
+  include_once 'libraries/LibFactory.php';
+  include_once 'libraries/Validate.php';
+  include_once 'libraries/Date.php';
