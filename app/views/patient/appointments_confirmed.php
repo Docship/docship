@@ -14,13 +14,13 @@
   function getRateButton($rate , $id , $confirm){
     $href= URLROOT."/rate/add/".$id;
     if($rate == '1'){
-      $b = "<a><button disabled>Rate</button></a>";
+      $b = "<a><button class='btn btn-sm btn-warning d-flex justify-content-center ml-2' disabled>Rate</button></a>";
       return $b;
     }else if($confirm == "CONFIRMED") {
-      $b = "<a href='".$href."'><button>Rate</button></a>";
+      $b = "<a href='".$href."'><button class='btn btn-sm btn-warning d-flex justify-content-center ml-2'>Rate</button></a>";
       return $b;
     }else {
-      $b = "<a><button disabled>Rate</button></a>";
+      $b = "<a><button class='btn btn-sm btn-warning d-flex justify-content-center ml-2' disabled>Rate</button></a>";
       return $b;
     }
   }
@@ -30,7 +30,7 @@
 
 <!-- Appointments -->
 <main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="b">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-2">
     <h2 class="title">Appointments</h2>
     <!--
     <div class="show-appointment-error">
@@ -40,9 +40,9 @@
   </div>
   <form class="my-1 d-flex justify-content-center border-bottom">
   <script src="<?php echo URLROOT; ?>/js/appointment_button.js"></script>
-    <div class="form-row mx-2">
+    <div class="form-row mx-2 mb-2">
       <div class="col-12 col-md-auto">
-        <input id="filter-name" type="text" class="form-control" placeholder="Search">
+        <input id="filter" type="text" class="form-control" placeholder="Search">
       </div>
 
       <div class="col-auto">

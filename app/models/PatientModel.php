@@ -11,7 +11,7 @@
 
         public function isExistByEmail($email){
 
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `patient` WHERE email='$email' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             
             if(!is_null($result)){
@@ -29,7 +29,7 @@
         }
 
         public function findByEmailAndPassword($email, $pwd){
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `patient` WHERE email='$email' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
 
             $output = array();
@@ -64,7 +64,7 @@
         }
 
         public function findById($id){
-            $sql = "SELECT * FROM `patient` WHERE id='$id'";
+            $sql = "SELECT * FROM `patient` WHERE id='$id' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             $output = [];
             
@@ -86,7 +86,7 @@
         }
 
         public function findByemail($email){
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `patient` WHERE email='$email' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             $output = [];
             
@@ -108,7 +108,7 @@
         }
 
         public function findByemailAll($email){
-            $sql = "SELECT * FROM `patient` WHERE email='$email'";
+            $sql = "SELECT * FROM `patient` WHERE email='$email' AND is_remove=0";
             $result = $this->DB->selectAll($sql);
             $output = [];
             
@@ -193,19 +193,19 @@
         }
 
         public function getAll(){
-            $sql = "SELECT * FROM `patient` WHERE 1";
+            $sql = "SELECT * FROM `patient` WHERE is_remove=0";
             $result = $this->DB->selectAll($sql);
             return $result;
         }
 
         public function delete($id){
-            $sql = "DELETE FROM `patient` WHERE id='$id'";
-            $result = $this->DB->delete($sql);
+            $sql = "UPDATE `patient` SET is_remove=1 WHERE id='$id'";
+            $result = $this->DB->update($sql);
             return $result;
         }
 
         public function getUID($id){
-            $sql = "SELECT * FROM `patient` WHERE id='$id'";
+            $sql = "SELECT * FROM `patient` WHERE id='$id' AND is_remove=0";
 
             $result = $this->DB->selectAll($sql);
             $output = [];

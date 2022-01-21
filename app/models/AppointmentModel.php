@@ -212,6 +212,12 @@
             return $result;
         }
 
+        public function addPrescriptionId($id , $p_id){
+            $sql = "UPDATE `appointment` SET `prescription_id` = '$p_id' WHERE id = $id;";
+            $result = $this->DB->update($sql);
+            return $result;
+        }
+
         public function getConfirmedByPatient($patient_id){
             $sql = "SELECT * FROM `appointment` WHERE patient_id = $patient_id AND is_exit = 0 AND status = 'CONFIRMED' ORDER BY `date` DESC";
 
@@ -294,7 +300,7 @@
         }
 
         public function findPendingForAdmin(){
-            $sql = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , doctor.firstname AS doctor_firstname , patient.firstname AS patient_firstname , patient.gender AS patient_gender FROM appointment INNER JOIN doctor ON doctor.id=appointment.doctor_id INNER JOIn patient ON patient.id=appointment.patient_id WHERE appointment.is_exit = 0 AND appointment.status = 'PENDING'";
+            $sql = "SELECT appointment.id , appointment.doctor_id , appointment.time , appointment.date , appointment.receipt_id , appointment.prescription_id , appointment.is_paid , appointment.description , appointment.is_rated , appointment.is_exit , appointment.status , appointment.receipt_id , doctor.firstname AS doctor_firstname , patient.firstname AS patient_firstname , patient.gender AS patient_gender FROM appointment INNER JOIN doctor ON doctor.id=appointment.doctor_id INNER JOIn patient ON patient.id=appointment.patient_id WHERE appointment.is_exit = 0 AND appointment.status = 'PENDING'";
 
             $result = $this->DB->selectAll($sql);
 

@@ -16,7 +16,7 @@
       case '0':
         return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';
       case '1':
-        return '<a href="'.$link.'"><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2">Zoom</button></a>';
+        return '<a href="'.$link.'"><button class="btn btn-sm btn-primary d-flex justify-content-center ml-2">Zoom</button></a>';
       default: return '<a><button class="btn btn-sm btn-secondary d-flex justify-content-center ml-2" disabled>Zoom</button></a>';       
     }
     
@@ -28,7 +28,7 @@
 
 <!-- Appointments -->
 <main role="main" class="appointments col-md-9 ml-sm-auto col-lg-10 px-md-4" id="b">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-2">
     <h2 class="title">Appointments</h2>
     <!--
     <div class="show-appointment-error">
@@ -51,9 +51,9 @@
 
   <form class="my-1 d-flex justify-content-center border-bottom">
   <script src="<?php echo URLROOT; ?>/js/appointment_button.js"></script>
-    <div class="form-row mx-2">
+    <div class="form-row mx-2 mb-2">
       <div class="col-12 col-md-auto">
-        <input id="filter-name" type="text" class="form-control" placeholder="Search">
+        <input id="filter" type="text" class="form-control" placeholder="Search">
       </div>
 
       <div class="col-auto">

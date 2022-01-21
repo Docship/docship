@@ -54,7 +54,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="<?php echo URLROOT; ?>/patient/appointments" class="btn btn-success btn-lg btn-block">OK</a>
+                        <a href="<?php echo URLROOT; ?>/<?php echo ($_SESSION['role'] == 'patient')?'patient':'admin' ?>/appointments" class="btn btn-success btn-lg btn-block">OK</a>
                         <!-- <button type="button" class="btn btn-danger btn-lg btn-block">
                         Not Completed
                     </button> -->
