@@ -53,6 +53,7 @@ function checkWhenLoad() {
         validInputs(element);
     });
     validateSelects(select);
+    validBday(bday);
 }
 
 bday.addEventListener('change', (e) => {
