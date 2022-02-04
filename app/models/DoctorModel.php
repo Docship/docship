@@ -321,10 +321,9 @@
                     return $output;
                 }else {
                     $working_days = $doctor['working_days'];
-                    $day = Date::getDateNumber($date);
+                    $day = Validate::getDateNumber($date);
 
-
-                    if(strpos($working_days, strval($day))){
+                    if(strpos($working_days, strval($day))!== false){
                         $r = Date::isTimeBetween($doctor['working_from'] , $doctor['working_to'] , $time);
                         if($r==true){
                             $output['value'] = true;
@@ -338,6 +337,7 @@
                         $output['error'] = "not exist day";
                         $output['value'] = false;
                         return $output;
+                        
                     }
                 }
             }else {

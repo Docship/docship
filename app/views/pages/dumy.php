@@ -17,6 +17,14 @@ echo $doctor[0]; echo "<br>";
 //echo $data['messages'];
 echo "Dumy Page </br>";
 
+echo $day;
+
+echo $working_days;
+
+echo '<br>';
+
+if(!strpos($working_days, strval($day))) echo 'false';
+else echo 'true';
 
 foreach($data as $x => $x_value) {
 
@@ -28,7 +36,7 @@ foreach($data as $x => $x_value) {
     
   }
 
-echo $sql;
+//echo $sql;
 
 
 

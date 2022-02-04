@@ -108,6 +108,13 @@
             return checkdate($month, $day, $year);
         }
 
+        public static function isOldDate($dateStr){
+            $today = date("Y-m-d");
+            $date = date("Y-m-d" , strtotime($dateStr));
+
+            return $date<$today;
+        }
+
         public static function getDateNumber($date){
             $weekday = date('l', strtotime($date));
             $map = array(
@@ -515,7 +522,7 @@
                 $result = false;
                 $data['time_err'] = "invalid input";
             }
-            if($data['date']=="" || !self::isValidDate($data['date'])){
+            if($data['date']=="" || !self::isValidDate($data['date']) || self::isOldDate($data['date'])){
                 $result = false;
                 $data['date_err'] = "invalid input";
             }

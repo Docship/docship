@@ -193,6 +193,21 @@
   <script src="<?php echo URLROOT; ?>/js/loginSignup.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
+
+                // set date
+                var dtToday = new Date();
+                var month = dtToday.getMonth() + 1;
+                var day = dtToday.getDate();
+                var year = dtToday.getFullYear();
+                if(month < 10)
+                    month = '0' + month.toString();
+                if(day < 10)
+                    day = '0' + day.toString();
+                
+                var maxDate = year + '-' + month + '-' + day;
+                $('#date').attr('min', maxDate);
+                
+
                 var e = document.getElementById("category");
                 var doctor_category = e.value;
                 if(doctor_category!="Specialization"){

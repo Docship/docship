@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
               <label for="link">Add zoom link</label>
-              <input type="text" class="form-control" id="zoom-link" name="zoom-link" placeholder=" add zoom link here">
+              <input type="text" class="form-control" id="zoom-link" name="zoom-link" placeholder=" add zoom link here" value="<?php echo $data['appointment']['zoom_link']?>">
             </div>
     
             <button class="btn btn-primary w-100 mt-2" type="submit">Add Zoom Link</button>

@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome-pro-5/css/all.min.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/dashboard.css">
   <title>Profile</title>
 </head>
 
@@ -25,13 +25,13 @@
         <div class="card" style="border-radius: 15px;">
           <div class="card-body text-center">
             <div class="mt-3 mb-2 d-flex justify-content-center mx-auto">
-              <img src="<?php echo URLROOT; ?>/img/u1.jpg" class="img-fluid" />
+              <img src="<?php echo URLROOT; ?>/img/user.png" class="img-fluid" />
             </div>
             <h4 class="m-0 p-0">Dr. <?php if(isset($data['doctor'])) echo $data['doctor']['firstname']." ".$data['doctor']['lastname']; ?></h4>
             <div class="text-muted m-0 p-0"><?php if(isset($data['doctor'])) echo $data['doctor']['category']; ?></div>
             <div class="text-muted m-0 p-0"><?php if(isset($data['doctor'])) echo $data['doctor']['college']; ?></div>
             <div class="progress mx-4 my-3">
-              <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $data['doctor']['rating']; ?>%"></div>
+              <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo getRating($data['doctor']['rating']); ?>%"></div>
             </div>
             <script src="<?php echo URLROOT; ?>/js/subcribe.js"></script>
             <?php 
@@ -73,7 +73,7 @@
                 ?>
               </div>
             </div>
-            <p class="mb-3 h6 text-muted"><?php if(isset($data['doctor'])) echo $data['doctor']['working_from']." - ".$data['doctor']['working_to']; ?></p>
+            <p class="mb-3 h6 text-muted"><?php if(isset($data['doctor'])) echo date('h:i A', strtotime($data['doctor']['working_from']))." - ".date('h:i A', strtotime($data['doctor']['working_to'])); ?></p>
             <div class="d-flex justify-content-center text-center mb-2">
               <div class="px-3">
                 <p class="h5 mb-0">Rs. <?php if(isset($data['doctor'])) echo $data['doctor']['charge_amount']; ?></p>

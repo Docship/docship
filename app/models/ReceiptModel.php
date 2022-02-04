@@ -125,13 +125,13 @@
         }
 
         public function complete($id){
-            $sql = "UPDATE `receipt` SET `is_complete` = 1 WHERE id = $id;";
+            $sql = "UPDATE `receipt` SET `is_complete` = 1 WHERE id = '$id';";
             $result = $this->DB->update($sql);
             return $result;
         }
 
         public function notcomplete($id){
-            $sql = "UPDATE `receipt` SET `is_complete` = 0 WHERE id = $id;";
+            $sql = "UPDATE `receipt` SET `is_complete` = 0 WHERE id = '$id';";
             $result = $this->DB->update($sql);
             return $result;
         }

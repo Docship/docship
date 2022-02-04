@@ -424,7 +424,7 @@
 
                     <div class="row d-flex justify-content-around">
                         <button type="submit" class="btn btn-n btn-primary w-25 shadow-none my-1" name="submit"
-                            id="submit-reg" disabled=true>
+                            id="submit-reg" disabled>
                             Update Doctor Account
                         </button>
                         <button type="button" onclick="lockInpututsSelects(false)"

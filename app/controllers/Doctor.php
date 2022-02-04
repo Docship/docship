@@ -306,7 +306,6 @@
                     'bank_branch'=> trim($_POST['branch']),
                     'bank_acc_no'=> trim($_POST['account_no']),
 
-
                     'role_err'=>'',
                     'fname_err'=>'',
                     'lname_err'=>'',
@@ -337,6 +336,8 @@
                 //$validate = $this->getValidation();
                 $result = Validate::checkDoctorEditData($data);
 
+                
+
                 if($result==true){
                     $data['hash_pwd']=password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
@@ -346,11 +347,11 @@
 
                     $result = $doctorModel->findByEmailAll($data['email']);
 
-                    if(isset($result['value']) && !empty($result['value'])){
+                    if(isset($result['value'])){
                         $result_email = $result['value'];
                         if(empty($result_email)){
                             $result_nic = $doctorModel->findByNICAll($data['nic']);
-                            if(isset($result_nic['value']) && !empty($result_nic['value'])){
+                            if(isset($result_nic['value'])){
                                 $result_doc_nic = $result_nic['value'];
                                 if(empty($result_doc_nic)){
                                     $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
@@ -402,7 +403,7 @@
                         }else if(sizeof($result_email)==1){
                             if($result_email[0]['id']==$_SESSION['user_id']){
                                 $result_nic = $doctorModel->findByNICAll($data['nic']);
-                                if(isset($result_nic['value']) && !empty($result_nic['value'])){
+                                if(isset($result_nic['value'])){
                                     $result_doc_nic = $result_nic['value'];
                                     if(empty($result_doc_nic)){
                                         $data['working_from_24hrs'] = date("H:i", strtotime($data['working_from']));
@@ -475,10 +476,13 @@
                 }else {
                     //invalid input data
                     $this->view('doctor/update_editable', $data);
+                    
                 }
             }
 
             else {
+
+                // get request
 
                 $result = $this->model('doctor')->findById($_SESSION['user_id']);
                 $data = array();
