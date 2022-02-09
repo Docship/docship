@@ -1,0 +1,419 @@
+:root {
+  --weightHeader: 600;
+  --weightText: 400;
+  --bg-blue: #0060ff;
+  --bg-blue-hover: #035ae6;
+  --bg-green: #60ff00;
+  --bg-green-hover: #5ce705;
+  --bg-dark: #191516;
+  --bg-light: #fffdfa;
+  --color-unimportant-text: #899097;
+  --color-important-text: #333333;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  font-size: 1rem;
+  font-weight: var(--weightText);
+}
+
+.feather {
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: text-bottom;
+}
+
+button:focus{
+  outline: none;
+}
+
+/* *Sidebar */
+
+.sidebar {
+  position: fixed;
+  top: 0;  bottom: 0;  left: 0;
+  z-index: 100; 
+  padding: 4rem 0 0; 
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+@media (max-width: 767.98px) {
+  #sidebarMenu{
+    height: 450px;
+    background-color: var(--bg-light);
+    box-shadow: 0px 5px 10px 1px #7e7e7e;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    transition:none;
+    transition-delay: 0;
+    transition: all 0.25s ease-in-out;
+  }
+}
+
+.sidebar-sticky .nav .nav-item{
+  padding-top: 0.75rem;
+}
+
+.sidebar .nav-link {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-important-text);
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 0.25rem;
+  color: var(--color-unimportant-text);
+}
+
+.active {
+  color: var(--bg-blue);
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather{
+  color: inherit;
+}
+
+.sidebar .nav-link.active {
+  color: var(--bg-blue);
+}
+
+
+/* * Navbar */
+.brand-color1{
+  color: var(--bg-blue);
+}
+
+.brand-color2{
+  color: var(--bg-green);
+}
+
+.navbar-brand span{
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.navbar-toggler i{
+  color: var(--bg-dark);
+  font-size: 1.5rem;
+}
+
+#toggler-icon.fa-times{
+  transition: all 0.5s ease;
+  transform:rotate(180deg);
+}
+
+#toggler-icon.fa-bars{
+  transition: all 0.5s ease;
+}
+
+.user-wrapper{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-wrapper img{
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+
+/* * content */
+.title{
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.subtitle{
+  color: var(--color-important-text);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+
+/* * Home */
+.card{
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 0px rgba(125,125,125,0.5);
+  min-height: 10rem;
+}
+
+.card:hover{
+  box-shadow: 2px 2px 10px 1px rgba(75,75,75,0.75);
+}
+
+/* * Appointments */
+td .status{
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+tr td:last-child{
+  display: flex;
+  align-items: center;
+}
+
+.status.red{
+  background-color: red;
+}
+
+.status.green{
+  background-color: green;
+}
+
+.status.orange{
+  background-color: orangered;
+}
+
+.subheader{
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+}
+
+/* *messages */
+.form-control:focus,
+.btn:focus {
+  border-color: none;
+  box-shadow: none;
+}
+
+.wrapper .container .border{
+  border-radius: 1rem;
+}
+
+.content {
+  border-radius: 1rem;  
+}
+
+.content .user{
+  border-top-left-radius: inherit; 
+  border-top-right-radius: inherit; 
+  
+}
+
+.content .user .col-2 button{
+  color: var(--bg-blue);
+  font-size: 1.5rem;
+}
+
+.chat{
+  position: relative;
+  border-bottom-left-radius: 1rem; 
+  border-bottom-right-radius: 1rem; 
+}
+
+
+.col-10 input{
+  border: none;
+}
+
+.col-2 button{
+  height:2rem;
+  width: 2rem;
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+.user-list {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+  height: calc(100vh - 6rem);
+} 
+
+img {
+  object-fit: cover;
+}
+
+.status {
+  background-color: var(--green);
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+
+.imessage {
+  border-radius: 0.25rem;
+  flex-direction: column;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+  height: calc(100vh - 8rem);
+}
+
+.message-admin{
+  height: calc(100vh - 12rem);
+}
+
+.imessage::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+
+.imessage p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  max-width: 75%;
+  padding: 0.5rem .875rem;
+  position: relative;
+  word-wrap: break-word;
+}
+
+
+
+.imessage p::before,
+.imessage p::after {
+  bottom: -0.1rem;
+  content: "";
+  height: 1rem;
+  position: absolute;
+}
+
+p.from-me {
+  align-self: flex-end;
+  background-color: var(--bg-blue);
+  color: #fff; 
+}
+
+p.from-me::before {
+  border-bottom-left-radius: 0.8rem 0.7rem;
+  border-right: 1rem solid var(--bg-blue);
+  right: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-me::after {
+  background-color: #fff;
+  border-bottom-left-radius: 0.5rem;
+  right: -40px;
+  transform:translate(-30px, -2px);
+  width: 10px;
+}
+
+p[class^="from-"] {
+  margin: 0.5rem 0;
+  width: fit-content;
+}
+
+p.from-me ~ p.from-me {
+  margin: 0.25rem 0 0;
+}
+
+p.from-me ~ p.from-me:not(:last-child) {
+  margin: 0.25rem 0 0;
+}
+
+p.from-me ~ p.from-me:last-child {
+  margin-bottom: 0.5rem;
+}
+
+p.from-them {
+  align-items: flex-start;
+  background-color: #e5e5ea;
+  color: #000;
+}
+
+p.from-them:before {
+  border-bottom-right-radius: 0.8rem 0.7rem;
+  border-left: 1rem solid #e5e5ea;
+  left: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-them::after {
+  background-color: #fff;
+  border-bottom-right-radius: 0.5rem;
+  left: 20px;
+  transform: translate(-30px, -2px);
+  width: 10px;
+}
+
+
+
+
+
+/* * update */
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--color-unimportant-text);
+}
+
+
+/* *doctor profile card */
+.card-body .mt-3{  
+  width: 100px; 
+  height: 100px; 
+  overflow: hidden; 
+  border-radius: 50%; 
+}
+
+.card-body .mt-3 img {
+  width: 100%; 
+  height: auto; 
+  object-fit: cover; 
+}
+
+.progress{
+  height: 0.25rem;
+}
+
+.card{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+}
+
+.card:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.days .week div{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #0d6efc;
+  margin: 0 0.2rem 0 0.2rem;  
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.days .week div.active{
+  background-color: #0d6efc;
+  color: #fff;
+}
+
+/* for search */
+.filter-charge{
+  display: none;
+}
+.filter-specialization{
+  display: none;
+}
+.filter-time{
+  display: none;
+}
+.filter-day{
+  display: none;
+}
+
+/* validation */
+select.valid,
+input.valid {
+    border-color: green !important;
+}
+select.invalid,
+input.invalid {
+    border-color: red !important;
+}
